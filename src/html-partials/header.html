@@ -2,19 +2,19 @@
     <div class="container">
         <div class="header-links">
             <div class="header-links__logo">
-                <a class="logo" href="./index.html">
+                <a class="logo link" href="./index.html">
                     <span>Filmoteka</span>
                 </a>
             </div>
             <div class="header-links__nav">
-                <ul>
-                    <li><a class="" href="">HOME</a></li>
-                    <li><a class="" href="">MY LIBRARY</a></li>
+                <ul class="header-links__nav--list">
+                    <li><a class="header-links__nav--item link" href="#">Home</a></li>
+                    <li><a class="header-links__nav--item link" href="#">My library</a></li>
                 </ul>
             </div>
         </div>
         <div class="header-form">
-            <form class="header-form"></form>
+            <form class="header-form__container"></form>
                 <input
                     type="text"
                     class="header-form__input"
@@ -22,15 +22,15 @@
                     autocomplete="off"
                     placeholder="Search movies..."
                     required/>
-                <button type="submit" class="">
-                    submit
+                <button type="submit" class="header-form__btn">
+                    Search
                 </button>
             </form>
         </div>
-        <div class="header-buttons">
-            <ul>
-                <li><button>WATCHED</button></li>
-                <li><button>QUEUE</button></li>
+        <div class="header-librery">
+            <ul class="header-librery__list">
+                <li class="header-librery__item"><button class="header-library__btn">Watched</button></li>
+                <li class="header-librery__item"><button class="header-library__btn">Queue</button></li>
             </ul>
         </div>
     </div>
