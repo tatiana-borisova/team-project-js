@@ -1,0 +1,75 @@
+.movie-modal {
+  background-color: darkorange;
+
+  position: absolute;
+  width: 280px;
+  height: 958px;
+  left: 20px;
+  top: 20px;
+  padding-top: 48px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 41px;
+
+  @include for-tablet {
+    position: absolute;
+    width: 618px;
+    height: 562px;
+    left: 75px;
+    top: 231px;
+    padding-top: 42px;
+    padding-bottom: 40px;
+    padding-left: 28px;
+    padding-right: 30px;
+  }
+
+  @include for-desktop {
+    position: absolute;
+    width: 882px;
+    height: 568px;
+    left: 71px;
+    top: 100px;
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 40px;
+  }
+}
+
+.modal-movie-poster {
+  @media screen and (min-width: 320px) {
+    // position: absolute;
+    width: 240px;
+    height: 356.57px;
+    // left: 40px;
+    // top: 68px;
+
+    // background: url(8.jpg);
+    border-radius: 5px;
+  }
+  @media screen and (min-width: 768px) {
+    // position: absolute;
+    width: 264px;
+    height: 373.55px;
+    // left: 103px;
+    // top: 273px;
+
+    // background: url(8.jpg);
+    border-radius: 5px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    // position: absolute;
+    width: 396px;
+    height: 477.8px;
+    // left: 101px;
+    // top: 150px;
+
+    // background: url(8.jpg);
+    border-radius: 5px;
+  }
+}
+
+.modal-movie-data {
+  display: flex;
+}
