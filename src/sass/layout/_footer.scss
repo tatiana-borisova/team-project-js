@@ -1,0 +1,40 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  margin-right: -10px;
+  margin-bottom: -10px;
+  padding-top: 29px;
+  padding-bottom: 29px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  font-size: 14px;
+  line-height: 1.14;
+  color: $footer-text-color;
+  background-color: $footer-bg-color;
+}
+
+.footer__content {
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+.footer__content:not(:last-child) {
+  padding-right: 5px;
+  border-right: 1px solid $footer-text-color;
+}
+.developer {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-right: -10px;
+  margin-bottom: -10px;
+}
+.developer__content {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.developer__icon {
+  fill: $accent-dark;
+}
