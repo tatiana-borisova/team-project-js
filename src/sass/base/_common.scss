@@ -65,8 +65,8 @@ figure {
   margin: 0 auto;
   @include for-tablet {
     max-width: 660px;
-  };
+  }
   @include for-desktop {
     max-width: 920px;
   }
-} 
+}
