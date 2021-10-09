@@ -1,3 +1,34 @@
 .header {
-    background-color: rgba(0, 0, 0, 0.56);
+  background-color: rgba(0, 0, 0, 0.56);
+}
+
+.header > .container {
+  padding-top: 41px;
+  padding-bottom: 65px;
+}
+
+// header-links
+.header-links {
+  display: flex;
+  justify-content: space-between;
+}
+.header-links__list {
+  display: flex;
+}
+.header-links__item--library {
+  margin-left: 39px;
+}
+
+// header-form
+.header-form {
+  text-align: center;
+}
+
+// header-library
+.header-library__list {
+  display: flex;
+  justify-content: center;
+}
+.header-library__item--queue {
+  margin-left: 20px;
 }

@@ -1,3 +1,6 @@
 export default {
-  apiKey: 'f205ff9551fdba7fe2c499379d3dfbc2',
+  homeLink: document.querySelector('.header-links__item--home'),
+  libraryLink: document.querySelector('.header-links__item--library'),
+  libraryBtns: document.querySelector('.header-library__list'),
+  searchForm: document.querySelector('.header-form'),
 };
