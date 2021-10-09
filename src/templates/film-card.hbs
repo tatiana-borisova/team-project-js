@@ -1,0 +1,12 @@
+{{! Шаблон одной карточки }}
+{{#each this}}
+<li class="gallery__item gallery-js">
+   <a class="link" href="#">
+      <img class="gallery__image" src="{{./images/icons/rectangle.png}}" alt=" {{ }}">
+      <div class="gallery__title-wrap">
+         <h2 class="gallery__title"> {{GREYHOUND}} </h2>
+            <p class="gallery__accent">{{Drama, Action}} | {{2020}} </p>
+      </div>
+   </a>
+</li>
+{{/each}}
