@@ -12,11 +12,13 @@
    @include for-desktop {
      grid-template-columns: 1fr 1fr 1fr;
    }
-}
+
 &__item:not(:last-child) {
    padding-bottom: 20px;
    @include for-tablet {
    
+  };
+  @include for-desktop {
+  
   }
-
-}
+}}
