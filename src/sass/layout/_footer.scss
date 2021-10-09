@@ -1,7 +1,8 @@
-.footer-section {
-  background-color: $footer-bg-color;
-}
 .footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: $footer-bg-color;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -27,10 +28,11 @@
 .footer__content {
   margin-right: 5px;
   margin-bottom: 10px;
-}
-.footer__content:not(:last-child) {
-  padding-right: 5px;
-  border-right: 1px solid $footer-text-color;
+
+  &:not(:last-child) {
+    padding-right: 5px;
+    border-right: 1px solid $footer-text-color;
+  }
 }
 .developer {
   display: flex;
@@ -47,4 +49,11 @@
 }
 .developer__icon {
   fill: $accent-dark;
+}
+.developer__link {
+  color: $footer-text-color;
+  &:hover {
+    color: $accent-dark;
+    transition: color $animation;
+  }
 }
