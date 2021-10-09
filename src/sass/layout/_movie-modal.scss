@@ -1,46 +1,26 @@
-.movie-modal {
-  background-color: darkorange;
-
+.modal-movie {
   position: absolute;
+  background-color: lightgoldenrodyellow;
   width: 280px;
   height: 958px;
-  left: 20px;
-  top: 20px;
   padding-top: 48px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 41px;
 
-  @media screen and (min-width: 320px) {
-    position: absolute;
-    width: 280px;
-    height: 958px;
-    left: 20px;
-    top: 20px;
-    padding-top: 48px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 41px;
-  }
-
-  @media screen and (min-width: 768px) {
-    position: absolute;
+  @include for-tablet {
+    display: flex;
     width: 618px;
     height: 562px;
-    left: 75px;
-    top: 231px;
     padding-top: 42px;
     padding-bottom: 40px;
     padding-left: 28px;
     padding-right: 30px;
   }
 
-  @media screen and (min-width: 1024px) {
-    position: absolute;
+  @include for-desktop {
     width: 882px;
     height: 568px;
-    left: 71px;
-    top: 100px;
     padding-top: 50px;
     padding-left: 30px;
     padding-right: 30px;
@@ -48,40 +28,143 @@
   }
 }
 
-.modal-movie-poster {
-  @media screen and (min-width: 320px) {
-    // position: absolute;
-    width: 240px;
-    height: 356.57px;
-    // left: 40px;
-    // top: 68px;
+.modal-movie__poster {
+  width: 240px;
+  height: 356.57px;
+  border-radius: 5px;
 
-    // background: url(8.jpg);
-    border-radius: 5px;
-  }
-  @media screen and (min-width: 768px) {
-    // position: absolute;
+  @include for-tablet {
     width: 264px;
     height: 373.55px;
-    // left: 103px;
-    // top: 273px;
-
-    // background: url(8.jpg);
     border-radius: 5px;
   }
 
-  @media screen and (min-width: 1024px) {
-    // position: absolute;
+  @include for-desktop {
     width: 396px;
     height: 477.8px;
-    // left: 101px;
-    // top: 150px;
-
-    // background: url(8.jpg);
     border-radius: 5px;
   }
 }
 
-.modal-movie-data {
+.modal-movie__data {
   display: flex;
+  margin-bottom: 20px;
+}
+
+.modal-movie__indicators {
+  margin-right: 40px;
+
+  @include for-desktop {
+    margin-right: 83px;
+  }
+}
+
+.modal-movie__poster {
+  margin-bottom: 30px;
+
+  @include for-tablet {
+    margin-right: 32px;
+  }
+  @include for-desktop {
+    margin-right: 30px;
+  }
+}
+
+.modal-movie__name {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+
+  @include for-desktop {
+    font-size: 30px;
+    line-height: 1.17;
+  }
+}
+
+.modal-movie__indicators--item {
+  margin-bottom: 10px;
+  //   font-size: 12px;
+  line-height: 1.3;
+
+  color: #8c8c8c;
+}
+
+.modal-movie__rating {
+  margin-bottom: 10px;
+  //   font-size: 12px;
+  //   line-height: 1.7;
+}
+.modal-movie__votes {
+  margin-bottom: 10px;
+  //   font-size: 12px;
+}
+.modal-movie__popularity {
+  margin-bottom: 10px;
+  //   font-size: 12px;
+}
+.modal-movie__title {
+  margin-bottom: 10px;
+  //   font-size: 12px;
+}
+
+.modal-movie__vote {
+  display: inline-block;
+  background-color: $accent-dark;
+  width: 36px;
+  height: 16px;
+  border-radius: 5px;
+  text-align: center;
+
+  color: $accent-light;
+}
+
+.modal-movie__slash {
+  color: $footer-text-color;
+}
+
+.modal-movie__about {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.modal-movie__description {
+  margin-bottom: 20px;
+  width: 240px;
+  line-height: 1.7;
+
+  @include for-tablet {
+    width: 264px;
+  }
+  @include for-desktop {
+    width: 396px;
+  }
+}
+
+.modal-movie__buttons {
+  display: flex;
+  justify-content: space-between;
+
+  @include for-desktop {
+    justify-content: left;
+  }
+}
+
+.modal-movie__buttons--queue {
+  border: 1px solid #000000;
+  background-color: transparent;
+  color: #000000;
+  @include for-desktop {
+    margin-left: 15px;
+  }
+}
+
+.modal-movie__close {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: none;
+
+  top: 18px;
+  right: 18px;
 }
