@@ -27,8 +27,10 @@
 // header-library
 .header-library__list {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
-.header-library__item--queue {
-  margin-left: 20px;
+
+.header-library__item:not(:last-child) {
+  margin-right: 20px;
 }
