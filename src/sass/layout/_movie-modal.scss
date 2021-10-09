@@ -1,0 +1,135 @@
+.modal-movie {
+  width: 280px;
+  height: 958px;
+  padding-top: 48px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 41px;
+
+  @include for-tablet {
+    display: flex;
+    width: 618px;
+    height: 562px;
+    padding-top: 42px;
+    padding-bottom: 40px;
+    padding-left: 28px;
+    padding-right: 30px;
+  }
+
+  @include for-desktop {
+    width: 882px;
+    height: 568px;
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 40px;
+  }
+}
+
+.modal-movie__poster {
+  width: 240px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+
+  @include for-tablet {
+    width: 264px;
+    margin-right: 32px;
+  }
+
+  @include for-desktop {
+    width: 396px;
+    margin-right: 30px;
+  }
+}
+
+.modal-movie__data {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.modal-movie__indicators {
+  margin-right: 40px;
+
+  @include for-desktop {
+    margin-right: 83px;
+  }
+}
+
+.modal-movie__name {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+
+  @include for-desktop {
+    font-size: 30px;
+    line-height: 1.17;
+  }
+}
+
+.modal-movie__indicators--item {
+  margin-bottom: 10px;
+  color: #8c8c8c;
+}
+
+.modal-movie__rating,
+.modal-movie__votes,
+.modal-movie__popularity,
+.modal-movie__title {
+  margin-bottom: 10px;
+}
+
+.modal-movie__vote {
+  display: inline-block;
+  background-color: $accent-dark;
+  width: 36px;
+  height: 16px;
+  border-radius: 5px;
+  text-align: center;
+  color: $accent-light;
+}
+
+.modal-movie__slash {
+  color: $footer-text-color;
+}
+
+.modal-movie__about {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.modal-movie__description {
+  margin-bottom: 20px;
+  width: 240px;
+  line-height: 1.7;
+
+  @include for-tablet {
+    width: 264px;
+  }
+  @include for-desktop {
+    width: 396px;
+  }
+}
+
+.modal-movie__buttons {
+  display: flex;
+  justify-content: space-between;
+
+  @include for-desktop {
+    justify-content: left;
+  }
+}
+
+.modal-movie__button:not(:last-child) {
+  margin-right: 15px;
+}
+
+.modal-movie__button {
+  @include only-phone {
+    width: 112px;
+  }
+
+  @include only-tablet {
+    width: 125px;
+  }
+}
