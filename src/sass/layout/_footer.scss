@@ -52,8 +52,8 @@
 }
 .developer__link {
   color: $footer-text-color;
+  transition: color $animation;
   &:hover {
     color: $accent-dark;
-    transition: color $animation;
   }
 }
