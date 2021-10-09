@@ -1,0 +1,30 @@
+.gallery { 
+&__image {
+  width: 100%;
+}
+
+&__title-wrap {
+   padding-top: 10px;
+}
+
+&__title {
+   font-family: Roboto;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 12px;
+   line-height: 1.33;
+   letter-spacing: 0;
+   color: $main-text-color;
+}
+
+&__accent {
+   color: $accent-dark;
+}
+
+&__title-grade{
+   margin-left: 20px;
+   padding: 1px 10px;
+   border-radius: 5px;
+   color: $secondary-text-color;
+   background: $accent-dark;
+}}
