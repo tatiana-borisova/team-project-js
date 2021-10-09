@@ -15,10 +15,4 @@
 
 &__item:not(:last-child) {
    padding-bottom: 20px;
-   @include for-tablet {
-   
-  };
-  @include for-desktop {
-  
-  }
 }}
