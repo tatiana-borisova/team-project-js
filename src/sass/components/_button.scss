@@ -18,6 +18,7 @@
   &--white,
   &--black {
     background: transparent;
+    transition: box-shadow $animation;
 
     &:hover,
     &:focus {
@@ -37,6 +38,7 @@
   &--orange {
     border: transparent;
     background: $accent-dark;
+    transition: box-shadow $animation;
 
     &:hover,
     &:focus {
