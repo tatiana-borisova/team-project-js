@@ -14,6 +14,8 @@
 }
 .header-links__list {
   display: flex;
+  color: white;
+  text-transform: uppercase;
 }
 .header-links__item--library {
   margin-left: 39px;
@@ -33,4 +35,44 @@
 
 .header-library__item:not(:last-child) {
   margin-right: 20px;
+}
+
+.header-links__logo--link {
+  display: flex;
+  align-items: center;
+}
+
+.header-links__logo--icon {
+  margin-right: 10px;
+  stroke: #818181;
+  @include for-tablet {
+    margin-right: 10px;
+  }
+  @include for-desktop {
+    margin-right: 12px;
+  }
+}
+
+.header-links__logo--name {
+  display: none;
+  @include for-tablet {
+    display: flex;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+  }
+}
+
+.link--current {
+  position: relative;
+}
+
+.link--current::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  background-color: $accent-dark;
+  width: 100%;
+  height: 3px;
 }
