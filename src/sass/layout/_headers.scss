@@ -42,12 +42,6 @@
   align-items: center;
 }
 
-.logo__link:hover .logo__icon,
-.logo__link:focus .logo__icon {
-  stroke: $accent-dark;
-  transition: color $animation;
-}
-
 .logo__icon {
   stroke: #818181;
   fill: none;

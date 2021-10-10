@@ -16,6 +16,4 @@ function onLibraryLink(e) {
   refs.searchForm.classList.add('is-hidden');
   refs.homeLink.classList.remove('header-links__link--current');
   refs.libraryLink.classList.add('header-links__link--current');
-  console.log("hello");
 }
-
