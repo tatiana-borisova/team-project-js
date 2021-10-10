@@ -1,0 +1,42 @@
+.team-modal {
+  width: 280px;
+  height: 958px;
+  padding: 40px 20px;
+
+  @include for-tablet {
+    display: flex;
+    width: 618px;
+    height: 562px;
+    padding: 40px 30px;
+  }
+
+  @include for-desktop {
+    width: 882px;
+    height: 568px;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 40px;
+    padding-left: 30px;
+  }
+}
+
+.team-modal__img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.team-modal__header{
+  text-align: center;
+}
+
+.team-modal__header,
+.team-modal__contacts,
+.team-modal__tech-skills{
+  margin-bottom: 10px; 
+  text-align: center;
+}
+
+.team-modal__contacts,
+.team-modal__tech-skills{
+  line-height: 1.7;
+}
