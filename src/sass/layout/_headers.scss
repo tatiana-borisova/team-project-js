@@ -14,7 +14,7 @@
 }
 .header-links__list {
   display: flex;
-  color: white;
+  color: $secondary-text-color;
   text-transform: uppercase;
 }
 .header-links__item--library {
@@ -37,14 +37,20 @@
   margin-right: 20px;
 }
 
-.header-links__logo--link {
+.logo__link {
   display: flex;
   align-items: center;
 }
 
-.header-links__logo--icon {
-  margin-right: 10px;
+.logo__link:hover .logo__icon,
+.logo__link:focus .logo__icon {
+  stroke: $accent-dark;
+  transition: color $animation;
+}
+
+.logo__icon {
   stroke: #818181;
+  fill: none;
   @include for-tablet {
     margin-right: 10px;
   }
@@ -53,21 +59,26 @@
   }
 }
 
-.header-links__logo--name {
+.logo__name {
   display: none;
   @include for-tablet {
     display: flex;
     font-weight: 500;
     font-size: 30px;
-    line-height: 35px;
+    line-height: 1.17;
+    color: $secondary-text-color;
   }
 }
-
-.link--current {
+.header-links__item:hover,
+.header-links__item:focus {
+  color: $accent-dark;
+  transition: color $animation;
+}
+.header-links__link--current {
   position: relative;
 }
 
-.link--current::after {
+.header-links__link--current::after {
   content: '';
   display: block;
   position: absolute;

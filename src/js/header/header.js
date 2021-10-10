@@ -16,11 +16,11 @@ function onLibraryEl(e) {
   refs.searchForm.classList.add('is-hidden');
 }
 function onLinkHome(e){
-  refs.linkLibrary.classList.remove('link--current');
-  refs.linkHome.classList.add('link--current');
+  refs.linkLibrary.classList.remove('header-links__link--current');
+  refs.linkHome.classList.add('header-links__link--current');
 }
 
 function onLinkLibrary(e){
-  refs.linkHome.classList.remove('link--current');
-  refs.linkLibrary.classList.add('link--current');
+  refs.linkHome.classList.remove('header-links__link--current');
+  refs.linkLibrary.classList.add('header-links__link--current');
 }
