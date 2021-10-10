@@ -1,5 +1,92 @@
-.header {
-  background-color: rgba(0, 0, 0, 0.56);
+//header-background
+.header-background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url(../images/background/rectangle-1x-mobile.jpg);
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/background/rectangle-2x-mobile.jpg);
+  }
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@include for-tablet {
+  .header-background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/background/rectangle-1x-tablet.jpg);
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(../images/background/rectangle-2x-tablet.jpg);
+    }
+  }
+}
+
+@include for-desktop {
+  .header-background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/background/rectangle-1x-desktop.jpg);
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(../images/background/rectangle-2x-desktop.jpg);
+    }
+  }
+}
+
+.header-background__library {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url(../images/background/library-1x-mobile.jpg);
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/background/library-2x-mobile.jpg);
+  }
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@include for-tablet {
+  .header-background__library {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/background/library-1x-tablet.jpg);
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(../images/background/library-2x-tablet.jpg);
+    }
+  }
+}
+
+@include for-desktop {
+  .header-background__library {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/background/library-1x-desktop.jpg);
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(../images/background/library-2x-desktop.jpg);
+    }
+  }
 }
 
 .header > .container {
@@ -33,4 +120,39 @@
 
 .header-library__item:not(:last-child) {
   margin-right: 20px;
+}
+
+//header-input
+.header-form {
+  position: relative;
+  top: 30px;
+}
+
+.header-form__input {
+  font-size: 14px;
+  line-height: 1.14;
+  color: #ffffff;
+
+  background: transparent;
+  width: 280px;
+  @include for-tablet {
+    width: 336px;
+  }
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0.5px solid #ffffff;
+  padding-bottom: 4px;
+  outline: none;
+}
+
+.header-form__input::placeholder {
+  color: #ffffff;
+}
+
+.header-form__btn {
+  background: transparent;
+  border: 0;
+  position: absolute;
+  margin-left: -20px;
 }
