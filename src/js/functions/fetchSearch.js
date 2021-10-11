@@ -1,13 +1,15 @@
 import fetchData from './fetchData.js';
 
-export default async function fetchTrending(
-  mediaType = '/movie',
-  timeWindow = '/day',
+export default async function fetchSearch(
+  query = 'injustice',
   lang = 'en',
   page = 1,
 ) {
-  const fetchType = '/trending';
-  const query = '';
+  const queryType = '&query=';
+  query = queryType + query;
+  const fetchType = '/search';
+  const timeWindow = '';
+  const mediaType = '/movie';
   const promise = await fetchData(
     fetchType,
     mediaType,
@@ -17,5 +19,6 @@ export default async function fetchTrending(
     page,
   );
   const data = promise.results;
+  console.log(data);
   return data;
 }

@@ -4,12 +4,13 @@ export default async function fetchData(
   fetchType,
   mediaType,
   specificType,
+  query,
   lang,
   page,
 ) {
   try {
     const promise = await fetch(
-      `${URL}/3/${fetchType}/${mediaType}/${specificType}?api_key=${API_KEY}&language=${lang}&page=${page}`,
+      `${URL}/3${fetchType}${mediaType}${specificType}?api_key=${API_KEY}${query}&language=${lang}&page=${page}`,
     );
     if (!promise.ok) throw Error(promise.statusText);
     const data = await promise.json();
