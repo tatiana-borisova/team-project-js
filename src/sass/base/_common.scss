@@ -7,7 +7,14 @@ body {
   font-size: 12px;
   line-height: 1.33em;
 }
-
+body.light-theme {
+  background-color: $accent-light;
+  color: #c5b1b1;
+}
+body.dark-theme {
+  background-color: #271310;
+  color: $accent-light;
+}
 .visually-hidden {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);
