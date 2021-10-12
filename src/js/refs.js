@@ -3,5 +3,5 @@ export default {
   libraryLink: document.querySelector('.header-links__link--library'),
   libraryBtns: document.querySelector('.header-library__list'),
   searchForm: document.querySelector('.header-form'),
-  
+  headerBackground: document.querySelector('.header'),
 };

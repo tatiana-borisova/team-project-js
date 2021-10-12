@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header header-background--home">
     <div class="container">
         <div class="header-links">
             <div class="logo">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="header-form">
-            <form class="header-form__form"></form>
+            <form class="header-form__form">
                 <input
                     type="text"
                     class="header-form__input"
@@ -26,7 +26,9 @@
                     placeholder="Search movies..."
                     required/>
                 <button type="submit" class="header-form__btn">
-                    Search
+                    <svg class="header-form__icon" width="12" height="12">
+                        <use href="./images/icons/sprite.svg#icon-search"></use>
+                    </svg>
                 </button>
             </form>
         </div>
