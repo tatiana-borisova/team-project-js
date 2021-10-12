@@ -5,11 +5,15 @@
       <img
         class='gallery__image'
         src='https://image.tmdb.org/t/p/w500{{poster_path}}'
-        alt='{{title}}'
+        alt='No poster for movie {{title}}'
       />
       <div class='gallery__title-wrap'>
         <h2 class='gallery__title'>{{title}}</h2>
-        <p class='gallery__accent'>{{genres}}<span>{{release_date}}</span></p>
+        <p class='gallery__accent'><span
+            class='gallery__genres'
+          >{{genres}}</span><span
+            class='gallery__date'
+          >{{release_date}}</span></p>
       </div>
     </a>
   </li>

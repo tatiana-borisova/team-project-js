@@ -1,5 +1,5 @@
-import fetchTrending from '../functions/fetchTrending';
-import fetchGenre from '../functions/fetchGenre';
+import fetchTrending from '../functions/fetchDataByType/fetchTrending';
+import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 
 import filmCards from '../../templates/film-card.hbs';
 

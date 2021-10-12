@@ -1,6 +1,6 @@
 import refs from '../refs';
-import fetchSearch from '../functions/fetchSearch';
-import fetchGenre from '../functions/fetchGenre';
+import fetchSearch from '../functions/fetchDataByType/fetchSearch';
+import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 
 import filmCards from '../../templates/film-card.hbs';
 
