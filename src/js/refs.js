@@ -5,4 +5,5 @@ export default {
   searchForm: document.querySelector('.header-form'),
   gallery: document.querySelector('.gallery'),
   galleryItem: document.querySelector('.gallery__item'),
+  headerBackground: document.querySelector('.header'),
 };
