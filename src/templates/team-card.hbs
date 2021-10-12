@@ -1,0 +1,31 @@
+{{#each this}}
+<li class="team-modal__item">
+    <div class="team-modal__thumb">
+        <img class="team-modal__img" src="{{foto}}" alt="{{name}}" width="240" />
+        <div class="overlay">
+            <h3 class="team-modal___title-overlay">{{location}}</h3>
+            <div class="team-modal_contacts">
+                <a class="team-modal__tel" href="tel:{{tel}}">{{tel}}</a>
+                <a class="team-modal__email" href="mailto:{{mail}}">{{mail}}</a>
+            </div>
+            <div class="social team-modal__socials">
+                <ul>
+                    <li class="linkedin">
+                        <a href="{{linkedin}}"><i class="fab fa-instagram"></i></a>
+                    </li>
+                    <li class="github">
+                        <a href="{{github}}"><i class="fab fa-vimeo-v"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="info">
+        <span class="message">
+            <a href="#"><i class="fas fa-envelope-open"></i></a>
+        </span>
+        <h3>{{name}}</h3>
+        <span>{{role}}</span>
+    </div>
+</li>
+{{/each}}

@@ -1,0 +1,80 @@
+[{
+   "foto": "/images/team/tatijana_borisova.jpg",
+"name": "Tatiana Borisova",
+"location": "Berlin, Germany",
+"tel": "+4915140003182",
+"mail": "0102tb@gmail.com", 
+"linkedin": "https://www.linkedin.com/in/tatiana-borisova-54b374223/",
+"github": "https://github.com/tatiana-borisova",
+"role": "Team lead"
+},
+{
+   "foto": "../images/team/polina_dudchenko.jpg",
+"name": "Polina Dudchenko",
+"location": "Heidelberg, Germany",
+"tel": "+491636938134",
+"mail": "pv.dudchenko@gmail.com", 
+"linkedin": "https://www.linkedin.com/in/polina-dudchenko-08a0a998/",
+"github": "https://github.com/polinadudchenko",
+"role": "Scrum master, developer"
+},
+{
+   "foto": "./images/team/katerina_belka.jpg",
+"name": "Bielka Kateryna",
+"location": "Kiev, Ukraine",
+"tel": "+380954206828",
+"mail": "loskaa@i.ua", 
+"linkedin": "https://www.linkedin.com/in/%D0%B5%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B0-%D0%B1%D0%B5%D0%BB%D0%BA%D0%B0-23671b61/",
+"github": "https://github.com/BielkaKate",
+"role": "Developer"
+},
+{
+   "foto": "./images/team/vladimir_kulagin.jpg",
+"name": "Vladimir Kulagin",
+"location": "Kiev, Ukraine",
+"tel": "+380637665744",
+"mail": "vladimyrkulagin@gmail.com", 
+"linkedin": "https://www.linkedin.com/in/%D0%B2%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80-%D0%BA%D1%83%D0%BB%D0%B0%D0%B3%D0%B8%D0%BD-300b74100/",
+"github": "https://github.com/VladimyrK",
+"role": "Developer"
+},
+{
+   "foto": "./images/team/vlad_diorditsa.jpg",
+"name": "Vladislav Diorditsa",
+"location": "Sumy, Ukraine",
+"tel": "",
+"mail": "doctorfat13@gmail.com", 
+"linkedin": "",
+"github": "https://github.com/DiorditsaVlad",
+"role": "Developer"
+},
+{
+   "foto": "./images/team/antonina_ziuz.jpg",
+"name": "Antonina Ziuz",
+"location": "Kiev, Ukraine",
+"tel": "",
+"mail": "1993ziuz@gmail.com", 
+"linkedin": "",
+"github": "https://github.com/Toni1993",
+"role": "Developer"
+},
+{
+   "foto": "./images/team/bohdan_klymenko.jpg",
+"name": "Bohdan Klymenko",
+"location": "Kiev, Ukraine",
+"tel": "+380630216454",
+"mail": "4.a.ll@ukr.net", 
+"linkedin": "",
+"github": "",
+"role": "Developer"
+},
+{
+   "foto": "",
+"name": "Nechvieieva Yana",
+"location": "Kiev, Ukraine",
+"tel": "+380983023214",
+"mail": "yana1112pstr@gmail.com", 
+"linkedin": "",
+"github": "https://github.com/Yana1112pstr",
+"role": "Developer"
+}]

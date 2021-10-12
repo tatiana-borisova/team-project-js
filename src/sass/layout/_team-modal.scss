@@ -1,4 +1,13 @@
+.team-modal__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .team-modal__item {
+  flex: 0 0 25%;
+}
+
+/* .team-modal__item {
   margin-top: 30px;
 }
 
@@ -263,3 +272,4 @@
 .team-area .team-modal__contacts li.instagram a {
   background-color: #cd486b;
 }
+ */
