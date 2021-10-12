@@ -4,4 +4,5 @@ export default {
   libraryBtns: document.querySelector('.header-library__list'),
   searchForm: document.querySelector('.header-form'),
   teamContainer: document.querySelector('.team-modal__list'),
+  developerLink: document.querySelector('.developer__link'),
 };
