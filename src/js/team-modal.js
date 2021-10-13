@@ -6,8 +6,6 @@ import * as basicLightbox from 'basiclightbox'
 refs.teamContainer.insertAdjacentHTML("beforeend", teamCardTmpl(teamData))
 refs.developerLink.addEventListener('click', showTeamModal)
 
-console.log(teamCardTmpl(teamData));
-
 function showTeamModal(e) {
     e.preventDefault();
     const instance = basicLightbox.create(document.querySelector('.team-modal'));
