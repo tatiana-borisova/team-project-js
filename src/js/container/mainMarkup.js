@@ -15,22 +15,16 @@ async function mainMarkup() {
   let trendingFilms = await fetchTrending(mediaType, timeWindow, lang, page);
   const genresData = await fetchGenre(mediaType, specificType, lang);
   const trendingFilmsData = trendingFilms.map(film => {
-    film.genres = film.genre_ids.map(
-      genreId => genresData.find(genre => genre.id === genreId).name,
-    );
+    film.genres = film.genre_ids
+      .map(genreId => genresData.find(genre => genre.id === genreId).name)
+      .splice(0, 3)
+      .join(', ');
+
+    film.release_date = film.release_date.slice(0, 4);
+
     return film;
   });
-  console.log(trendingFilmsData);
-
+  // console.log(trendingFilmsData);
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(trendingFilmsData));
 }
 mainMarkup();
-
-// refs.gallery.addEventListener('click', onItemClick);
-
-// function onItemClick(e) {
-//   if (e.target.className === 'gallery gallery-js') {
-//     return;
-//   }
-//   console.log(e);
-// }
