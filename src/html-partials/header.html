@@ -1,20 +1,23 @@
-<header class="header">
+<header class="header header-background--home">
     <div class="container">
         <div class="header-links">
-            <div class="header-links__logo">
-                <a class="logo link" href="./index.html">
-                    <span>Filmoteka</span>
+            <div class="logo">
+                <a class="logo__link link" href="./index.html">
+                    <svg class="logo__icon" width="24" height="24">
+                        <use href="./images/icons/sprite.svg#icon-film"></use>
+                    </svg>
+                    <span class="logo__name">Filmoteka</span>
                 </a>
             </div>
             <div class="header-links__nav">
                 <ul class="header-links__list">
-                    <li class="header-links__item--home"><a class="header-links__link--home link" href="#">Home</a></li>
-                    <li class="header-links__item--library"><a class="header-links__link--library link" href="#">My library</a></li>
+                    <li class="header-links__item header-links__item--home"><a class="header-links__link--home link header-links__link--current" href="#">Home</a></li>
+                    <li class="header-links__item header-links__item--library"><a class="header-links__link--library link" href="#">My library</a></li>
                 </ul>
             </div>
         </div>
         <div class="header-form">
-            <form class="header-form__form"></form>
+            <form class="header-form__form">
                 <input
                     type="text"
                     class="header-form__input"
@@ -23,7 +26,9 @@
                     placeholder="Search movies..."
                     required/>
                 <button type="submit" class="header-form__btn">
-                    Search
+                    <svg class="header-form__icon" width="12" height="12">
+                        <use href="./images/icons/sprite.svg#icon-search"></use>
+                    </svg>
                 </button>
             </form>
         </div>
