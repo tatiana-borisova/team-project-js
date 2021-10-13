@@ -1,6 +1,6 @@
 .team-modal {
   padding: 50px 20px;
-  width: 240px;
+  width: 280px;
   margin-left: auto;
   margin-right: auto;
   @include for-tablet {
@@ -23,23 +23,25 @@
   color: $accent-dark;
 }
 
-.team-modal__text {
-  margin-bottom: 10px;
-  text-align: center;
-  color: $secondary-text-color;
-  font-size: 20px;
-}
+// .team-modal__text {
+//   margin-bottom: 10px;
+//   text-align: center;
+//   color: $secondary-text-color;
+//   font-size: 20px;
+// }
 
 .team-modal__list {
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 100px;
   display: grid;
+
   @include for-tablet {
     margin-bottom: 77px;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 30px;
   }
+
   @include for-desktop {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
@@ -49,15 +51,15 @@
   margin-bottom: 15px;
 }
 
-.img__thumb {
-  height: 205px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
 .team-modal__thumb {
   margin-bottom: 10px;
   position: relative;
+  overflow: hidden;
+}
+
+.img__thumb {
+  height: 205px;
+  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -94,24 +96,64 @@
 }
 
 .team-modal___title-overlay {
+  font-size: 14px;
   margin-bottom: 7px;
 }
 
 .team-modal__tel {
   margin-bottom: 5px;
 }
+.social {
+  margin-top: 10px;
+}
+.social__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.social__item:not(:last-child) {
+  margin-right: 10px;
+}
+.social__link {
+  display: block;
+  padding-top: 6px;
+  border-radius: 50%;
+  background-color: $accent-dark;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+
+  transition: transform $animation;
+
+  &--git {
+    background-color: $accent-light;
+  }
+}
+.social__link:hover,
+.social__link:focus {
+  transform: scale(1.1);
+}
+.social__logo {
+  fill: $accent-light;
+  width: 27px;
+  height: 27px;
+
+  &--git {
+    fill: $accent-dark;
+  }
+}
 
 .team-modal__name {
   margin-bottom: 4px;
   font-size: 18px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
 }
 
 .team-modal__role {
   font-size: 16px;
-  color: var(--alt-text-color);
+  color: $accent-dark;
 }
-
 /* .team-modal__item {
   flex: 0 0 25%;
   max-width: 100%;
