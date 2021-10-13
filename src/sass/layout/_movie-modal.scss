@@ -79,7 +79,7 @@
   margin-bottom: 10px;
 }
 
-.modal-movie__vote {
+.vote {
   display: inline-block;
   background-color: $accent-dark;
   width: 36px;
@@ -87,6 +87,10 @@
   border-radius: 5px;
   text-align: center;
   color: $accent-light;
+
+  &--margin-left {
+    margin-left: 10px;
+  }
 }
 
 .modal-movie__slash {

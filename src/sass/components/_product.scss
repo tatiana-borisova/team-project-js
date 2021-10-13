@@ -1,5 +1,6 @@
 .gallery {
   &__image {
+
     width: 100%;
     border-radius: 10px;
   }
@@ -15,6 +16,32 @@
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0;
+    background-color: rgb(172, 172, 172);
+    background-image: url(../images/film.jpg);
+    background-size: cover;
+    border-radius: 5px;
+
+    width: 280px;
+    height: 398px;
+
+    @include for-tablet {
+      width: 294px;
+    }
+
+    @include for-desktop {
+      width: 274px;
+    }
+  }
+
+  &__title-wrap {
+    margin-top: 10px;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1.33;
+    font-weight: 500;
   }
 
   &__accent {
