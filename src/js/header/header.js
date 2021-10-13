@@ -42,12 +42,19 @@ async function onSearch(e) {
   let searchFilms = await fetchSearch(query, lang, page);
   const genresData = await fetchGenre(mediaType, specificType, lang);
   const searchFilmsData = searchFilms.map(film => {
-    film.genres = film.genre_ids.map(
-      genreId => genresData.find(genre => genre.id === genreId).name,
-    );
+    film.genres = film.genre_ids
+      .map(genreId => genresData.find(genre => genre.id === genreId).name)
+      // обрезает количество жанров
+      .splice(0, 3)
+      .join(', ');
+    // обрезает дату
+    if (!film.release_date) {
+      film.release_date = '';
+    } else {
+      film.release_date = film.release_date.slice(0, 4);
+    }
     return film;
   });
-  console.log(searchFilmsData);
 
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
 }
