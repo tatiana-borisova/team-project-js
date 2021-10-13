@@ -1,12 +1,20 @@
 {{! Шаблон одной карточки }}
 {{#each this}}
-<li class="gallery__item gallery-js">
-   <a class="gallery__link link" href="#">
-      <img class="gallery__image" src="{{./images/icons/rectangle.png}}" alt=" {{ }}">
-      <div class="gallery__title-wrap">
-         <h2 class="gallery__title"> {{GREYHOUND}} </h2>
-            <p class="gallery__accent">{{Drama, Action}} | {{2020}} </p>
+  <li class='gallery__item gallery-js'>
+    <a class='gallery__link link link-js' href='#' id='{{id}}'>
+      <img
+        class='gallery__image'
+        src='https://image.tmdb.org/t/p/w500{{poster_path}}'
+        alt='No poster for movie {{title}}'
+      />
+      <div class='gallery__title-wrap'>
+        <h2 class='gallery__title'>{{title}}</h2>
+        <p class='gallery__accent'><span
+            class='gallery__genres'
+          >{{genres}}</span><span
+            class='gallery__date'
+          >{{release_date}}</span></p>
       </div>
-   </a>
-</li>
+    </a>
+  </li>
 {{/each}}

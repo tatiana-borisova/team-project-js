@@ -1,20 +1,21 @@
-// FT-06 Здесь стили для контейнера с карточками 
+// FT-06 Здесь стили для контейнера с карточками
 .gallery {
-   padding-top: 20px;
-   padding-bottom: 20px;
-   margin-bottom: 100px;
-   display: grid;
-   @include for-tablet {
-   margin-bottom: 77px;
-   padding-top: 60px;
-   padding-bottom: 50px;
-   grid-template-columns: 1fr 1fr ;
-   grid-column-gap: 30px; 
-   };
-   @include for-desktop {
-   grid-template-columns: 1fr 1fr 1fr;
-   }
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 100px;
+  display: grid;
+  @include for-tablet {
+    margin-bottom: 77px;
+    padding-top: 60px;
+    padding-bottom: 50px;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
+  }
+  @include for-desktop {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
-&__item:not(:last-child) {
-   padding-bottom: 20px;
-}}
+  &__item {
+    margin-bottom: 20px;
+  }
+}
