@@ -44,10 +44,10 @@ async function onSearch(e) {
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids
       .map(genreId => genresData.find(genre => genre.id === genreId).name)
+      // обрезает количество жанров
       .splice(0, 3)
       .join(', ');
-
-    console.log(film.release_date);
+    // обрезает дату
     if (!film.release_date) {
       film.release_date = '';
     } else {
@@ -55,7 +55,6 @@ async function onSearch(e) {
     }
     return film;
   });
-  // console.log(searchFilmsData);
 
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
 }
