@@ -9,11 +9,13 @@ body {
 }
 body.light-theme {
   background-color: $accent-light;
-  color: #c5b1b1;
+  transition: background-color $animation;
+  
 }
 body.dark-theme {
-  background-color: #271310;
+  background-color: $dark-theme-color;
   color: $accent-light;
+  transition: background-color $animation;
 }
 .visually-hidden {
   position: absolute !important;
