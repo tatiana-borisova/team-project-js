@@ -10,6 +10,8 @@
 
   color: $secondary-text-color;
 
+  cursor: pointer;
+
   @include only-phone {
     max-width: 130px;
     padding: 10px 10px 10px 10px;
