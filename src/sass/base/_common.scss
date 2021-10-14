@@ -6,6 +6,10 @@ body {
   color: $main-text-color;
   font-size: 12px;
   line-height: 1.33em;
+
+  &.modal-open {
+    overflow: hidden;
+  }
 }
 
 .visually-hidden {

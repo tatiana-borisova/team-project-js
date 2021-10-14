@@ -4,6 +4,10 @@ export default {
   libraryBtns: document.querySelector('.header-library__list'),
   searchForm: document.querySelector('.header-form'),
   headerBackground: document.querySelector('.header'),
-  teamContainer: document.querySelector('.team-modal__list'),
+  modalContainer: document.querySelector('.modal-container'),
   developerLink: document.querySelector('.developer__link'),
+
+  closeModalBtn: document.querySelector('[data-modal-close]'),
+  modal: document.querySelector('[data-modal]'),
+  backdrop: document.querySelector('.backdrop'),
 };

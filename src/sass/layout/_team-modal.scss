@@ -1,43 +1,33 @@
 .team-modal {
-  padding: 50px 20px;
   width: 280px;
-  margin-left: auto;
-  margin-right: auto;
+  height: 95vh;
+  overflow-y: auto;
+
   @include for-tablet {
-    width: 618px;
+    width: 620px;
   }
   @include for-desktop {
-    width: 882px;
+    width: 850px;
+    height: 87vh;
   }
-  background-color: #d8d8d8;
 }
-
 .team-modal__heading {
   text-align: center;
   font-size: 24px;
-  color: $secondary-text-color;
-  margin-bottom: 15px;
+  color: $main-text-color;
+  margin: 15px 0;
 }
 
 .team-modal__heading span {
   color: $accent-dark;
 }
 
-// .team-modal__text {
-//   margin-bottom: 10px;
-//   text-align: center;
-//   color: $secondary-text-color;
-//   font-size: 20px;
-// }
-
 .team-modal__list {
   padding-top: 20px;
   padding-bottom: 20px;
-  margin-bottom: 100px;
-  display: grid;
 
   @include for-tablet {
-    margin-bottom: 77px;
+    display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 30px;
   }
@@ -58,9 +48,16 @@
 }
 
 .img__thumb {
-  height: 205px;
   border-radius: 10px;
   overflow: hidden;
+  height: 250px;
+
+  @include for-tablet {
+    height: 260px;
+  }
+  @include for-desktop {
+    height: 205px;
+  }
 }
 
 .overlay {
