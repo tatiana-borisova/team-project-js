@@ -1,0 +1,22 @@
+.btn-scroll {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 20px;
+  bottom: 110px;
+  opacity: 0.5;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $accent-dark;
+  color: $secondary-text-color;
+
+  @include for-tablet {
+    right: 90px;
+    bottom: 80px;
+  }
+  @include for-desktop {
+    right: 100px;
+  }
+}

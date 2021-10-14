@@ -6,4 +6,6 @@ export default {
   gallery: document.querySelector('.gallery'),
   galleryItem: document.querySelector('.gallery__item'),
   headerBackground: document.querySelector('.header'),
+  btnTop: document.querySelector('.btn-scroll__top'),
+  btnDown: document.querySelector('.btn-scroll__down'),
 };
