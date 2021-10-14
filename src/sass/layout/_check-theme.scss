@@ -1,0 +1,46 @@
+.theme {
+  position: absolute;
+  right: 10px;
+}
+
+.theme__wrap {
+  position: relative;
+  right: 10px;
+}
+.theme__change {
+  -webkit-appearance: none;
+  width: 65px;
+  height: 36px;
+  background-color: $dark-theme-color;
+  border: 3px solid $dark-theme-color;
+  border-radius: 100px;
+  outline: none;
+  cursor: pointer;
+  transition: all $animation;
+
+  background-image: url('../images/sun-moon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.theme__change:checked {
+  background-position: right;
+  border-radius: 100px;
+}
+
+.theme__change::before {
+  content: '';
+  position: absolute;
+  width: 29px;
+  height: 29px;
+  left: 50%;
+  top: 44%;
+  transform: translateY(-50%) scale(0.8);
+  border: 3px solid $accent-light;
+  border-radius: 100px;
+  background-color: $accent-light;
+  transition: all $animation;
+  z-index: 2;
+}
+.theme__change:checked::before {
+  left: 3px;
+}
