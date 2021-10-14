@@ -1,4 +1,5 @@
 import fetchTrending from '../functions/fetchDataByType/fetchTrending';
+import fetchSearch from '../functions/fetchDataByType/fetchSearch';
 import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
@@ -11,6 +12,38 @@ let timeWindow = '/day';
 let specificType = '/list';
 let lang = 'en';
 let page = 1;
+let query = '';
+
+refs.searchForm.addEventListener('submit', onSearch);
+
+function onSearch(e) {
+  e.preventDefault();
+  refs.gallery.innerHTML = '';
+  query = e.target.elements.query.value;
+
+  searchMarkup(query);
+}
+
+async function searchMarkup(query) {
+  let searchFilms = await fetchSearch(query, lang, page);
+  const genresData = await fetchGenre(mediaType, specificType, lang);
+  const searchFilmsData = searchFilms.map(film => {
+    film.genres = film.genre_ids
+      .map(genreId => genresData.find(genre => genre.id === genreId).name)
+      // обрезает количество жанров
+      .splice(0, 3)
+      .join(', ');
+    // обрезает дату
+    if (!film.release_date) {
+      film.release_date = '';
+    } else {
+      film.release_date = film.release_date.slice(0, 4);
+    }
+    return film;
+  });
+
+  refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
+}
 
 async function mainMarkup() {
   let trendingFilms = await fetchTrending(mediaType, timeWindow, lang, page);
@@ -53,7 +86,11 @@ window.addEventListener(
         spinnerIDName: 'spinner',
       });
       setTimeout(() => {
-        mainMarkup();
+        if (query === '') {
+          mainMarkup();
+        } else {
+          searchMarkup(query);
+        }
         JsLoadingOverlay.hide();
       }, 250);
     }
