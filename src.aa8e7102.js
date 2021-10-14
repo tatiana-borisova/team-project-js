@@ -33,4 +33,4 @@ module.exports=[{foto:"https://firebasestorage.googleapis.com/v0/b/team-project-
 },{"../functions/fetchDataByType/fetchTrending":"wnYc","../functions/fetchDataByType/fetchGenre":"U00i","js-loading-overlay":"XwMB","../../templates/film-card.hbs":"fFoL","../refs":"VyiV"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/header/header"),require("./js/modal"),require("./js/container/mainMarkup");
 },{"./sass/main.scss":"clu1","./js/header/header":"N0LX","./js/modal":"RSqK","./js/container/mainMarkup":"u2ZQ"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js/src.1404ae95.js.map
+//# sourceMappingURL=/team-project-js/src.aa8e7102.js.map
