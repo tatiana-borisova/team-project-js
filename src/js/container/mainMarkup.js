@@ -2,6 +2,7 @@ import fetchTrending from '../functions/fetchDataByType/fetchTrending';
 import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
+import debounce from 'lodash.debounce';
 
 import refs from '../refs';
 
@@ -35,22 +36,26 @@ async function mainMarkup() {
 mainMarkup();
 /////////////////////////////////////////////////////////
 // infinity scroll and loader(не забудьте установить пакет для loadera)
-window.addEventListener('scroll', () => {
-  const baba = document.documentElement.getBoundingClientRect();
-  if (baba.bottom < document.documentElement.clientHeight + 150) {
-    page++;
-    JsLoadingOverlay.show({
-      spinnerIcon: 'ball-spin',
-      overlayBackgroundColor: '#666666',
-      overlayOpacity: 0.2,
-      spinnerColor: '#fff',
-      spinnerSize: '2x',
-      overlayIDName: 'overlay',
-      spinnerIDName: 'spinner',
-    });
-    setTimeout(() => {
-      mainMarkup();
-      JsLoadingOverlay.hide();
-    }, 250);
-  }
-});
+window.addEventListener(
+  'scroll',
+  debounce(() => {
+    const baba = document.documentElement.getBoundingClientRect();
+    if (baba.bottom < document.documentElement.clientHeight + 150) {
+      page++;
+      console.log(page);
+      JsLoadingOverlay.show({
+        spinnerIcon: 'ball-spin',
+        overlayBackgroundColor: '#666666',
+        overlayOpacity: 0.2,
+        spinnerColor: '#fff',
+        spinnerSize: '2x',
+        overlayIDName: 'overlay',
+        spinnerIDName: 'spinner',
+      });
+      setTimeout(() => {
+        mainMarkup();
+        JsLoadingOverlay.hide();
+      }, 250);
+    }
+  }, 250),
+);
