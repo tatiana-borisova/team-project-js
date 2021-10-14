@@ -1,18 +1,22 @@
-<div class="card">
-  <div class="card-header">
-    <center><h3>Login Form</h3></center>
-  </div>
-  <form id="loginForm" class="login-form">
-    <input id="email" type="text" class="input" required />
-    <span class="placeholder">Email Id</span>
+<div class="login__modal">
+  <h3 class="login__header">Login Form</h3>
+  <form id="login-form" class="login__form">
+    <input id="email" type="text" class="modal__input mail__input" required />
+    <span class="login__placeholder">Email Id</span>
 
-    <input id="password" type="password" class="input" required />
-    <span class="placeholder">Password</span>
+    <input
+      id="password"
+      type="password"
+      class="modal__input password__input"
+      required
+    />
+    <span class="login__placeholder">Password</span>
 
     <!-- <a href="#" onclick="forgotPass()">Forgot Password</a> -->
-    <center>
+    <div class="login__buttons">
       <button type="submit" class="sign-in">Login</button>
       <button class="sign-up">Sign Up</button>
-    </center>
+      <button class="sign-out is-hidden" id="sign-out">Log out</button>
+    </div>
   </form>
 </div>

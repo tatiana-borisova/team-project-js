@@ -6,3 +6,4 @@ import './js/container/mainMarkup';
 
 import './js/firebase/firebase-app';
 import './js/firebase/firebase-auth';
+
