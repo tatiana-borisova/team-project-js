@@ -20,5 +20,11 @@
 
   &__item {
     margin-bottom: 20px;
+    transition: scale $animation;
+    padding-bottom: 10px;
+  }
+  &__item:hover,
+  &__item:focus {
+    transform: scale(1.01);
   }
 }
