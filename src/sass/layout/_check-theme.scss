@@ -1,14 +1,13 @@
-.theme{
+.theme {
   position: absolute;
   right: 10px;
 }
 
-.theme__wrap{
+.theme__wrap {
   position: relative;
   right: 10px;
-
 }
-.theme__change{
+.theme__change {
   -webkit-appearance: none;
   width: 65px;
   height: 36px;
@@ -19,6 +18,9 @@
   cursor: pointer;
   transition: all $animation;
 
+  background-image: url('../images/sun-moon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .theme__change:checked {
   background-position: right;
@@ -26,7 +28,7 @@
 }
 
 .theme__change::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 29px;
   height: 29px;
@@ -41,23 +43,4 @@
 }
 .theme__change:checked::before {
   left: 3px;
-}
-
-
-.theme__icons{
-  position: absolute;
-  top: 3px;
-}
-
-.icon__moon{
-  margin-left: 2px;
-  width: 29px;
-  height: 29px;
-  fill: #fbe282;
-}
-
-.icon__sun{
-  width: 29px;
-  height: 29px;
-  fill: #fbe282;
 }
