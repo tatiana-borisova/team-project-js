@@ -1,11 +1,11 @@
-<div class="modal-movie">
-  <!-- <img
+{{!-- <div class="modal-movie"> --}}
+  <img
     class="modal-movie__poster"
-    src="https://i.pinimg.com/originals/4f/8d/e1/4f8de1ec6a7a0b90350b3796aaa6762d.jpg"
+    src='https://image.tmdb.org/t/p/w500{{this.poster_path}}'
     alt="movie-poster"
   />
   <div class="modal-movie__right-content">
-    <p class="modal-movie__name">A FISTFUL OF LEAD</p>
+    <p class="modal-movie__name">{{title}}</p>
     <div class="modal-movie__data">
       <div class="modal-movie__indicators">
         <p class="modal-movie__indicators--item">Vote / Votes</p>
@@ -15,24 +15,21 @@
       </div>
       <div class="modal-movie__rating">
         <p class="modal-movie__votes">
-          <span class="vote">7.3</span
-          ><span class="modal-movie__slash"> /</span> 1260
+          <span class="vote">{{vote_average}}</span
+          ><span class="modal-movie__slash"> /</span> {{vote_count}}
         </p>
-        <p class="modal-movie__popularity">100.2</p>
-        <p class="modal-movie__title">A FISTFUL OF LEAD</p>
-        <p class="modal-movie__genre">Western</p>
+        <p class="modal-movie__popularity">{{popularity}}</p>
+        <p class="modal-movie__title">{{original_title}}</p>
+        <p class="modal-movie__genre">
+            {{#each genres}}
+            {{this.name}}
+            {{/each}}
+            </p>
       </div>
     </div>
     <p class="modal-movie__about">About</p>
     <p class="modal-movie__description">
-      Four of the West’s most infamous outlaws assemble to steal a huge stash of
-      gold from the most corrupt settlement of the gold rush towns. But not all
-      goes to plan one is killed and the other three escapes with bags of gold
-      hide out in the abandoned gold mine where they happen across another gang
-      of three – who themselves were planning to hit the very same bank! As
-      tensions rise, things go from bad to worse as they realise the bags of
-      gold are filled with lead... they’ve been double crossed – but by who and
-      how?
+      {{overview}}
     </p>
     <div class="modal-movie__buttons">
       <button
@@ -52,5 +49,5 @@
         add to queue
       </button>
     </div>
-  </div> -->
-</div>
+  </div>
+{{!-- </div> --}}
