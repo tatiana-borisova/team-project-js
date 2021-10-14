@@ -3,32 +3,26 @@
   right: 10px;
 }
 
+.theme__wrap{
+  position: relative;
+  right: 10px;
+
+}
 .theme__change{
   -webkit-appearance: none;
   width: 65px;
-  height: 35px;
+  height: 36px;
   background-color: $dark-theme-color;
   border: 3px solid $dark-theme-color;
-  border-radius: 100px 100px 100px 100px;
+  border-radius: 100px;
   outline: none;
   cursor: pointer;
-  transition: all 0.5s;
-
-  background-image: url(../images/icons/moon.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: left;
+  transition: all $animation;
 
 }
 .theme__change:checked {
   background-position: right;
-  background-color: #000;
-  border: 3px solid  #000;
-  border-radius: 100px 100px 100px 100px;
-  
-  background-image: url(../images/icons/sun.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
+  border-radius: 100px;
 }
 
 .theme__change::before {
@@ -40,14 +34,30 @@
   top: 44%;
   transform: translateY(-50%) scale(0.8);
   border: 3px solid $accent-light;
-  border-radius: 100px 100px 100px 100px;
+  border-radius: 100px;
   background-color: $accent-light;
-  transition: all 0.7s;
+  transition: all $animation;
+  z-index: 2;
 }
-
-
-
 .theme__change:checked::before {
   left: 3px;
 }
 
+
+.theme__icons{
+  position: absolute;
+  top: 3px;
+}
+
+.icon__moon{
+  margin-left: 2px;
+  width: 29px;
+  height: 29px;
+  fill: #fbe282;
+}
+
+.icon__sun{
+  width: 29px;
+  height: 29px;
+  fill: #fbe282;
+}

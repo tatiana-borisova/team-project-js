@@ -18,7 +18,8 @@
    
 &__item {
    padding-bottom: 10px;
-    margin-bottom: 20px;
+   margin-bottom: 20px;
+   transition: scale $animation;
 }
 &__item:not(:last-child) {
    padding-bottom: 10px;
@@ -26,7 +27,6 @@
 &__item:hover,
 &__item:focus{
 transform: scale(1.01);
-transition: scale  $animation;
 
 }}
 
