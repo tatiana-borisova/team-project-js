@@ -6,6 +6,10 @@ body {
   color: $main-text-color;
   font-size: 12px;
   line-height: 1.33;
+
+  &.modal-open {
+    overflow: hidden;
+  }
 }
 
 .visually-hidden {
@@ -50,7 +54,7 @@ ol {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 

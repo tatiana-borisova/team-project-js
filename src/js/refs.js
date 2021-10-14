@@ -6,6 +6,13 @@ export default {
   gallery: document.querySelector('.gallery'),
   galleryItem: document.querySelector('.gallery__item'),
   headerBackground: document.querySelector('.header'),
+  modalContainer: document.querySelector('.modal-container'),
+  developerLink: document.querySelector('.developer__link'),
+  
+  closeModalBtn: document.querySelector('[data-modal-close]'),
+  modal: document.querySelector('[data-modal]'),
+  backdrop: document.querySelector('.backdrop'),
+  
   btnTop: document.querySelector('.btn-scroll__top'),
   btnDown: document.querySelector('.btn-scroll__down'),
 };
