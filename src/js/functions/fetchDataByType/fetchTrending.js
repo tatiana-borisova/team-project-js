@@ -8,6 +8,7 @@ export default async function fetchTrending(
 ) {
   const fetchType = '/trending';
   const query = '';
+  const genre = '';
   const promise = await fetchData(
     fetchType,
     mediaType,
@@ -15,6 +16,7 @@ export default async function fetchTrending(
     query,
     lang,
     page,
+    genre,
   );
   const data = promise.results;
   return data;

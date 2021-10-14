@@ -1,7 +1,37 @@
 .filter {
   display: flex;
   justify-content: center;
+  background: transparent;
 }
 .filter__select {
   color: white;
+  background: transparent;
+  width: 280px;
+  @include for-tablet {
+    width: 336px;
+  }
+}
+.ss-main .ss-multi-selected {
+  background-color: none;
+  background: transparent;
+}
+
+.ss-main .ss-multi-selected {
+  border: none;
+}
+.ss-content {
+  background: transparent;
+  border: none;
+}
+.ss-content .ss-search input {
+  background: transparent;
+  border: none;
+}
+.ss-content .ss-list .ss-option.ss-disabled {
+  background: transparent;
+  border: none;
+}
+.ss-main .ss-multi-selected .ss-values .ss-value {
+  background: transparent;
+  border: none;
 }

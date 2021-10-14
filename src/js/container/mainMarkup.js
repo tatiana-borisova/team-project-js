@@ -2,6 +2,7 @@ import fetchTrending from '../functions/fetchDataByType/fetchTrending';
 import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
+import filterByGenre from '../header/filter';
 
 import refs from '../refs';
 
@@ -33,6 +34,7 @@ async function mainMarkup() {
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(trendingFilmsData));
 }
 mainMarkup();
+filterByGenre();
 /////////////////////////////////////////////////////////
 // infinity scroll and loader(не забудьте установить пакет для loadera)
 window.addEventListener('scroll', () => {

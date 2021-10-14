@@ -9,6 +9,7 @@ export default async function fetchSearch(
   query = queryType + query;
   const fetchType = '/search';
   const timeWindow = '';
+  const genre = '';
   const mediaType = '/movie';
   const promise = await fetchData(
     fetchType,
@@ -17,6 +18,7 @@ export default async function fetchSearch(
     query,
     lang,
     page,
+    genre,
   );
   const data = promise.results;
   console.log(data);
