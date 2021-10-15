@@ -5,6 +5,7 @@
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 41px;
+  font-weight: 500;
 
   @include for-tablet {
     display: flex;
@@ -45,6 +46,7 @@
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 5px;
   // width: 240px;
   // border-radius: 5px;
   // margin-bottom: 30px;
@@ -86,15 +88,19 @@
 }
 
 .modal-movie__indicators--item {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-right: 40px;
   color: #8c8c8c;
+  @include for-desktop {
+    padding-right: 80px;
+  }
 }
 
 .modal-movie__rating,
 .modal-movie__votes,
 .modal-movie__popularity,
 .modal-movie__title {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .vote {
