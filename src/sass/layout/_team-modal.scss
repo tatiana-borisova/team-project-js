@@ -1,14 +1,12 @@
 .team-modal {
   width: 250px;
-  height: 95vh;
   overflow-y: auto;
-
+  max-height: 95vh;
   @include for-tablet {
     width: 500px;
   }
   @include for-desktop {
     width: 850px;
-    height: 660px;
   }
 }
 .team-modal__heading {
