@@ -1,7 +1,6 @@
 .filter {
   display: flex;
   justify-content: center;
-  background: transparent;
 }
 .filter__select {
   color: white;
@@ -12,26 +11,45 @@
   }
 }
 .ss-main .ss-multi-selected {
-  background-color: none;
   background: transparent;
+  // background-color: rgba(0, 0, 0, 0.3);
 }
 
 .ss-main .ss-multi-selected {
   border: none;
 }
 .ss-content {
-  background: transparent;
+  // background: transparent;
+  background-color: rgba(0, 0, 0, 0.4);
   border: none;
 }
 .ss-content .ss-search input {
   background: transparent;
+  color: inherit;
   border: none;
 }
 .ss-content .ss-list .ss-option.ss-disabled {
-  background: transparent;
+  // background: transparent;
+  background-color: rgba(0, 0, 0, 0.5);
   border: none;
+  padding: 0;
 }
 .ss-main .ss-multi-selected .ss-values .ss-value {
   background: transparent;
   border: none;
+}
+.ss-main .ss-multi-selected .ss-values .ss-disabled {
+  padding: 0;
+}
+.ss-main .ss-multi-selected .ss-add {
+  margin-right: 6px;
+}
+.ss-main .ss-multi-selected .ss-values .ss-value {
+  padding: 0;
+}
+.ss-main .ss-multi-selected .ss-add .ss-plus.ss-cross {
+  background-color: #fff;
+}
+.ss-main .ss-multi-selected .ss-add .ss-plus:after {
+  background-color: #fff;
 }
