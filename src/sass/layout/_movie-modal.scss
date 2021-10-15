@@ -27,6 +27,11 @@
   }
 }
 .wrapper-image {
+  background-color: rgb(165, 165, 165);
+  background-image: url(../images/film.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
   overflow: hidden;
   width: 240px;
   border-radius: 5px;
