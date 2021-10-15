@@ -4,7 +4,6 @@ import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
-
 import refs from '../refs';
 
 let mediaType = '/movie';
@@ -28,17 +27,18 @@ async function searchMarkup(query) {
   let searchFilms = await fetchSearch(query, lang, page);
   const genresData = await fetchGenre(mediaType, specificType, lang);
   const searchFilmsData = searchFilms.map(film => {
-    film.genres = film.genre_ids
-      .map(genreId => genresData.find(genre => genre.id === genreId).name)
-      // обрезает количество жанров
-      .splice(0, 3)
-      .join(', ');
-    // обрезает дату
-    if (!film.release_date) {
-      film.release_date = '';
+    film.genres = film.genre_ids.map(
+      genreId => genresData.find(genre => genre.id === genreId).name,
+    );
+    // условие чтоб обрезало жанры до двух , а остальным писало other
+    if (film.genres.length > 3) {
+      film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
     } else {
-      film.release_date = film.release_date.slice(0, 4);
+      film.genres = film.genres.join(', ');
     }
+    // обрезает также дату
+    film.release_date = film.release_date.slice(0, 4);
+
     return film;
   });
 
@@ -69,30 +69,35 @@ async function mainMarkup() {
 mainMarkup();
 /////////////////////////////////////////////////////////
 // infinity scroll and loader(не забудьте установить пакет для loadera)
-window.addEventListener(
-  'scroll',
-  debounce(() => {
-    const baba = document.documentElement.getBoundingClientRect();
-    if (baba.bottom < document.documentElement.clientHeight + 150) {
-      page++;
-      console.log(page);
-      JsLoadingOverlay.show({
-        spinnerIcon: 'ball-spin',
-        overlayBackgroundColor: '#666666',
-        overlayOpacity: 0.2,
-        spinnerColor: '#fff',
-        spinnerSize: '2x',
-        overlayIDName: 'overlay',
-        spinnerIDName: 'spinner',
-      });
-      setTimeout(() => {
-        if (query === '') {
-          mainMarkup();
-        } else {
-          searchMarkup(query);
-        }
-        JsLoadingOverlay.hide();
-      }, 250);
-    }
-  }, 250),
-);
+function spinerParams() {
+  JsLoadingOverlay.show({
+    spinnerIcon: 'ball-spin',
+    overlayBackgroundColor: '#666666',
+    overlayOpacity: 0.2,
+    spinnerColor: '#fff',
+    spinnerSize: '2x',
+    overlayIDName: 'overlay',
+    spinnerIDName: 'spinner',
+  });
+}
+function infinityScrollLoad() {
+  window.addEventListener(
+    'scroll',
+    debounce(() => {
+      const infinityOn = document.documentElement.getBoundingClientRect();
+      if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
+        page++;
+        spinerParams();
+        setTimeout(() => {
+          if (query === '') {
+            mainMarkup();
+          } else {
+            searchMarkup(query);
+          }
+          JsLoadingOverlay.hide();
+        }, 250);
+      }
+    }, 250),
+  );
+}
+infinityScrollLoad();

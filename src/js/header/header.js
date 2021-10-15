@@ -1,15 +1,8 @@
 import refs from '../refs';
 import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 
-// import filmCards from '../../templates/film-card.hbs';
-
 refs.homeLink.addEventListener('click', onHomeLink);
 refs.libraryLink.addEventListener('click', onLibraryLink);
-
-// let lang = 'en';
-// let page = '1';
-// let mediaType = '/movie';
-// let specificType = '/list';
 
 function onHomeLink(e) {
   e.preventDefault();
