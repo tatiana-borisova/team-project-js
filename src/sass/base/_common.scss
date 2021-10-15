@@ -6,8 +6,21 @@ body {
   color: $main-text-color;
   font-size: 12px;
   line-height: 1.33;
-}
 
+  &.modal-open {
+    overflow: hidden;
+  }
+}
+body.light-theme {
+  background-color: $accent-light;
+  transition: background-color $animation;
+  
+}
+body.dark-theme {
+  background-color: $dark-theme-color;
+  color: $accent-light;
+  transition: background-color $animation;
+}
 .visually-hidden {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);

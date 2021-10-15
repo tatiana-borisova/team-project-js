@@ -1,13 +1,17 @@
 // FT-06 Здесь стили для контейнера с карточками
-.gallery {
+
+.container--gallery {
   padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 100px;
-  display: grid;
+  margin-bottom: 110px;
+
   @include for-tablet {
-    margin-bottom: 77px;
     padding-top: 60px;
-    padding-bottom: 50px;
+    margin-bottom: 77px;
+  }
+}
+.gallery {
+  @include for-tablet {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 30px;
   }
@@ -17,5 +21,11 @@
 
   &__item {
     margin-bottom: 20px;
+    transition: scale $animation;
+    padding-bottom: 10px;
+  }
+  &__item:hover,
+  &__item:focus {
+    transform: scale(1.01);
   }
 }
