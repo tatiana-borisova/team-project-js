@@ -1,20 +1,24 @@
 .gallery {
-  &__image {
-    background-color: rgb(172, 172, 172);
+  &__thumb-image {
+    background-color: rgb(165, 165, 165);
     background-image: url(../images/film.jpg);
     background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 5px;
+    height: 420px;
 
-    width: 280px;
-    height: 398px;
+    overflow: hidden;
 
     @include for-tablet {
-      width: 294px;
+      height: 442px;
     }
 
     @include for-desktop {
-      width: 274px;
+      height: 410px;
     }
+  }
+  &__image {
+    border-radius: 5px;
   }
 
   &__title-wrap {

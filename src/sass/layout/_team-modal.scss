@@ -1,0 +1,157 @@
+.team-modal {
+  width: 250px;
+  height: 95vh;
+  overflow-y: auto;
+
+  @include for-tablet {
+    width: 500px;
+  }
+  @include for-desktop {
+    width: 850px;
+    height: 660px;
+  }
+}
+.team-modal__heading {
+  text-align: center;
+  font-size: 24px;
+  color: $main-text-color;
+  margin: 15px 0;
+}
+
+.team-modal__heading span {
+  color: $accent-dark;
+}
+
+.team-modal__list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @include for-tablet {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
+  }
+
+  @include for-desktop {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.team-modal__item {
+  margin-bottom: 15px;
+}
+
+.team-modal__thumb {
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.img__thumb {
+  border-radius: 10px;
+  overflow: hidden;
+  height: 250px;
+
+  @include for-tablet {
+    height: 260px;
+  }
+  @include for-desktop {
+    height: 205px;
+  }
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  padding: 50px 5px;
+  width: 100%;
+  height: 100%;
+
+  font-size: 18px;
+  line-height: 1.56;
+  color: $secondary-text-color;
+  background-color: rgba(161, 161, 161, 0.9);
+  border-radius: 10px;
+
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform $animation, opacity $animation;
+}
+
+.team-modal__item:hover .overlay {
+  transform: translateY(0);
+  opacity: 1;
+  overflow: hidden;
+}
+
+.team-modal__content {
+  position: relative;
+  text-align: center;
+  font-size: 14px;
+}
+
+.team-modal___title-overlay {
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+
+.team-modal__tel {
+  margin-bottom: 5px;
+}
+.social {
+  margin-top: 10px;
+}
+.social__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.social__item {
+  width: 40px;
+  height: 40px;
+}
+.social__item:not(:last-child) {
+  margin-right: 10px;
+}
+.social__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: $accent-dark;
+  text-align: center;
+
+  transition: transform $animation;
+
+  &--git {
+    background-color: $accent-light;
+  }
+}
+.social__link:hover,
+.social__link:focus {
+  transform: scale(1.1);
+}
+.social__logo {
+  fill: $accent-light;
+  width: 27px;
+  height: 27px;
+
+  &--git {
+    fill: $accent-dark;
+  }
+}
+
+.team-modal__name {
+  margin-bottom: 4px;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.team-modal__role {
+  font-size: 16px;
+  color: $accent-dark;
+}
