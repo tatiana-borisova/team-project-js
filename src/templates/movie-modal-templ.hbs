@@ -7,7 +7,7 @@
   <div class="modal-movie__right-content">
     <p class="modal-movie__name">{{title}}</p>
     <div class="modal-movie__data">
-      <div class="modal-movie__indicators">
+      {{!-- <div class="modal-movie__indicators">
         <p class="modal-movie__indicators--item">Vote / Votes</p>
         <p class="modal-movie__indicators--item">Popularity</p>
         <p class="modal-movie__indicators--item">Original Title</p>
@@ -25,7 +25,32 @@
             {{this.name}}
             {{/each}}
             </p>
-      </div>
+      </div> --}}
+<table class = modal-movie__table>
+  <tr>
+    <td class="modal-movie__indicators--item>Vote / Votes</td>
+    <td class="modal-movie__votes"><span class="vote">{{vote_average}}</span
+          ><span class="modal-movie__slash"> /</span> {{vote_count}}</td>
+  </tr>
+  <tr>
+    <td class="modal-movie__indicators--item>Popularity</td>
+    <td class="modal-movie__popularity">{{popularity}}</td>
+  </tr>
+  <tr>
+    <td class="modal-movie__indicators--item>Original Title</td>
+    <td class="modal-movie__title">{{original_title}}</td>
+  </tr>
+  <tr>
+    <td class="modal-movie__indicators--item>Genre</td>
+    <td class="modal-movie__genre">
+      {{#each genres}}
+            {{this.name}}
+            {{/each}}
+            </td>
+  </tr>
+
+</table>
+
     </div>
     <p class="modal-movie__about">About</p>
     <p class="modal-movie__description">
