@@ -3,7 +3,6 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
-import * as basicLightbox from 'basiclightbox';
 import { getFirestore, collection, addDoc } from "firebase/firestore"
 
 document.getElementById("login-form").addEventListener("submit",(event)=>{
@@ -23,19 +22,6 @@ signOutBtn.addEventListener('click', signOut);
 logInLink.addEventListener('click', showLogIn)
 
 
-const addToDatabase = async() => {
-  try {
-    const docRef = await addDoc(collection(db, "user"), {
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815
-    });
-        console.log(docRef);
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  } 
-}
 
 /* function showLogIn() {
   console.log('i am herre');
@@ -118,5 +104,19 @@ onAuthStateChanged(auth, (user) => {
 
 function signOut() {
   auth.signOut();
-  Notiflix.Report.success( 'You are successfully logged out' ); 
+  Notiflix.Notify.success( 'You are successfully logged out' ); 
+}
+
+const addToDatabase = async() => {
+  try {
+    const docRef = await addDoc(collection(db, "user"), {
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+    });
+        console.log(docRef);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  } 
 }
