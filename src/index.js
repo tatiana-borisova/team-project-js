@@ -5,4 +5,5 @@ import './js/check-theme'
 import './js/container/mainMarkup';
 import './js/modal';
 import './js/container/mainMarkup';
+import './js/footer/footer';
 

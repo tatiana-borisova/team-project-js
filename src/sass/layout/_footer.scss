@@ -1,11 +1,17 @@
 .footer {
-  position: fixed;
+  overflow: hidden;
   width: 100%;
   bottom: 0;
   background-color: $footer-bg-color;
   padding-top: 30px;
   padding-bottom: 28px;
 }
+
+.footer__sticky {
+  position: fixed;
+  width: 100%;
+}
+
 .footer__wrap {
   display: flex;
   flex-wrap: wrap;
