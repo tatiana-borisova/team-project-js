@@ -17,6 +17,5 @@ export default async function fetchDiscover(pageValue, genresValue) {
     page,
     genre,
   );
-  console.log(promise);
-  return promise;
+  return promise.results;
 }
