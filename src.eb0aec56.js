@@ -38,4 +38,4 @@ module.exports=[{foto:"https://firebasestorage.googleapis.com/v0/b/team-project-
 },{"./refs":"VyiV","../templates/team-list.hbs":"YrcB","../json/team-info.json":"loKf"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/header/header"),require("./js/check-theme"),require("./js/container/mainMarkup"),require("./js/modal");
 },{"./sass/main.scss":"clu1","./js/header/header":"N0LX","./js/check-theme":"ToPQ","./js/container/mainMarkup":"u2ZQ","./js/modal":"RSqK"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js/src.6be2cf4d.js.map
+//# sourceMappingURL=/team-project-js/src.eb0aec56.js.map
