@@ -48,7 +48,8 @@ async function searchMarkup(query) {
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
 }
 
-async function mainMarkup() {
+export async function mainMarkup() {
+  localStorage.removeItem('genres');
   let trendingFilms = await fetchTrending(page);
   const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
@@ -92,7 +93,8 @@ function infinityScrollLoad() {
         page++;
         spinerParams();
         setTimeout(() => {
-          if (query === '') {
+          let genresLocal = localStorage.getItem('genres');
+          if (query === '' && genresLocal === '') {
             mainMarkup();
           } else {
             searchMarkup(query);

@@ -6,8 +6,8 @@ export default async function fetchDiscover(pageValue, genresValue) {
   const specificType = '';
   const lang = '&language=en';
   let page = `&page=${pageValue}`;
-  //   genresValue = genresValue.join('|');
   let genre = `&with_genres=${genresValue}`;
+  let sortBy = '&sort_by=vote_average.desc';
 
   const promise = await fetchData(
     fetchType,
@@ -16,6 +16,7 @@ export default async function fetchDiscover(pageValue, genresValue) {
     lang,
     page,
     genre,
+    sortBy,
   );
   return promise.results;
 }

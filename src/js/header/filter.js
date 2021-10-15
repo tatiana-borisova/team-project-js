@@ -1,6 +1,8 @@
 import SlimSelect from 'slim-select';
 import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 import fetchDiscover from '../functions/fetchDataByType/fetchDiscover';
+import { mainMarkup } from '../container/mainMarkup';
+
 import filmCards from '../../templates/film-card.hbs';
 import refs from '../refs';
 
@@ -20,29 +22,38 @@ export default function filterByGenre(page) {
           return genreData.name === val;
         }).id;
       });
-
       let genres = genresValues.join(',');
-      let discoveringFilms = await fetchDiscover(page, genres);
-      const discoveringFilmsData = discoveringFilms.map(film => {
-        film.genres = film.genre_ids.map(
-          genreId => genresData.find(genre => genre.id === genreId).name,
+      localStorage.setItem('genres', genres);
+      let genresLocal = localStorage.getItem('genres');
+      console.log('local: ' + genresLocal);
+
+      if (genresLocal !== '') {
+        let discoveringFilms = await fetchDiscover(page, genresLocal);
+        const discoveringFilmsData = discoveringFilms.map(film => {
+          film.genres = film.genre_ids.map(
+            genreId => genresData.find(genre => genre.id === genreId).name,
+          );
+          // условие чтоб обрезало жанры до двух , а остальным писало other
+          if (film.genres.length > 3) {
+            film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
+          } else {
+            film.genres = film.genres.join(', ');
+          }
+          // обрезает также дату
+          if (film.release_date) {
+            film.release_date = film.release_date.slice(0, 4);
+          }
+
+          return film;
+        });
+
+        refs.gallery.insertAdjacentHTML(
+          'beforeend',
+          filmCards(discoveringFilmsData),
         );
-        // условие чтоб обрезало жанры до двух , а остальным писало other
-        if (film.genres.length > 3) {
-          film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
-        } else {
-          film.genres = film.genres.join(', ');
-        }
-        // обрезает также дату
-        film.release_date = film.release_date.slice(0, 4);
-
-        return film;
-      });
-
-      refs.gallery.insertAdjacentHTML(
-        'beforeend',
-        filmCards(discoveringFilmsData),
-      );
+      } else {
+        mainMarkup();
+      }
     },
   });
   setGenresList();
