@@ -39,8 +39,8 @@ async function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   const query = e.target.elements.query.value;
-  let searchFilms = await fetchSearch(query, lang, page);
-  const genresData = await fetchGenre(mediaType, specificType, lang);
+  let searchFilms = await fetchSearch(page, query);
+  const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids
       .map(genreId => genresData.find(genre => genre.id === genreId).name)

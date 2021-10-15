@@ -1,23 +1,12 @@
 import fetchData from '../fetchData.js';
 
-export default async function fetchTrending(
-  mediaType = '/movie',
-  timeWindow = '/day',
-  lang = 'en',
-  page = 1,
-) {
+export default async function fetchTrending(pageValue = 1) {
   const fetchType = '/trending';
-  const query = '';
-  const genre = '';
-  const promise = await fetchData(
-    fetchType,
-    mediaType,
-    timeWindow,
-    query,
-    lang,
-    page,
-    genre,
-  );
-  const data = promise.results;
-  return data;
+  const mediaType = '/movie';
+  const timeWindow = '/day';
+  const lang = '&language=en';
+  let page = `&page=${pageValue}`;
+
+  const promise = await fetchData(fetchType, mediaType, timeWindow, lang, page);
+  return promise.results;
 }

@@ -1,20 +1,22 @@
 import fetchTrending from '../functions/fetchDataByType/fetchTrending';
 import fetchGenre from '../functions/fetchDataByType/fetchGenre';
+import fetchDiscover from '../functions/fetchDataByType/fetchDiscover';
+import filterByGenre from '../header/filter';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
-import filterByGenre from '../header/filter';
 
 import refs from '../refs';
 
-let mediaType = '/movie';
-let timeWindow = '/day';
-let specificType = '/list';
-let lang = 'en';
 let page = 1;
+let genres = '18,80';
+
+mainMarkup();
+filterByGenre(page, genres);
+// fetchDiscover(page, genres);
 
 async function mainMarkup() {
-  let trendingFilms = await fetchTrending(mediaType, timeWindow, lang, page);
-  const genresData = await fetchGenre(mediaType, specificType, lang);
+  let trendingFilms = await fetchTrending(page);
+  const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
@@ -33,8 +35,7 @@ async function mainMarkup() {
 
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(trendingFilmsData));
 }
-mainMarkup();
-filterByGenre();
+
 /////////////////////////////////////////////////////////
 // infinity scroll and loader(не забудьте установить пакет для loadera)
 window.addEventListener('scroll', () => {
