@@ -6,6 +6,7 @@ export default {
   gallery: document.querySelector('.gallery'),
   galleryItem: document.querySelector('.gallery__item'),
   headerBackground: document.querySelector('.header'),
+  movieModal: document.querySelector('.modal-movie'),
   modalContainer: document.querySelector('.modal-container'),
   developerLink: document.querySelector('.developer__link'),
   loginLink: document.getElementById('login'),
