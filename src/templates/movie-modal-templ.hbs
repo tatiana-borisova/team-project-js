@@ -1,63 +1,60 @@
-
-<div class="modal-movie">
-<div class="wrapper-image">
-  <img
-    class="modal-movie__poster"
-    src='https://image.tmdb.org/t/p/w500{{this.poster_path}}'
-    alt="movie-poster"
-  />
+<div class='modal-movie'>
+  <div class='wrapper-image'>
+    <img
+      class='modal-movie__poster'
+      src='https://image.tmdb.org/t/p/w500{{this.poster_path}}'
+      alt='No poster for movie {{title}}'
+    />
   </div>
-  <div class="modal-movie__right-content">
-    <p class="modal-movie__name">{{title}}</p>
-    <div class="modal-movie__data">
+  <div class='modal-movie__right-content'>
+    <p class='modal-movie__name'>{{title}}</p>
+    <div class='modal-movie__data'>
 
-<table class = modal-movie__table>
-  <tr>
-    <td class="modal-movie__indicators--item">Vote / Votes</td>
-    <td class="modal-movie__votes"><span class="vote">{{vote_average}}</span
-          ><span class="modal-movie__slash"> /</span> {{vote_count}}</td>
-  </tr>
-  <tr>
-    <td class="modal-movie__indicators--item">Popularity</td>
-    <td class="modal-movie__popularity">{{popularity}}</td>
-  </tr>
-  <tr>
-    <td class="modal-movie__indicators--item">Original Title</td>
-    <td class="modal-movie__title">{{original_title}}</td>
-  </tr>
-  <tr>
-    <td class="modal-movie__indicators--item modal-movie__indicators--last-item">Genre</td>
-    <td class="modal-movie__genre">
-      {{#each genres}}
-            {{this.name}}
+      <table class='modal-movie__table'>
+        <tr>
+          <td class='modal-movie__indicators--item'>Vote / Votes</td>
+          <td class='modal-movie__votes'><span
+              class='vote'
+            >{{vote_average}}</span><span class='modal-movie__slash'> /</span>
+            {{vote_count}}</td>
+        </tr>
+        <tr>
+          <td class='modal-movie__indicators--item'>Popularity</td>
+          <td class='modal-movie__popularity'>{{popularity}}</td>
+        </tr>
+        <tr>
+          <td class='modal-movie__indicators--item'>Original Title</td>
+          <td class='modal-movie__title'>{{original_title}}</td>
+        </tr>
+        <tr>
+          <td
+            class='modal-movie__indicators--item modal-movie__indicators--last-item'
+          >Genre</td>
+          <td class='modal-movie__genre'>
+            {{#each genres}}
+              {{this.name}}
             {{/each}}
-            </td>
-  </tr>
+          </td>
+        </tr>
 
-</table>
+      </table>
 
     </div>
-    <p class="modal-movie__about">About</p>
-    <p class="modal-movie__description">
+    <p class='modal-movie__about'>About</p>
+    <p class='modal-movie__description'>
       {{overview}}
     </p>
-    <div class="modal-movie__buttons">
+    <div class='modal-movie__buttons'>
       <button
-        class="
-          modal-movie__buttons--watched modal-movie__button
-          button button--orange
-        "
+        class='modal-movie__buttons--watched modal-movie__button button button--orange'
       >
         add to Watched
       </button>
       <button
-        class="
-          modal-movie__buttons--queue modal-movie__button
-          button button--black
-        "
+        class='modal-movie__buttons--queue modal-movie__button button button--black'
       >
         add to queue
       </button>
     </div>
   </div>
-  </div>
+</div>
