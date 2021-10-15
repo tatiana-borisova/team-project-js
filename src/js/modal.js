@@ -1,11 +1,13 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
+import movieCardTmpl from '../templates/movie-modal-templ.hbs'
 import teamData from '../json/team-info.json';
+import { API_KEY, URL } from './consts';  
 
-// Этот слушатель на ссылке в футере
+
+// Этот слушатель на ссылке в футере, сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
-// Этот слушатель закрывает модалку по крестику
-refs.closeModalBtn.addEventListener('click', toggleModal);
+refs.gallery.addEventListener('click', fetchDataByID);
 
 // Эта функция либо закрывает, либо открывает модалку, у нее метод toggle()
 function toggleModal() {
@@ -13,21 +15,54 @@ function toggleModal() {
   refs.modal.classList.toggle('is-hidden');
 }
 
-// Эта функция открывает модалку по нажатию на ссылку в футере и заодно наполняет ее информацией.
+// Эта функция закрывает модалку, очищает HTML и снимает слушатель с крестика
+function onClearHtml() {
+  toggleModal();
+  refs.modalContainer.innerHTML = '';
+  refs.closeModalBtn.removeEventListener('click', onClearHtml);
+}
+
+// Эта функция открывает модалку по нажатию на ссылку в футере, вешает слушатель на крестик и заодно наполняет ее информацией.
 function createTeamModal() {
-  // Информацию переписываем только через innerHTML, т.к. модалка одна.
+  // Этот слушатель закрывает модалку по крестику
+  refs.closeModalBtn.addEventListener('click', onClearHtml);
+  // Информацию переписываем через innerHTML.
   refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
   toggleModal();
 }
 
-// Эта функция открывает модалку по нажатию на логин в хедере и заодно наполняет ее информацией.
+// Эта функция открывает модалку по нажатию на логин в хедере, вешает слушатель на крестик и заодно наполняет ее информацией.
 function createLoginModal() {
+  // Этот слушатель закрывает модалку по крестику
+  refs.closeModalBtn.addEventListener('click', onClearHtml);
+  // Информацию переписываем через innerHTML.
   toggleModal();
-  // Информацию переписываем только через innerHTML, т.к. модалка одна.
 }
 
-// Эта функция открывает модалку по нажатию на карточку фильма и заодно наполняет ее информацией.
-function createMovieModal() {
-  toggleModal();
-  // Информацию переписываем только через innerHTML, т.к. модалка одна.
-}
+// Эта функция открывает модалку по нажатию на карточку фильма, вешает слушатель на крестик и заодно наполняет ее информацией.
+
+  // Этот слушатель закрывает модалку по крестику
+
+  // Информацию переписываем через innerHTML.
+ 
+
+async function fetchDataByID(e) {
+  refs.closeModalBtn.addEventListener('click', onClearHtml);
+    const movieID = e.target.closest('li').id;
+    console.log(movieID);
+    try {
+      const promise = await fetch(
+        `${URL}/3/movie/${movieID}?api_key=${API_KEY}`,
+      );
+      if (!promise.ok) throw Error(promise.statusText);
+      const data = await promise.json();
+      console.log(data);
+      console.log(movieCardTmpl(data));
+      refs.modalContainer.innerHTML = movieCardTmpl(data) 
+    } catch (error) {
+      console.log('Error:', error);
+    }
+    toggleModal();
+ }
+  
+
