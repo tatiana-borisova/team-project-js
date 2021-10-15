@@ -1,17 +1,19 @@
 <div class="login__modal">
-  <h3 class="login__header">Login Form</h3>
+  <h3 class="login__header">Login <span>Form</span></h3>
   <form id="login-form" class="login__form">
-    <input id="email" type="text" class="modal__input mail__input" required />
-    <span class="login__placeholder">Email Id</span>
-
-    <input
-      id="password"
-      type="password"
-      class="modal__input password__input"
-      required
-    />
-    <span class="login__placeholder">Password</span>
-
+    <label class="login__placeholder"
+      >Email Id
+      <input id="email" type="text" class="modal__input mail__input" required />
+    </label>
+    <label class="login__placeholder">
+      Password
+      <input
+        id="password"
+        type="password"
+        class="modal__input password__input"
+        required
+      />
+    </label>
     <!-- <a href="#" onclick="forgotPass()">Forgot Password</a> -->
     <div class="login__buttons">
       <button type="submit" class="sign-in">Login</button>

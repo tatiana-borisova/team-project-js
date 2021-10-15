@@ -1,9 +1,11 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
+import loginHtml from '../html-partials/authentication.html'
 import teamData from '../json/team-info.json';
 
 // Этот слушатель на ссылке в футере, сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
+refs.loginLink.addEventListener('click', createLoginModal);
 
 // Эта функция либо закрывает, либо открывает модалку, у нее метод toggle()
 function toggleModal() {
@@ -32,6 +34,7 @@ function createLoginModal() {
   // Этот слушатель закрывает модалку по крестику
   refs.closeModalBtn.addEventListener('click', onClearHtml);
   // Информацию переписываем через innerHTML.
+  refs.modalContainer.insertAdjacentHTML('beforeend', loginHtml )
   toggleModal();
 }
 
@@ -42,3 +45,5 @@ function createMovieModal() {
   // Информацию переписываем через innerHTML.
   toggleModal();
 }
+
+export{toggleModal}

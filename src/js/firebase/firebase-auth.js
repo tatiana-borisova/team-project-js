@@ -4,6 +4,7 @@ import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { getFirestore, collection, addDoc } from "firebase/firestore"
+import toggleModal from '../modal'
 
 document.getElementById("login-form").addEventListener("submit",(event)=>{
     event.preventDefault()
@@ -15,48 +16,9 @@ const passwordInput = document.getElementById('password');
 const signUpBtn = document.querySelector('.sign-up');
 const signInBtn = document.querySelector('.sign-in');
 const signOutBtn = document.getElementById('sign-out');
-const logInLink = document.getElementById('login');
 signUpBtn.addEventListener('click', signUp);
 signInBtn.addEventListener('click', signIn);
 signOutBtn.addEventListener('click', signOut);
-logInLink.addEventListener('click', showLogIn)
-
-
-
-/* function showLogIn() {
-  console.log('i am herre');
-  const instance = basicLightbox.create(`
-    <div class="login__modal">
-  <h3 class="login__header">Login Form</h3>
-  <form id="login-form" class="login__form">
-    <input id="email" type="text" class="modal__input mail__input" required />
-    <span class="login__placeholder">Email Id</span>
-
-    <input
-      id="password"
-      type="password"
-      class="modal__input password__input"
-      required
-    />
-    <span class="login__placeholder">Password</span>
-
-    <!-- <a href="#" onclick="forgotPass()">Forgot Password</a> -->
-    <div class="login__buttons">
-      <button type="submit" class="sign-in">Login</button>
-      <button class="sign-up">Sign Up</button>
-      <button class="sign-out is-hidden" id="sign-out">Log out</button>
-    </div>
-  </form>
-  <a>Close</a>
-</div>
-`, {
-    onShow: (instance) => {
-        instance.element().querySelector('a').onclick = instance.close
-    }
-  })
-  console.log(instance.show());
-  instance.show()
-} */
 
 function signUp() {
     const email = emailInput.value;
@@ -65,11 +27,9 @@ function signUp() {
   .then((userCredential) => {
     const user = userCredential.user;
     console.log(user);
-    signInBtn.classList.add('is-hidden');
-    signUpBtn.classList.add('is-hidden');
-    signOutBtn.classList.remove('is-hidden')
+    toggleModal();
     Notiflix.Report.success( 'You are successfully signed up' );
-    addToDatabase;
+    addToDatabase(user, userCredential.mail);
   })
     .catch((error) => {
       
@@ -87,14 +47,15 @@ function signIn() {
   })
   .catch((error) => {
     const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage)
+    const errorMessage = error.message;
+    Notiflix.Notify.failure(`${errorMessage}`)
   });
 }
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-      const uid = user.uid;
+    const uid = user.uid;
+    Notiflix.Notify.success(`Hello, ${uid}`)
   } else {
       //location.replace("index.html")
       console.log('You are not allowed to be here');
@@ -107,15 +68,13 @@ function signOut() {
   Notiflix.Notify.success( 'You are successfully logged out' ); 
 }
 
-const addToDatabase = async() => {
+async function addToDatabase(userId, mail) {
   try {
     const docRef = await addDoc(collection(db, "user"), {
       first: "Ada",
-      last: "Lovelace",
-      born: 1815
+      mail: mail,
+      userId: userId
     });
-        console.log(docRef);
-    console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   } 

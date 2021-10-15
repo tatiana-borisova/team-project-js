@@ -1,4 +1,32 @@
 .login__modal {
-  width: 650px;
+  padding: 50px;
+  width: 450px;
   background-color: $main-bg-color;
+}
+
+.login__header {
+  text-align: center;
+}
+
+.login__header span {
+  color: $accent-dark;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-input {
+  font-size: 14px;
+  line-height: 1.14;
+  color: #ffffff;
+  background: transparent;
+  width: 280px;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0.5px solid #ffffff;
+  padding-bottom: 4px;
+  outline: none;
 }

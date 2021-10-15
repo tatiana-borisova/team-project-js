@@ -8,6 +8,7 @@ export default {
   headerBackground: document.querySelector('.header'),
   modalContainer: document.querySelector('.modal-container'),
   developerLink: document.querySelector('.developer__link'),
+  loginLink: document.getElementById('login'),
 
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
