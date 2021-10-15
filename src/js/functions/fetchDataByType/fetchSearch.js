@@ -19,6 +19,5 @@ export default async function fetchSearch(
     page,
   );
   const data = promise.results;
-  console.log(data);
   return data;
 }
