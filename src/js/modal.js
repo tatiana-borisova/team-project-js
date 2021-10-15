@@ -34,8 +34,15 @@ function createLoginModal() {
   // Этот слушатель закрывает модалку по крестику
   refs.closeModalBtn.addEventListener('click', onClearHtml);
   // Информацию переписываем через innerHTML.
-  refs.modalContainer.insertAdjacentHTML('beforeend', loginHtml )
+  //refs.modalContainer.insertAdjacentHTML('beforeend', loginHtml )
+  refs.modalContainer.innerHTML = `${loginHtml}`
   toggleModal();
+  refs.loginForm.addEventListener("submit",(event)=>{
+    event.preventDefault()
+  })
+  refs.signUpBtn.addEventListener('click', signUp);
+  refs.signInBtn.addEventListener('click', signIn);
+  refs.signOutBtn.addEventListener('click', signOut);
 }
 
 // Эта функция открывает модалку по нажатию на карточку фильма, вешает слушатель на крестик и заодно наполняет ее информацией.
@@ -46,4 +53,4 @@ function createMovieModal() {
   toggleModal();
 }
 
-export{toggleModal}
+export{toggleModal, createLoginModal}

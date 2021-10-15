@@ -6,19 +6,17 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import { getFirestore, collection, addDoc } from "firebase/firestore"
 import toggleModal from '../modal'
 
-document.getElementById("login-form").addEventListener("submit",(event)=>{
-    event.preventDefault()
-})
+
 const db = getFirestore();
 const auth = getAuth();
-const emailInput = document.getElementById('email');
+/* const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const signUpBtn = document.querySelector('.sign-up');
 const signInBtn = document.querySelector('.sign-in');
 const signOutBtn = document.getElementById('sign-out');
 signUpBtn.addEventListener('click', signUp);
 signInBtn.addEventListener('click', signIn);
-signOutBtn.addEventListener('click', signOut);
+signOutBtn.addEventListener('click', signOut); */
 
 function signUp() {
     const email = emailInput.value;
