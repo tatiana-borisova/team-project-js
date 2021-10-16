@@ -1,18 +1,17 @@
 .footer {
-  overflow: hidden;
+  position: fixed;
   width: 100%;
   bottom: 0;
   background-color: $footer-bg-color;
   padding-top: 30px;
   padding-bottom: 28px;
   opacity: 0;
-  transition: opacity 1s;
+  transition: opacity $animation;
 }
 
-.footer__sticky {
-  position: fixed;
-  width: 100%;
+.footer--visible {
   opacity: 1;
+  transition: opacity $animation;
 }
 
 .footer__wrap {

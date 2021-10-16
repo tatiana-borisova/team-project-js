@@ -8,8 +8,8 @@ const sticky = footer.offsetBottom = footer.offsetTop + footer.offsetHeight + 20
 
 function showFooter() {
     if (window.pageYOffset >= sticky) {
-      footer.classList.add("footer__sticky")
+      footer.classList.add("footer--visible");
     } else {
-      footer.classList.remove("footer__sticky");
+      footer.classList.remove("footer--visible");
     }
   }
