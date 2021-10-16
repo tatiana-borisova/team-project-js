@@ -9,12 +9,11 @@ import debounce from 'lodash.debounce';
 import refs from '../refs';
 
 let page = 1;
-let genres = '18,80';
+let query = '';
+let genres = '';
 
 mainMarkup();
-filterByGenre(page, genres);
-// fetchDiscover(page, genres);
-let query = '';
+filterByGenre(page);
 
 refs.searchForm.addEventListener('submit', onSearch);
 
@@ -22,13 +21,19 @@ function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   query = e.target.elements.query.value;
+  localStorage.setItem('query', query);
+  genres = localStorage.getItem('genres');
+  if (genres === null) genres = '';
 
-  searchMarkup(query);
+  searchMarkup(query, genres);
 }
 
-async function searchMarkup(query) {
-  let searchFilms = await fetchSearch(query, lang, page);
-  const genresData = await fetchGenre(mediaType, specificType, lang);
+async function searchMarkup(query, genres) {
+  console.log('searchMarkup');
+  console.log('genre' + genres);
+  console.log('query' + query);
+  let searchFilms = await fetchDiscover(page, genres, query);
+  const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
@@ -40,7 +45,7 @@ async function searchMarkup(query) {
       film.genres = film.genres.join(', ');
     }
     // обрезает также дату
-    film.release_date = film.release_date.slice(0, 4);
+    if (film.release_date) film.release_date = film.release_date.slice(0, 4);
 
     return film;
   });
@@ -49,7 +54,9 @@ async function searchMarkup(query) {
 }
 
 export async function mainMarkup() {
+  console.log('mainMarkup');
   localStorage.removeItem('genres');
+  localStorage.removeItem('query');
   let trendingFilms = await fetchTrending(page);
   const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
@@ -93,11 +100,16 @@ function infinityScrollLoad() {
         page++;
         spinerParams();
         setTimeout(() => {
-          let genresLocal = localStorage.getItem('genres');
-          if (query === '' && genresLocal === '') {
+          genres = localStorage.getItem('genres');
+          if (genres === null) {
+            genres = '';
+          }
+          if (query === '' && genres === '') {
             mainMarkup();
           } else {
-            searchMarkup(query);
+            searchMarkup(query, genres);
+            console.log('query' + query);
+            console.log('genres' + genres);
           }
           JsLoadingOverlay.hide();
         }, 250);

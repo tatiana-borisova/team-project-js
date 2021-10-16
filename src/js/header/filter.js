@@ -26,9 +26,14 @@ export default function filterByGenre(page) {
       localStorage.setItem('genres', genres);
       let genresLocal = localStorage.getItem('genres');
       console.log('local: ' + genresLocal);
+      let query = localStorage.getItem('query');
+      if (query === null) {
+        query = '';
+      }
 
-      if (genresLocal !== '') {
-        let discoveringFilms = await fetchDiscover(page, genresLocal);
+      if (genresLocal !== '' || query !== '') {
+        console.log('filterMarkup');
+        let discoveringFilms = await fetchDiscover(page, genresLocal, query);
         const discoveringFilmsData = discoveringFilms.map(film => {
           film.genres = film.genre_ids.map(
             genreId => genresData.find(genre => genre.id === genreId).name,
