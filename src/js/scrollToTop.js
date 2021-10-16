@@ -1,24 +1,24 @@
 import refs from './refs';
 
-const { btnTop, btnDown } = refs;
+const { topBtn, downBtn } = refs;
 
 window.onload = function () {
   window.onscroll = function () {
     if (window.pageYOffset > 5) {
-      btnTop.classList.remove('is-hidden');
-      btnDown.classList.add('is-hidden');
+      topBtn.classList.remove('is-hidden');
+      downBtn.classList.add('is-hidden');
     } else {
-      btnTop.classList.add('is-hidden');
-      btnDown.classList.remove('is-hidden');
+      topBtn.classList.add('is-hidden');
+      downBtn.classList.remove('is-hidden');
     }
   };
 
   let scrolled;
-  btnTop.onclick = function () {
+  topBtn.onclick = function () {
     scrolled = window.pageYOffset;
     window.scrollTo(0, 0);
   };
-  btnDown.onclick = function () {
+  downBtn.onclick = function () {
     if (scrolled > 0) {
       window.scrollTo(0, scrolled);
     }
