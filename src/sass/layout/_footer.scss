@@ -5,7 +5,15 @@
   background-color: $footer-bg-color;
   padding-top: 30px;
   padding-bottom: 28px;
+  opacity: 0;
+  transition: opacity $animation;
 }
+
+.footer--visible {
+  opacity: 1;
+  transition: opacity $animation;
+}
+
 .footer__wrap {
   display: flex;
   flex-wrap: wrap;
