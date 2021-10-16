@@ -5,11 +5,14 @@
   background-color: $footer-bg-color;
   padding-top: 30px;
   padding-bottom: 28px;
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 .footer__sticky {
   position: fixed;
   width: 100%;
+  opacity: 1;
 }
 
 .footer__wrap {
