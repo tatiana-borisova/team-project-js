@@ -19,6 +19,9 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  &__link {
+    pointer-events: none;
+  }
   &__item {
     cursor: pointer;
     margin-bottom: 20px;
