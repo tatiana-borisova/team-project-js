@@ -11,18 +11,12 @@
   background-color: rgba(0, 0, 0, 0.2);
 
   opacity: 1;
-}
-.is-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
 
   transition: all $animation;
-
-  .modal {
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0;
-  }
+}
+.is-hidden > .modal {
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
 }
 .modal {
   position: absolute;
