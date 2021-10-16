@@ -20,6 +20,7 @@
   }
 
   &__item {
+    cursor: pointer;
     margin-bottom: 20px;
     transition: scale $animation;
     padding-bottom: 10px;
