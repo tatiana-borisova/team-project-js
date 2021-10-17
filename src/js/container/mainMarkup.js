@@ -1,36 +1,34 @@
-import fetchTrending from '../functions/fetchDataByType/fetchTrending';
-import fetchSearch from '../functions/fetchDataByType/fetchSearch';
-import fetchGenre from '../functions/fetchDataByType/fetchGenre';
+import filterByGenre from '../header/filter';
+import {
+  fetchGenre,
+  fetchSearch,
+  fetchTrending,
+  fetchDiscover,
+} from '../fetch-api.js';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
-
-let mediaType = '/movie';
-let timeWindow = '/day';
-let specificType = '/list';
-let lang = 'en';
-let page = 1;
-let query = '';
+import { apiVariables } from '../apiVariables';
 
 refs.searchForm.addEventListener('submit', onSearch);
 
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
-  query = e.target.elements.query.value;
+  apiVariables.query = e.target.elements.query.value;
 
-  searchMarkup(query);
+  searchMarkup();
 }
 
-async function searchMarkup(query) {
-  let searchFilms = await fetchSearch(query, lang, page);
-  const genresData = await fetchGenre(mediaType, specificType, lang);
+async function searchMarkup() {
+  let searchFilms = await fetchSearch(1, 'en', apiVariables.query);
+  const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
     );
-    // условие чтоб обрезало жанры до двух , а остальным писало other
+    // условие чтоб обрезало жанры до двух, а остальным писало other
     if (film.genres.length > 3) {
       film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
     } else {
@@ -89,10 +87,10 @@ function infinityScrollLoad() {
         page++;
         spinerParams();
         setTimeout(() => {
-          if (query === '') {
+          if (apiVariables.query === '') {
             mainMarkup();
           } else {
-            searchMarkup(query);
+            searchMarkup();
           }
           JsLoadingOverlay.hide();
         }, 250);
