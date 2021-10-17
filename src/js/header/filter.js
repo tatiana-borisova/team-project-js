@@ -6,12 +6,16 @@ import { mainMarkup } from '../container/mainMarkup';
 import filmCards from '../../templates/film-card.hbs';
 import refs from '../refs';
 
-export default function filterByGenre(page) {
+import { apiVariables } from '../apiVariables';
+// let { page, query, genres } = apiVariables;
+
+export default function filterByGenre() {
   let select = new SlimSelect({
     select: '#multiple',
     closeOnSelect: false,
     placeholder: 'Filter by genre',
     onChange: async values => {
+      apiVariables.page = 1;
       refs.gallery.innerHTML = '';
       let value = values.map(value => {
         return value.value;
@@ -32,8 +36,12 @@ export default function filterByGenre(page) {
       }
 
       if (genresLocal !== '' || query !== '') {
-        console.log('filterMarkup');
-        let discoveringFilms = await fetchDiscover(page, genresLocal, query);
+        console.log('filterMarkup - page:' + apiVariables.page);
+        let discoveringFilms = await fetchDiscover(
+          apiVariables.page,
+          genresLocal,
+          query,
+        );
         const discoveringFilmsData = discoveringFilms.map(film => {
           film.genres = film.genre_ids.map(
             genreId => genresData.find(genre => genre.id === genreId).name,
@@ -57,6 +65,7 @@ export default function filterByGenre(page) {
           filmCards(discoveringFilmsData),
         );
       } else {
+        apiVariables.page = 1;
         mainMarkup();
       }
     },

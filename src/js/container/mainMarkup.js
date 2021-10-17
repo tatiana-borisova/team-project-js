@@ -7,13 +7,14 @@ import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
-
-let page = 1;
+import { apiVariables } from '../apiVariables';
+// let { page, query, genres } = apiVariables;
+// export let page = 1;
 let query = '';
 let genres = '';
 
 mainMarkup();
-filterByGenre(page);
+filterByGenre();
 
 refs.searchForm.addEventListener('submit', onSearch);
 
@@ -29,10 +30,10 @@ function onSearch(e) {
 }
 
 async function searchMarkup(query, genres) {
-  console.log('searchMarkup');
+  console.log('searchMarkup - page:' + apiVariables.page);
   console.log('genre' + genres);
   console.log('query' + query);
-  let searchFilms = await fetchDiscover(page, genres, query);
+  let searchFilms = await fetchDiscover(apiVariables.page, genres, query);
   const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
@@ -54,10 +55,10 @@ async function searchMarkup(query, genres) {
 }
 
 export async function mainMarkup() {
-  console.log('mainMarkup');
+  console.log('mainMarkup - page:' + apiVariables.page);
   localStorage.removeItem('genres');
   localStorage.removeItem('query');
-  let trendingFilms = await fetchTrending(page);
+  let trendingFilms = await fetchTrending(apiVariables.page);
   const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
     film.genres = film.genre_ids.map(
@@ -97,7 +98,7 @@ function infinityScrollLoad() {
     debounce(() => {
       const infinityOn = document.documentElement.getBoundingClientRect();
       if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
-        page++;
+        apiVariables.page++;
         spinerParams();
         setTimeout(() => {
           genres = localStorage.getItem('genres');
