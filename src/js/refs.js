@@ -9,6 +9,7 @@ export default {
   movieModal: document.querySelector('.modal-movie'),
   modalContainer: document.querySelector('.modal-container'),
   developerLink: document.querySelector('.developer__link'),
+  footer: document.querySelector('.footer'),
 
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
