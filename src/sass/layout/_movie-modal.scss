@@ -50,8 +50,8 @@
   }
 }
 .modal-movie__poster {
-  width: 100%;
-  height: auto;
+  object-fit: cover;
+  height: 100%;
   border-radius: 5px;
 }
 

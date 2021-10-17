@@ -10,6 +10,8 @@ export default {
   modalContainer: document.querySelector('.modal-container'),
   developerLink: document.querySelector('.developer__link'),
   
+  footer: document.querySelector('.footer'),
+
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
   backdrop: document.querySelector('.backdrop'),

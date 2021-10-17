@@ -37,7 +37,7 @@ async function searchMarkup(query) {
       film.genres = film.genres.join(', ');
     }
     // обрезает также дату
-    film.release_date = film.release_date.slice(0, 4);
+    film.release_date = film.release_date && film.release_date.slice(0, 4);
 
     return film;
   });

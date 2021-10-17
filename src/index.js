@@ -6,3 +6,5 @@ import './js/container/mainMarkup';
 import './js/scrollToTop'
 import './js/modal';
 
+import './js/container/mainMarkup';
+import './js/footer/footer';
