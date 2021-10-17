@@ -26,6 +26,7 @@ function createTeamModal(e) {
   refs.modalContainer.innerHTML = '';
   // Этот слушатель закрывает модалку по крестику
   refs.closeModalBtn.addEventListener('click', onClearHtml);
+  refs.backdrop.addEventListener('click', () => console.log('Hallo'));
   // Информацию переписываем через innerHTML.
   refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
   toggleModal();
@@ -45,14 +46,16 @@ function createLoginModal() {
 async function fetchDataByID(e) {
   refs.modalContainer.innerHTML = '';
   refs.closeModalBtn.addEventListener('click', onClearHtml);
+  if (!e.target.closest('li')) {
+    return;
+  }
   const movieID = e.target.closest('li').id;
-  console.log(movieID);
   try {
     const promise = await fetch(`${URL}/3/movie/${movieID}?api_key=${API_KEY}`);
     if (!promise.ok) throw Error(promise.statusText);
     const data = await promise.json();
-    console.log(data);
-    console.log(movieCardTmpl(data));
+    // console.log(data);
+    // console.log(movieCardTmpl(data));
     refs.modalContainer.innerHTML = movieCardTmpl(data);
   } catch (error) {
     console.log('Error:', error);
