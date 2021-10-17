@@ -15,10 +15,4 @@ export default {
   modal: document.querySelector('[data-modal]'),
   backdrop: document.querySelector('.backdrop'),
 
-  loginForm: document.getElementById("login-form"),
-  emailInput: document.getElementById('email'),
-  passwordInput: document.getElementById('password'),
-  signUpBtn: document.querySelector('.sign-up'),
-  signInBtn: document.querySelector('.sign-in'),
-  signOutBtn: document.getElementById('sign-out'),
 };

@@ -5,28 +5,65 @@
 }
 
 .login__header {
+  margin-bottom: 40px;
   text-align: center;
+  font-size: 26px;
 }
 
 .login__header span {
   color: $accent-dark;
 }
 
-.login-form {
+.login__form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-.modal-input {
+.login__field {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.login__input {
   font-size: 14px;
   line-height: 1.14;
-  color: #ffffff;
+  width: 350px;
   background: transparent;
-  width: 280px;
   border-left: 0;
   border-top: 0;
   border-right: 0;
-  border-bottom: 0.5px solid #ffffff;
+  border-bottom: 0.5px solid $main-text-color;
   padding-bottom: 4px;
   outline: none;
+
+  .login__field:focus-within & {
+    border-color: $accent-dark;
+    outline: $accent-dark;
+  }
+}
+
+.login__placeholder {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 14px;
+  line-height: 1.24;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: $main-text-color;
+  transform: translateY(-50%);
+  transition: transform $animation;
+
+  .login__field:focus-within & {
+    transform: translate(0, -30px);
+  }
+
+  .login__input:not(:placeholder-shown) + & {
+    transform: translate(0, -30px);
+  }
+}
+
+.sign-in {
+  margin-right: 20px;
 }

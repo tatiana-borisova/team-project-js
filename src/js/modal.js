@@ -1,14 +1,17 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
-import loginHtml from '../html-partials/authentication.html'
 import movieCardTmpl from '../templates/movie-modal-templ.hbs'
 import teamData from '../json/team-info.json';
-import { API_KEY, URL } from './consts';  
+import { API_KEY, URL } from './consts';
+import { getFirestore, collection, addDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"
+import { ref, set  } from "firebase/database";
+import { addToQueue, addToWatched, realTimeDatabase } from './firebase/firebase-auth'
+
+
 
 
 // Этот слушатель на ссылке в футере, сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
-refs.loginLink.addEventListener('click', createLoginModal);
 refs.gallery.addEventListener('click', fetchDataByID);
 
 // Эта функция либо закрывает, либо открывает модалку, у нее метод toggle()
@@ -24,7 +27,6 @@ function onClearHtml() {
   refs.closeModalBtn.removeEventListener('click', onClearHtml);
 }
 
-// Эта функция открывает модалку по нажатию на ссылку в футере, вешает слушатель на крестик и заодно наполняет ее информацией.
 function createTeamModal() {
   // Этот слушатель закрывает модалку по крестику
   refs.closeModalBtn.addEventListener('click', onClearHtml);
@@ -33,40 +35,34 @@ function createTeamModal() {
   toggleModal();
 }
 
-// Эта функция открывает модалку по нажатию на логин в хедере, вешает слушатель на крестик и заодно наполняет ее информацией.
-function createLoginModal() {
-  // Этот слушатель закрывает модалку по крестику
-  refs.closeModalBtn.addEventListener('click', onClearHtml);
-  // Информацию переписываем через innerHTML.
-  //refs.modalContainer.insertAdjacentHTML('beforeend', loginHtml )
-  refs.modalContainer.innerHTML = `${loginHtml}`
-  toggleModal();
-  refs.loginForm.addEventListener("submit",(event)=>{
-    event.preventDefault()
-  })
-  refs.signUpBtn.addEventListener('click', signUp);
-  refs.signInBtn.addEventListener('click', signIn);
-  refs.signOutBtn.addEventListener('click', signOut);
-  toggleModal();
-}
-
 async function fetchDataByID(e) {
   refs.closeModalBtn.addEventListener('click', onClearHtml);
-    const movieID = e.target.closest('li').id;
-    console.log(movieID);
+  const movieID = e.target.closest('li').id;
+  writeMovieId(realTimeDatabase, movieID)
     try {
       const promise = await fetch(
         `${URL}/3/movie/${movieID}?api_key=${API_KEY}`,
       );
       if (!promise.ok) throw Error(promise.statusText);
       const data = await promise.json();
-      console.log(data);
-      console.log(movieCardTmpl(data));
-      refs.modalContainer.innerHTML = movieCardTmpl(data) 
+      insertModalHtml(movieCardTmpl(data));
     } catch (error) {
       console.log('Error:', error);
     }
-    toggleModal();
- }
+  toggleModal();
+  document.querySelector('.modal-movie__buttons--watched').addEventListener('click', addToWatched)
+  document.querySelector('.modal-movie__buttons--queue').addEventListener('click', addToQueue)
+}
+
+
+function insertModalHtml(htmlMarkup) {
+  refs.modalContainer.innerHTML = htmlMarkup;
+}
+
+function writeMovieId(db, movieId) {
+  set(ref(db, 'films/'), {
+    movieId: movieId,
+  });
+}
   
-export{toggleModal, createLoginModal}
+export{toggleModal, insertModalHtml, onClearHtml}
