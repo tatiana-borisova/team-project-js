@@ -3,7 +3,7 @@ import teamCardTmpl from '../templates/team-list.hbs';
 import movieCardTmpl from '../templates/movie-modal-templ.hbs'
 import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
-import { getFirestore, collection, addDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"
+import { getFirestore, collection, addDoc, updateDoc, doc, arrayUnion, arrayRemove } from "firebase/firestore"
 import { ref, set  } from "firebase/database";
 import { addToQueue, addToWatched, realTimeDatabase } from './firebase/firebase-auth'
 
@@ -64,5 +64,6 @@ function writeMovieId(db, movieId) {
     movieId: movieId,
   });
 }
-  
+
+
 export{toggleModal, insertModalHtml, onClearHtml}
