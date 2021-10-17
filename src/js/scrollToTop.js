@@ -1,26 +1,44 @@
-import refs from './refs';
+function scrollTo(to, duration = 700) {
+  const element = document.scrollingElement || document.documentElement,
+    start = element.scrollTop,
+    change = to - start,
+    startDate = +new Date(),
+    easeInOutQuad = function (t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return (c / 2) * t * t + b;
+      t--;
+      return (-c / 2) * (t * (t - 2) - 1) + b;
+    },
+    animateScroll = function () {
+      const currentDate = +new Date();
+      const currentTime = currentDate - startDate;
+      element.scrollTop = parseInt(
+        easeInOutQuad(currentTime, start, change, duration),
+      );
+      if (currentTime < duration) {
+        requestAnimationFrame(animateScroll);
+      } else {
+        element.scrollTop = to;
+      }
+    };
+  animateScroll();
+}
 
-const { topBtn, downBtn } = refs;
-
-window.onload = function () {
-  window.onscroll = function () {
-    if (window.pageYOffset > 5) {
-      topBtn.classList.remove('is-hidden');
-      downBtn.classList.add('is-hidden');
+document.addEventListener('DOMContentLoaded', function () {
+  let btn = document.querySelector('#toTop');
+  window.addEventListener('scroll', function () {
+    // Если прокрутили дальше 599px, показываем кнопку
+    if (pageYOffset > 100) {
+      btn.classList.add('show');
+      // Иначе прячем
     } else {
-      topBtn.classList.add('is-hidden');
-      downBtn.classList.remove('is-hidden');
+      btn.classList.remove('show');
     }
-  };
+  });
 
-  let scrolled;
-  topBtn.onclick = function () {
-    scrolled = window.pageYOffset;
-    window.scrollTo(0, 0);
+  // При клике прокручиываем на самый верх
+  btn.onclick = function (click) {
+    click.preventDefault();
+    scrollTo(0, 0);
   };
-  downBtn.onclick = function () {
-    if (scrolled > 0) {
-      window.scrollTo(0, scrolled);
-    }
-  };
-};
+});
