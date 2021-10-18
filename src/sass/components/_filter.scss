@@ -4,14 +4,17 @@
   font-size: 14px;
 }
 .filter__select {
-  color: white;
+  color: black;
   background: transparent;
   width: 280px;
   @include for-tablet {
     width: 336px;
+
+    color: white;
   }
 }
 .ss-main .ss-multi-selected {
+  padding: 0;
   background: transparent;
   // background-color: rgba(0, 0, 0, 0.3);
 }
@@ -20,8 +23,10 @@
   border: none;
 }
 .ss-content {
-  // background: transparent;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #c0c0c0;
+  @include for-tablet {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
   border: none;
 }
 .ss-content .ss-search input {
