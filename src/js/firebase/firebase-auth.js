@@ -7,24 +7,41 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { getFirestore, collection, addDoc, doc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
-import {toggleModal, insertModalHtml, onClearHtml, movieID} from '../modal'
-
+import { toggleModal, insertModalHtml, onClearHtml, movieID } from '../modal'
+import { firebaseConsts } from './firebase-vars';
+console.log(firebaseConsts);
 
 refs.loginLink.addEventListener('click', createLoginModal)
 
+/* firebaseConsts.fireStoreDatabase = getFirestore();
+firebaseConsts.realTimeDatabase = getDatabase(); */
+/* const fireStoreDatabase = getFirestore();
+const realTimeDatabase = getDatabase(); */
+//const auth = getAuth();
+let docRef;
+let uid;
 
-const fireStoreDatabase = getFirestore();
-const realTimeDatabase = getDatabase();
-const auth = getAuth();
-
+onAuthStateChanged(firebaseConsts.auth, (user) => {
+  if (user) {
+    firebaseConsts.userID = user.uid;
+    console.log(firebaseConsts.userID );
+    firebaseConsts.databaseRef = doc(firebaseConsts.fireStoreDatabase, 'user', firebaseConsts.userID )
+    console.log(typeof firebaseConsts.databaseRef);
+    Notiflix.Notify.success(`Hello, ${firebaseConsts.userID }`)
+  } else {
+    //location.replace("index.html")
+    console.log('You are not allowed to be here');
+  }
+});
 
 function signUp() {
   // const emailInput = document.getElementById('email');
   // const passwordInput = document.getElementById('password');
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
+  createUserWithEmailAndPassword(firebaseConsts.auth, email, password)
+    .then((userCredential) => {
+    console.log(userCredential.providerId);
     const user = userCredential.user;
     toggleModal();
     Notiflix.Report.success( 'You are successfully signed up' );
@@ -39,7 +56,7 @@ function signUp() {
 }
 
 function signIn() {
-  signInWithEmailAndPassword(auth, email, password)
+  signInWithEmailAndPassword(firebaseConsts.auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
     Notiflix.Report.success( 'You are successfully logged in' ); 
@@ -50,31 +67,26 @@ function signIn() {
     Notiflix.Notify.failure(`${errorMessage}`)
   });
 }
-let uid;
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    uid = user.uid;
-    Notiflix.Notify.success(`Hello, ${uid}`)
-  } else {
-    //location.replace("index.html")
-    console.log('You are not allowed to be here');
-  }
-});
+
 
 
 function signOut() {
-  auth.signOut();
+  firebaseConsts.auth.signOut();
   Notiflix.Notify.success( 'You are successfully logged out' ); 
 }
-let docRef;
+
+
+//let docRef;
 async function addToDatabase(userId, mail) {
   try {
-    docRef = await addDoc(collection(fireStoreDatabase, "user"), {
+    firebaseConsts.databaseRef = doc(firebaseConsts.fireStoreDatabase, "user", userId)
+    await setDoc(firebaseConsts.databaseRef, {
       mail: mail,
       userId: userId,
       watched: [],
       queue: []
     });
+    console.log(firebaseConsts.databaseRef);
   } catch (e) {
     console.error("Error adding document: ", e);
   } 
@@ -100,8 +112,8 @@ function addListeners() {
   //signOutBtn.addEventListener('click', signOut);
 }
 
-async function addToWatched(movieID) { 
-  const movieId = get(child(ref(realTimeDatabase), `films/movieId`)).then((snapshot) => {
+async function addToWatched() { 
+  const movieId = get(child(ref(firebaseConsts.realTimeDatabase), `films/movie`)).then((snapshot) => {
     if (snapshot.exists()) {
       return snapshot.val();  
     } else {
@@ -112,7 +124,8 @@ async function addToWatched(movieID) {
   });
   movieId.then(data => {
     try {
-      updateDoc(docRef, {
+      console.log(firebaseConsts.databaseRef);
+      updateDoc(firebaseConsts.databaseRef, {
         watched: arrayUnion(data)
     });
       Notiflix.Notify.success('The movie successfully added to the queue')
@@ -124,7 +137,7 @@ async function addToWatched(movieID) {
 }
 
 function addToQueue() {
-  const movieId = get(child(ref(realTimeDatabase), `films/movieId`)).then((snapshot) => {
+  const movieId = get(child(ref(firebaseConsts.realTimeDatabase), `films/movie`)).then((snapshot) => {
     if (snapshot.exists()) {
       return snapshot.val(); 
     } else {
@@ -135,7 +148,7 @@ function addToQueue() {
   });
   movieId.then(data => {
     try {
-      updateDoc(docRef, {
+      updateDoc(firebaseConsts.databaseRef, {
         queue: arrayUnion(data)
     });
       Notiflix.Notify.success('The movie successfully added to the queue')
@@ -146,31 +159,6 @@ function addToQueue() {
   
 }
 
-/* function getMovieId() {
- 
-  get(child(ref(realTimeDatabase), `films/movieId`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      const movieId = snapshot.val();
-      console.log(movieId);
-      return movieId;  
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-} */
+export{addToQueue, addToWatched}
 
-export{addToQueue, addToWatched, realTimeDatabase, fireStoreDatabase}
-
-
-
-
-/* return onValue(ref(realTimeDatabase, '/films/'), (snapshot) => {
-  const movieId = (snapshot.val() && snapshot.val().movieId) || Notiflix.Notify.failure('This is errrrroorr');
-  console.log(movieId);
-  // ...
-}, {
-  onlyOnce: true
-}); */
   

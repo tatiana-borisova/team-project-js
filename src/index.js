@@ -8,4 +8,5 @@ import './js/modal';
 
 import './js/firebase/firebase-app';
 import './js/firebase/firebase-auth';
+import './js/firebase/fertch-from-firebase';
 
