@@ -1,66 +1,61 @@
-import fetchTrending from '../functions/fetchDataByType/fetchTrending';
-import fetchSearch from '../functions/fetchDataByType/fetchSearch';
-import fetchGenre from '../functions/fetchDataByType/fetchGenre';
+import { select, filterMarkup } from '../header/filter';
+import { fetchGenre, fetchSearch, fetchTrending } from '../fetch-api.js';
+import { fetchApi } from '../fetch-api.js';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
 import { changeLanguage } from '../translate';
-import { elements } from '../elementsObj';
-let mediaType = '/movie';
-let timeWindow = '/day';
-let specificType = '/list';
 
-let page = 1;
-let query = '';
-// let { lang, mediaType, timeWindow, specificType, page, query } = elements;
+console.log('start');
+mainMarkup();
+
 refs.searchForm.addEventListener('submit', onSearch);
 changeLanguage();
 ///////////////////////
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
-  query = e.target.query.value;
+  select.set([]);
+  fetchApi.page = 1;
+  fetchApi.query = e.target.elements.query.value;
 
-  searchMarkup(query);
+  searchMarkup();
 }
 
-async function searchMarkup(query) {
-  let searchFilms = await fetchSearch(query, elements.lang, page);
-  const genresData = await fetchGenre(mediaType, specificType, elements.lang);
+async function searchMarkup() {
+  console.log('searchMarkup - page' + fetchApi.page);
+  let searchFilms = await fetchSearch();
+  const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
     );
-    // условие чтоб обрезало жанры до двух , а остальным писало other
+    // условие чтоб обрезало жанры до двух, а остальным писало other
     if (film.genres.length > 3) {
       film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
     } else {
       film.genres = film.genres.join(', ');
     }
     // обрезает также дату
-    film.release_date = film.release_date && film.release_date.slice(0, 4);
+    if (film.release_date) film.release_date = film.release_date.slice(0, 4);
 
     return film;
   });
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
 }
 function otherGenresLang() {
-  if (elements.lang === 'en') {
+  if (fetchApi.lang === 'en') {
     return ', Other';
   } else {
     return ', другие';
   }
 }
-async function mainMarkup() {
-  let trendingFilms = await fetchTrending(
-    mediaType,
-    timeWindow,
-    elements.lang,
-    page,
-  );
-
-  const genresData = await fetchGenre(mediaType, specificType, elements.lang);
+export { otherGenresLang };
+export async function mainMarkup() {
+  console.log('mainMarkup - page' + fetchApi.page);
+  let trendingFilms = await fetchTrending();
+  const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
@@ -79,7 +74,7 @@ async function mainMarkup() {
 
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(trendingFilmsData));
 }
-mainMarkup();
+
 /////////////////////////////////////////////////////////
 // infinity scroll and loader(не забудьте установить пакет для loadera)
 function spinerParams() {
@@ -99,13 +94,16 @@ function infinityScrollLoad() {
     debounce(() => {
       const infinityOn = document.documentElement.getBoundingClientRect();
       if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
-        page++;
+        fetchApi.page++;
         spinerParams();
         setTimeout(() => {
-          if (query === '') {
+          if (fetchApi.query === '' && fetchApi.genres === '') {
+            console.log('point');
             mainMarkup();
+          } else if (fetchApi.query !== '') {
+            searchMarkup();
           } else {
-            searchMarkup(query);
+            filterMarkup();
           }
           JsLoadingOverlay.hide();
         }, 250);

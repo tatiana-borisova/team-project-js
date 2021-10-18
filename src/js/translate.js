@@ -1,9 +1,6 @@
-// import template from '../templates/movie-modal-templ.hbs';
-import mainMarkup from './container/mainMarkup.js';
-import fetchData from './functions/fetchData.js';
-
-import { elements } from './elementsObj';
-elements.lang = 'ru';
+import { fetchApi } from './fetch-api';
+import { setGenresList } from './header/filter';
+fetchApi.lang = 'ru';
 const language = {
   home: {
     en: 'home',
@@ -34,10 +31,10 @@ const language = {
     ru: 'Разработано с',
   },
 };
-console.log(elements);
+console.log(fetchApi);
 const allLang = ['en', 'ru'];
 /////////////////////////
-const select = document.querySelector('select');
+const select = document.querySelector('.select');
 select.addEventListener('change', changeURLLanguage);
 // перенаправление на url
 function changeURLLanguage(e) {
@@ -46,6 +43,7 @@ function changeURLLanguage(e) {
 
   location.reload();
 }
+
 function changeLanguage() {
   let hash = window.location.hash;
   hash = hash.substr(1);
@@ -55,8 +53,9 @@ function changeLanguage() {
 
     location.reload();
   }
-  elements.lang = hash;
-  console.log(elements.lang);
+  fetchApi.lang = hash;
+  setGenresList();
+  console.log(fetchApi.lang);
   select.value = hash;
   for (let key in language) {
     let elem = document.querySelector('.lang-' + key);

@@ -7,7 +7,7 @@ import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
 import { changeLanguage } from './translate';
-import { elements } from './elementsObj';
+import { fetchApi } from './fetch-api';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
@@ -32,7 +32,7 @@ function createTeamModal(e) {
   e.preventDefault();
   onClearHtml();
   addClosingListeners();
-  if (elements.lang === 'en') {
+  if (fetchApi.lang === 'en') {
     refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
   } else {
     refs.modalContainer.innerHTML = `${teamCardTmplRu(teamDataRu)}`;
@@ -58,11 +58,11 @@ async function fetchDataByID(e) {
   const movieID = e.target.closest('li').id;
   try {
     const promise = await fetch(
-      `${URL}/3/movie/${movieID}?api_key=${API_KEY}&language=${elements.lang}`,
+      `${URL}/3/movie/${movieID}?api_key=${API_KEY}&language=${fetchApi.lang}`,
     );
     if (!promise.ok) throw Error(promise.statusText);
     const data = await promise.json();
-    if (elements.lang === 'en') {
+    if (fetchApi.lang === 'en') {
       refs.modalContainer.innerHTML = movieCardTmpl(data);
     } else {
       refs.modalContainer.innerHTML = movieCardTmplRu(data);
