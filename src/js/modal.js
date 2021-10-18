@@ -4,7 +4,7 @@ import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
 
-// Этот слушатель на ссылке в футере, сюда добавляйте свои слушатели для открытия
+// Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
 refs.gallery.addEventListener('click', fetchDataByID);
 
@@ -14,38 +14,33 @@ function toggleModal() {
   refs.modal.classList.toggle('is-hidden');
 }
 
-// Эта функция закрывает модалку, очищает HTML и снимает слушатель с крестика
-function onClearHtml() {
+// Эта функция закрывает модалку и снимает слушателей.
+function onCloseHtml() {
   toggleModal();
-  refs.closeModalBtn.removeEventListener('click', onClearHtml);
+  removeClosingListeners();
 }
 
-// Эта функция открывает модалку по нажатию на ссылку в футере, вешает слушатель на крестик и заодно наполняет ее информацией.
+// Эта функция открывает модалку по нажатию на ссылку в футере.
 function createTeamModal(e) {
   e.preventDefault();
-  refs.modalContainer.innerHTML = '';
-  // Этот слушатель закрывает модалку по крестику
-  refs.closeModalBtn.addEventListener('click', onClearHtml);
-  refs.backdrop.addEventListener('click', () => console.log('Hallo'));
-  // Информацию переписываем через innerHTML.
+  onClearHtml();
+  addClosingListeners();
   refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
   toggleModal();
 }
 
-// Эта функция открывает модалку по нажатию на логин в хедере, вешает слушатель на крестик и заодно наполняет ее информацией.
+// Эта функция открывает модалку по нажатию на логин в хедере.
 function createLoginModal() {
-  refs.modalContainer.innerHTML = '';
-  // Этот слушатель закрывает модалку по крестику
-  refs.closeModalBtn.addEventListener('click', onClearHtml);
-  // Информацию переписываем через innerHTML.
+  onClearHtml();
+  addClosingListeners();
   toggleModal();
 }
 
-// Эта функция открывает модалку по нажатию на карточку фильма, вешает слушатель на крестик и заодно наполняет ее информацией.
+// Эта функция открывает модалку по нажатию на карточку фильма.
 
 async function fetchDataByID(e) {
-  refs.modalContainer.innerHTML = '';
-  refs.closeModalBtn.addEventListener('click', onClearHtml);
+  onClearHtml();
+  addClosingListeners();
   if (!e.target.closest('li')) {
     return;
   }
@@ -61,4 +56,33 @@ async function fetchDataByID(e) {
     console.log('Error:', error);
   }
   toggleModal();
+}
+
+function onKeyDown(e) {
+  if (e.code === 'Escape') {
+    onCloseHtml();
+  }
+}
+
+function onBackdropClick(e) {
+  if (!e.target.classList.contains('backdrop')) {
+    return;
+  }
+  onCloseHtml();
+}
+
+function addClosingListeners() {
+  refs.closeModalBtn.addEventListener('click', onCloseHtml);
+  refs.backdrop.addEventListener('click', onBackdropClick);
+  window.addEventListener('keydown', onKeyDown);
+}
+
+function removeClosingListeners() {
+  refs.closeModalBtn.removeEventListener('click', onCloseHtml);
+  refs.backdrop.removeEventListener('click', onBackdropClick);
+  window.removeEventListener('keydown', onKeyDown);
+}
+
+function onClearHtml() {
+  refs.modalContainer.innerHTML = '';
 }
