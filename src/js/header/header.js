@@ -1,5 +1,4 @@
 import refs from '../refs';
-import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 
 refs.homeLink.addEventListener('click', onHomeLink);
 refs.libraryLink.addEventListener('click', onLibraryLink);
