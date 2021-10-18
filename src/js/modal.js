@@ -54,7 +54,11 @@ async function createMovieModal(e) {
   }
   fetchApi.movieID = e.target.closest('li').id;
   const data = await fetchDataByID();
-  refs.modalContainer.innerHTML = movieCardTmpl(data);
+  if (fetchApi.lang === 'en') {
+    refs.modalContainer.innerHTML = movieCardTmpl(data);
+  } else {
+    refs.modalContainer.innerHTML = movieCardTmplRu(data);
+  }
   toggleModal();
 }
 
