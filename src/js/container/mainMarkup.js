@@ -5,6 +5,7 @@ import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
+import {initScrollBtn, checkIsTop} from '../scroll';
 
 let mediaType = '/movie';
 let timeWindow = '/day';
@@ -80,24 +81,32 @@ function spinerParams() {
     spinnerIDName: 'spinner',
   });
 }
+
 function infinityScrollLoad() {
-  window.addEventListener(
-    'scroll',
-    debounce(() => {
-      const infinityOn = document.documentElement.getBoundingClientRect();
-      if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
-        page++;
-        spinerParams();
-        setTimeout(() => {
-          if (query === '') {
-            mainMarkup();
-          } else {
-            searchMarkup(query);
-          }
-          JsLoadingOverlay.hide();
-        }, 250);
+  const infinityOn = document.documentElement.getBoundingClientRect();
+  if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
+    page++;
+    spinerParams();
+    setTimeout(() => {
+      if (query === '') {
+        mainMarkup();
+      } else {
+        searchMarkup(query);
       }
-    }, 250),
-  );
+      JsLoadingOverlay.hide();
+    }, 250);
+  }
 }
-infinityScrollLoad();
+
+// вынесла debounce infinityScrollLoad в отдельную переменную, в которую записывается результат,
+let loadMore = debounce(infinityScrollLoad, 250);
+
+//  а потом ниже ее вызываем иначе при скроле загрумалось сразу очень много фильмов
+checkIsTop();
+initScrollBtn();
+
+//  а потом а window повесила и ее и стрелку
+window.addEventListener('scroll', () => {
+  loadMore();
+  checkIsTop();
+});

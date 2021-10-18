@@ -1,0 +1,26 @@
+.arrow{
+   width: 30px;
+   height: 30px;
+   fill: $accent-dark;
+   opacity: 0.7;
+    &:hover,
+    &:focus {
+       opacity: 1;
+    }
+}
+.arrow-down{
+
+   transform: rotate(0.5turn);
+   
+}
+.button-arrow{
+   padding: 0;
+   cursor: pointer;
+   background: transparent;
+   border: none;
+   position: fixed;
+   bottom: 90px;
+   right: 50px;
+
+   
+   }

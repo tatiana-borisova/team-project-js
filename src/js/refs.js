@@ -14,4 +14,5 @@ export default {
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
   backdrop: document.querySelector('.backdrop'),
+  scrollBtn: document.querySelector('#scrollBtn')
 };
