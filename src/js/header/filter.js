@@ -1,6 +1,5 @@
 import SlimSelect from 'slim-select';
-import fetchGenre from '../functions/fetchDataByType/fetchGenre';
-import fetchDiscover from '../functions/fetchDataByType/fetchDiscover';
+import { fetchGenre, fetchDiscover } from '../fetch-api.js';
 import { mainMarkup } from '../container/mainMarkup';
 
 import filmCards from '../../templates/film-card.hbs';

@@ -14,6 +14,7 @@ function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   select.set([]);
+  apiVariables.query = '';
   apiVariables.page = 1;
   apiVariables.query = e.target.elements.query.value;
 
