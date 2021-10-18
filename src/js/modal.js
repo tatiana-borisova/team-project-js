@@ -1,8 +1,12 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
+import teamCardTmplRu from '../templates/team-listRu.hbs';
 import movieCardTmpl from '../templates/movie-modal-templ.hbs';
+import movieCardTmplRu from '../templates/movieCardTmplRu.hbs';
+import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
 import { fetchDataByID, fetchApi } from './fetch-api.js';
+import { changeLanguage } from './translate';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
@@ -25,7 +29,11 @@ function createTeamModal(e) {
   e.preventDefault();
   onClearHtml();
   addClosingListeners();
-  refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+  if (fetchApi.lang === 'en') {
+    refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+  } else {
+    refs.modalContainer.innerHTML = `${teamCardTmplRu(teamDataRu)}`;
+  }
   toggleModal();
 }
 
@@ -35,7 +43,7 @@ function createLoginModal() {
   addClosingListeners();
   toggleModal();
 }
-
+changeLanguage();
 // Эта функция открывает модалку по нажатию на карточку фильма.
 
 async function createMovieModal(e) {

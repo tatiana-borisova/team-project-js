@@ -1,6 +1,6 @@
 import SlimSelect from 'slim-select';
 import { fetchGenre, fetchDiscover, fetchApi } from '../fetch-api.js';
-import { mainMarkup } from '../container/mainMarkup';
+import { mainMarkup, otherGenresLang } from '../container/mainMarkup';
 import filmCards from '../../templates/film-card.hbs';
 import refs from '../refs';
 
@@ -8,6 +8,7 @@ let select = new SlimSelect({
   select: '#multiple',
   closeOnSelect: false,
   placeholder: 'Filter by genres',
+
   onChange: async values => {
     fetchApi.page = 1;
     refs.gallery.innerHTML = '';
@@ -42,7 +43,7 @@ async function setGenresList() {
   });
   select.setData(genresNames);
 }
-
+export { setGenresList };
 async function filterMarkup() {
   console.log('filterMarkup - page' + fetchApi.page);
   document.querySelector('.header-form__form').reset();
@@ -54,7 +55,7 @@ async function filterMarkup() {
     );
     // условие чтоб обрезало жанры до двух , а остальным писало other
     if (film.genres.length > 3) {
-      film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
+      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
     } else {
       film.genres = film.genres.join(', ');
     }
