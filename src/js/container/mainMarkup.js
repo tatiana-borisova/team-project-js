@@ -1,11 +1,11 @@
 import { select, filterMarkup } from '../header/filter';
 import { fetchGenre, fetchSearch, fetchTrending } from '../fetch-api.js';
+import { fetchApi } from '../fetch-api.js';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
-import { apiVariables } from '../apiVariables';
-
+console.log('start');
 mainMarkup();
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -14,15 +14,15 @@ function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   select.set([]);
-  apiVariables.query = '';
-  apiVariables.page = 1;
-  apiVariables.query = e.target.elements.query.value;
+  fetchApi.page = 1;
+  fetchApi.query = e.target.elements.query.value;
 
   searchMarkup();
 }
 
 async function searchMarkup() {
-  let searchFilms = await fetchSearch(apiVariables.page, apiVariables.query);
+  console.log('searchMarkup - page' + fetchApi.page);
+  let searchFilms = await fetchSearch();
   const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
@@ -44,7 +44,8 @@ async function searchMarkup() {
 }
 
 export async function mainMarkup() {
-  let trendingFilms = await fetchTrending(apiVariables.page);
+  console.log('mainMarkup - page' + fetchApi.page);
+  let trendingFilms = await fetchTrending();
   const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
     film.genres = film.genre_ids.map(
@@ -84,12 +85,13 @@ function infinityScrollLoad() {
     debounce(() => {
       const infinityOn = document.documentElement.getBoundingClientRect();
       if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
-        apiVariables.page++;
+        fetchApi.page++;
         spinerParams();
         setTimeout(() => {
-          if (apiVariables.query === '' && apiVariables.genres === '') {
+          if (fetchApi.query === '' && fetchApi.genres === '') {
+            console.log('point');
             mainMarkup();
-          } else if (apiVariables.query !== '') {
+          } else if (fetchApi.query !== '') {
             searchMarkup();
           } else {
             filterMarkup();

@@ -2,6 +2,11 @@
 import { API_KEY, URL } from './consts.js';
 
 export const fetchApi = {
+  page: 1,
+  genres: '',
+  query: '',
+  lang: 'en',
+
   async fetchData(fetchType, mediaType, specificType, ...args) {
     args = args.join('');
     try {
@@ -16,17 +21,17 @@ export const fetchApi = {
     }
   },
 
-  async fetchDiscover(pageValue, genresValue) {
+  async fetchDiscover() {
     const fetchType = '/discover';
     const mediaType = '/movie';
     const specificType = '';
-    const lang = '&language=en';
+    let lang = `&language=${fetchApi.lang}`;
     // const sortBy = '&sort_by=vote_average.desc';
     const sortBy = '';
-    let page = `&page=${pageValue}`;
-    let genre;
-    if (genresValue !== '') genre = `&with_genres=${genresValue}`;
-    else genre = '';
+    let page = `&page=${fetchApi.page}`;
+    let genres;
+    if (fetchApi.genres !== '') genres = `&with_genres=${fetchApi.genres}`;
+    else genres = '';
 
     const promise = await fetchData(
       fetchType,
@@ -34,7 +39,7 @@ export const fetchApi = {
       specificType,
       lang,
       page,
-      genre,
+      genres,
       sortBy,
     );
     return promise.results;
@@ -44,7 +49,7 @@ export const fetchApi = {
     const fetchType = '/genre';
     const mediaType = '/movie';
     const specificType = '/list';
-    const lang = '&language=en';
+    let lang = `&language=${fetchApi.lang}`;
 
     const promise = await fetchApi.fetchData(
       fetchType,
@@ -55,13 +60,13 @@ export const fetchApi = {
     return promise.genres;
   },
 
-  async fetchSearch(pageValue = 1, queryValue = '') {
+  async fetchSearch() {
     const fetchType = '/search';
     const specificType = '';
     const mediaType = '/movie';
-    const lang = `&language=en`;
-    let page = `&page=${pageValue}`;
-    let query = `&query=${queryValue}`;
+    let lang = `&language=${fetchApi.lang}`;
+    let page = `&page=${fetchApi.page}`;
+    let query = `&query=${fetchApi.query}`;
 
     const promise = await fetchData(
       fetchType,
@@ -74,12 +79,12 @@ export const fetchApi = {
     return promise.results;
   },
 
-  async fetchTrending(pageValue = 1) {
+  async fetchTrending() {
     const fetchType = '/trending';
     const mediaType = '/movie';
     const timeWindow = '/day';
-    const lang = '&language=en';
-    let page = `&page=${pageValue}`;
+    let lang = `&language=${fetchApi.lang}`;
+    let page = `&page=${fetchApi.page}`;
 
     const promise = await fetchData(
       fetchType,
@@ -112,7 +117,7 @@ export const fetchApi = {
   },
 };
 
-const {
+let {
   fetchData,
   fetchDiscover,
   fetchGenre,

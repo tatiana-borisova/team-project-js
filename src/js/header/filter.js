@@ -1,18 +1,18 @@
 import SlimSelect from 'slim-select';
 import { fetchGenre, fetchDiscover } from '../fetch-api.js';
 import { mainMarkup } from '../container/mainMarkup';
-
+import { fetchApi } from '../fetch-api.js';
 import filmCards from '../../templates/film-card.hbs';
 import refs from '../refs';
-import { apiVariables } from '../apiVariables';
 
 let select = new SlimSelect({
   select: '#multiple',
   closeOnSelect: false,
   placeholder: 'Filter by genres',
   onChange: async values => {
-    apiVariables.page = 1;
+    fetchApi.page = 1;
     refs.gallery.innerHTML = '';
+    fetchApi.query = '';
     let value = values.map(value => {
       return value.value;
     });
@@ -22,11 +22,12 @@ let select = new SlimSelect({
         return genreData.name === val;
       }).id;
     });
-    apiVariables.genres = genresValues.join(',');
-    if (apiVariables.genres !== '') {
+    fetchApi.genres = genresValues.join(',');
+    if (fetchApi.genres !== '') {
       filterMarkup();
-    } else {
-      apiVariables.page = 1;
+    } else if (fetchApi.query === '') {
+      fetchApi.page = 1;
+      console.log('filter');
       mainMarkup();
     }
   },
@@ -44,12 +45,10 @@ async function setGenresList() {
 }
 
 async function filterMarkup() {
+  console.log('filterMarkup - page' + fetchApi.page);
   document.querySelector('.header-form__form').reset();
   const genresData = await fetchGenre();
-  let discoveringFilms = await fetchDiscover(
-    apiVariables.page,
-    apiVariables.genres,
-  );
+  let discoveringFilms = await fetchDiscover();
   const discoveringFilmsData = discoveringFilms.map(film => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
