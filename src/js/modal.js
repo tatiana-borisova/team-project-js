@@ -2,11 +2,11 @@ import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
 import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import teamData from '../json/team-info.json';
-import { API_KEY, URL } from './consts';
+import { fetchDataByID, fetchApi } from './fetch-api.js';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
-refs.gallery.addEventListener('click', fetchDataByID);
+refs.gallery.addEventListener('click', createMovieModal);
 
 // Эта функция либо закрывает, либо открывает модалку, у нее метод toggle()
 function toggleModal() {
@@ -38,23 +38,15 @@ function createLoginModal() {
 
 // Эта функция открывает модалку по нажатию на карточку фильма.
 
-async function fetchDataByID(e) {
+async function createMovieModal(e) {
   onClearHtml();
   addClosingListeners();
   if (!e.target.closest('li')) {
     return;
   }
-  const movieID = e.target.closest('li').id;
-  try {
-    const promise = await fetch(`${URL}/3/movie/${movieID}?api_key=${API_KEY}`);
-    if (!promise.ok) throw Error(promise.statusText);
-    const data = await promise.json();
-    // console.log(data);
-    // console.log(movieCardTmpl(data));
-    refs.modalContainer.innerHTML = movieCardTmpl(data);
-  } catch (error) {
-    console.log('Error:', error);
-  }
+  fetchApi.movieID = e.target.closest('li').id;
+  const data = await fetchDataByID();
+  refs.modalContainer.innerHTML = movieCardTmpl(data);
   toggleModal();
 }
 
