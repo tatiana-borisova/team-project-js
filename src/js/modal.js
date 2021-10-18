@@ -19,8 +19,6 @@ function toggleModal() {
   refs.modal.classList.toggle('is-hidden');
 }
 
-// Эта функция закрывает модалку, очищает HTML и снимает слушатель с крестика
-
 // Эта функция закрывает модалку и снимает слушателей.
 function onCloseHtml() {
   toggleModal();
