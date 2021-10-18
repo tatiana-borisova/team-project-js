@@ -10,3 +10,5 @@ import './js/firebase/firebase-app';
 import './js/firebase/firebase-auth';
 import './js/firebase/fertch-from-firebase';
 
+import './js/container/mainMarkup';
+import './js/footer/footer';

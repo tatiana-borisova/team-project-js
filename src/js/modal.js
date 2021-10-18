@@ -1,6 +1,6 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
-import movieCardTmpl from '../templates/movie-modal-templ.hbs'
+import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
 import { getFirestore, collection, addDoc, updateDoc, doc, arrayUnion, arrayRemove } from "firebase/firestore"
@@ -8,8 +8,7 @@ import { ref, set  } from "firebase/database";
 import { addToQueue, addToWatched, realTimeDatabase } from './firebase/firebase-auth'
 import { firebaseConsts } from './firebase/firebase-vars'
 
-
-// Этот слушатель на ссылке в футере, сюда добавляйте свои слушатели для открытия
+// Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
 refs.gallery.addEventListener('click', fetchDataByID);
 
@@ -19,51 +18,75 @@ function toggleModal() {
   refs.modal.classList.toggle('is-hidden');
 }
 
-// Эта функция закрывает модалку, очищает HTML и снимает слушатель с крестика
-function onClearHtml() {
+// Эта функция закрывает модалку и снимает слушателей.
+function onCloseHtml() {
   toggleModal();
-  refs.modalContainer.innerHTML = '';
-  refs.closeModalBtn.removeEventListener('click', onClearHtml);
+  removeClosingListeners();
 }
 
-function createTeamModal() {
-  // Этот слушатель закрывает модалку по крестику
-  refs.closeModalBtn.addEventListener('click', onClearHtml);
-  // Информацию переписываем через innerHTML.
+// Эта функция открывает модалку по нажатию на ссылку в футере.
+function createTeamModal(e) {
+  e.preventDefault();
+  onClearHtml();
+  addClosingListeners();
   refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
   toggleModal();
 }
 
-async function fetchDataByID(e) {
-  refs.closeModalBtn.addEventListener('click', onClearHtml);
-  const movieID = e.target.closest('li').id;
-    try {
-      const promise = await fetch(
-        `${URL}/3/movie/${movieID}?api_key=${API_KEY}`,
-      );
-      if (!promise.ok) throw Error(promise.statusText);
-      const data = await promise.json();
-      insertModalHtml(movieCardTmpl(data));
-      writeMovieId( firebaseConsts.realTimeDatabase, data)
-    } catch (error) {
-      console.log('Error:', error);
-  }
-  
+// Эта функция открывает модалку по нажатию на логин в хедере.
+function createLoginModal() {
+  onClearHtml();
+  addClosingListeners();
   toggleModal();
-  document.querySelector('.modal-movie__buttons--watched').addEventListener('click', addToWatched)
-  document.querySelector('.modal-movie__buttons--queue').addEventListener('click', addToQueue)
 }
 
+// Эта функция открывает модалку по нажатию на карточку фильма.
 
-function insertModalHtml(htmlMarkup) {
-  refs.modalContainer.innerHTML = htmlMarkup;
+async function fetchDataByID(e) {
+  onClearHtml();
+  addClosingListeners();
+  if (!e.target.closest('li')) {
+    return;
+  }
+  const movieID = e.target.closest('li').id;
+  try {
+    const promise = await fetch(`${URL}/3/movie/${movieID}?api_key=${API_KEY}`);
+    if (!promise.ok) throw Error(promise.statusText);
+    const data = await promise.json();
+    // console.log(data);
+    // console.log(movieCardTmpl(data));
+    refs.modalContainer.innerHTML = movieCardTmpl(data);
+  } catch (error) {
+    console.log('Error:', error);
+  }
+  toggleModal();
 }
 
-function writeMovieId(db, movieJson) {
-  set(ref(db, 'films/'), {
-    movie: movieJson,
-  });
+function onKeyDown(e) {
+  if (e.code === 'Escape') {
+    onCloseHtml();
+  }
 }
 
+function onBackdropClick(e) {
+  if (!e.target.classList.contains('backdrop')) {
+    return;
+  }
+  onCloseHtml();
+}
 
-export{toggleModal, insertModalHtml, onClearHtml}
+function addClosingListeners() {
+  refs.closeModalBtn.addEventListener('click', onCloseHtml);
+  refs.backdrop.addEventListener('click', onBackdropClick);
+  window.addEventListener('keydown', onKeyDown);
+}
+
+function removeClosingListeners() {
+  refs.closeModalBtn.removeEventListener('click', onCloseHtml);
+  refs.backdrop.removeEventListener('click', onBackdropClick);
+  window.removeEventListener('keydown', onKeyDown);
+}
+
+function onClearHtml() {
+  refs.modalContainer.innerHTML = '';
+}

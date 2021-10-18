@@ -22,11 +22,6 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
-.theme__change:checked {
-  background-position: right;
-  border-radius: 100px;
-}
-
 .theme__change::before {
   content: '';
   position: absolute;
