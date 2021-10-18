@@ -24,7 +24,7 @@ function onSearch(e) {
 }
 
 async function searchMarkup() {
-  console.log('searchMarkup - page' + fetchApi.page);
+  // console.log('searchMarkup - page' + fetchApi.page);
   let searchFilms = await fetchSearch();
   const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
@@ -53,7 +53,7 @@ function otherGenresLang() {
 }
 export { otherGenresLang };
 export async function mainMarkup() {
-  console.log('mainMarkup - page' + fetchApi.page);
+  // console.log('mainMarkup - page' + fetchApi.page);
   let trendingFilms = await fetchTrending();
   const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
@@ -98,7 +98,7 @@ function infinityScrollLoad() {
         spinerParams();
         setTimeout(() => {
           if (fetchApi.query === '' && fetchApi.genres === '') {
-            console.log('point');
+            // console.log('point');
             mainMarkup();
           } else if (fetchApi.query !== '') {
             searchMarkup();
