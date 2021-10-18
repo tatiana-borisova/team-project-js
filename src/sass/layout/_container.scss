@@ -25,11 +25,13 @@
   &__item {
     cursor: pointer;
     margin-bottom: 20px;
-    transition: scale $animation;
+    transition: transform $animation, box-shadow $animation;
     padding-bottom: 10px;
+    border-radius: 5px;
   }
   &__item:hover,
   &__item:focus {
     transform: scale(1.01);
+    box-shadow: 8px 8px 10px rgba(37, 37, 37, 0.6);
   }
 }
