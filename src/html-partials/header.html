@@ -33,14 +33,19 @@
     </div>
     <div class="header-form">
       <form class="header-form__form">
-        <input
-          type="text"
-          class="header-form__input"
-          name="query"
-          autocomplete="off"
-          placeholder="Search movies..."
-          required
-        />
+        <label class="header-form__field">
+          <input
+            type="text"
+            class="header-form__input"
+            name="query"
+            autocomplete="off"
+            placeholder=""
+            required
+          />
+          <span class="header-form__placeholder lang-input"
+            >Search for movies...</span
+          >
+        </label>
         <button type="submit" class="header-form__btn">
           <svg class="header-form__icon" width="12" height="12">
             <use href="./images/icons/sprite.svg#icon-search"></use>

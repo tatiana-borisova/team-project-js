@@ -13,17 +13,17 @@ const language = {
     en: 'Library',
     ru: 'Моя библиотека',
   },
-  //   input: {
-  //     en: 'Search movies...',
-  //     ru: 'Поиск...',
-  //   },
+  input: {
+    en: 'Search movies...',
+    ru: 'Поиск...',
+  },
   watch: {
     en: 'Watch',
     ru: 'Смотреть',
   },
   queue: {
     en: 'queue',
-    ru: 'очередь',
+    ru: 'на очереди',
   },
   reserved: {
     en: 'All Rights Reserved',
