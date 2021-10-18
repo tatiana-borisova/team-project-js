@@ -1,10 +1,6 @@
 import fetchData from '../fetchData';
 
-export default async function fetchDiscover(
-  pageValue,
-  genresValue,
-  queryValue,
-) {
+export default async function fetchDiscover(pageValue, genresValue) {
   const fetchType = '/discover';
   const mediaType = '/movie';
   const specificType = '';
@@ -13,13 +9,9 @@ export default async function fetchDiscover(
   const sortBy = '';
   let page = `&page=${pageValue}`;
   let genre;
-  let query;
 
   if (genresValue !== '') genre = `&with_genres=${genresValue}`;
   else genre = '';
-
-  if (queryValue !== '') query = `&with_keywords=${queryValue}`;
-  else query = '';
 
   const promise = await fetchData(
     fetchType,
@@ -29,7 +21,6 @@ export default async function fetchDiscover(
     page,
     genre,
     sortBy,
-    query,
   );
   return promise.results;
 }

@@ -1,39 +1,28 @@
 import fetchTrending from '../functions/fetchDataByType/fetchTrending';
 import fetchSearch from '../functions/fetchDataByType/fetchSearch';
 import fetchGenre from '../functions/fetchDataByType/fetchGenre';
-import fetchDiscover from '../functions/fetchDataByType/fetchDiscover';
-import filterByGenre from '../header/filter';
+import filterMarkup from '../header/filter';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
 import { apiVariables } from '../apiVariables';
-// let { page, query, genres } = apiVariables;
-// export let page = 1;
-let query = '';
-let genres = '';
 
 mainMarkup();
-filterByGenre();
 
 refs.searchForm.addEventListener('submit', onSearch);
 
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
-  query = e.target.elements.query.value;
-  localStorage.setItem('query', query);
-  genres = localStorage.getItem('genres');
-  if (genres === null) genres = '';
+  apiVariables.page = 1;
+  apiVariables.query = e.target.elements.query.value;
 
-  searchMarkup(query, genres);
+  searchMarkup();
 }
 
-async function searchMarkup(query, genres) {
-  console.log('searchMarkup - page:' + apiVariables.page);
-  console.log('genre' + genres);
-  console.log('query' + query);
-  let searchFilms = await fetchDiscover(apiVariables.page, genres, query);
+async function searchMarkup() {
+  let searchFilms = await fetchSearch(apiVariables.page, apiVariables.query);
   const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
@@ -55,9 +44,6 @@ async function searchMarkup(query, genres) {
 }
 
 export async function mainMarkup() {
-  console.log('mainMarkup - page:' + apiVariables.page);
-  localStorage.removeItem('genres');
-  localStorage.removeItem('query');
   let trendingFilms = await fetchTrending(apiVariables.page);
   const genresData = await fetchGenre();
   const trendingFilmsData = trendingFilms.map(film => {
@@ -101,16 +87,12 @@ function infinityScrollLoad() {
         apiVariables.page++;
         spinerParams();
         setTimeout(() => {
-          genres = localStorage.getItem('genres');
-          if (genres === null) {
-            genres = '';
-          }
-          if (query === '' && genres === '') {
+          if (apiVariables.query === '' && apiVariables.genres === '') {
             mainMarkup();
+          } else if (apiVariables.query !== '') {
+            searchMarkup();
           } else {
-            searchMarkup(query, genres);
-            console.log('query' + query);
-            console.log('genres' + genres);
+            filterMarkup();
           }
           JsLoadingOverlay.hide();
         }, 250);
