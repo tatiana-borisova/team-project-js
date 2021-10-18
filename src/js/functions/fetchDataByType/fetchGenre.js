@@ -1,4 +1,4 @@
-// import fetchData from '../fetchData.js';
+import fetchData from '../fetchData.js';
 
 export default async function fetchGenre() {
   const fetchType = '/genre';

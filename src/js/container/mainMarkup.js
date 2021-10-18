@@ -1,4 +1,4 @@
-import filterMarkup from '../header/filter';
+import { select, filterMarkup } from '../header/filter';
 import { fetchGenre, fetchSearch, fetchTrending } from '../fetch-api.js';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
@@ -13,6 +13,7 @@ refs.searchForm.addEventListener('submit', onSearch);
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
+  select.set([]);
   apiVariables.page = 1;
   apiVariables.query = e.target.elements.query.value;
 

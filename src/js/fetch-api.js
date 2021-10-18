@@ -10,7 +10,6 @@ export const fetchApi = {
       );
       if (!promise.ok) throw Error(promise.statusText);
       const data = await promise.json();
-      console.log(data);
       return data;
     } catch (error) {
       console.log('error', error);
@@ -22,9 +21,12 @@ export const fetchApi = {
     const mediaType = '/movie';
     const specificType = '';
     const lang = '&language=en';
+    // const sortBy = '&sort_by=vote_average.desc';
+    const sortBy = '';
     let page = `&page=${pageValue}`;
-    //   genresValue = genresValue.join('|');
-    let genre = `&with_genres=${genresValue}`;
+    let genre;
+    if (genresValue !== '') genre = `&with_genres=${genresValue}`;
+    else genre = '';
 
     const promise = await fetchData(
       fetchType,
@@ -33,6 +35,7 @@ export const fetchApi = {
       lang,
       page,
       genre,
+      sortBy,
     );
     return promise.results;
   },
@@ -52,11 +55,11 @@ export const fetchApi = {
     return promise.genres;
   },
 
-  async fetchSearch(pageValue = 1, language = 'en', queryValue = '') {
+  async fetchSearch(pageValue = 1, queryValue = '') {
     const fetchType = '/search';
     const specificType = '';
     const mediaType = '/movie';
-    const lang = `&language=${language}`;
+    const lang = `&language=en`;
     let page = `&page=${pageValue}`;
     let query = `&query=${queryValue}`;
 

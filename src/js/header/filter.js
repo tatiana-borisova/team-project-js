@@ -44,7 +44,8 @@ async function setGenresList() {
   select.setData(genresNames);
 }
 
-export default async function filterMarkup() {
+async function filterMarkup() {
+  document.querySelector('.header-form__form').reset();
   const genresData = await fetchGenre();
   let discoveringFilms = await fetchDiscover(
     apiVariables.page,
@@ -70,3 +71,5 @@ export default async function filterMarkup() {
 
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(discoveringFilmsData));
 }
+
+export { select, filterMarkup };
