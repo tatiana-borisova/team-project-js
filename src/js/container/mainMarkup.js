@@ -1,7 +1,5 @@
-import fetchTrending from '../functions/fetchDataByType/fetchTrending';
-import fetchSearch from '../functions/fetchDataByType/fetchSearch';
-import fetchGenre from '../functions/fetchDataByType/fetchGenre';
 import filterMarkup from '../header/filter';
+import { fetchGenre, fetchSearch, fetchTrending } from '../fetch-api.js';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
@@ -28,7 +26,7 @@ async function searchMarkup() {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
     );
-    // условие чтоб обрезало жанры до двух , а остальным писало other
+    // условие чтоб обрезало жанры до двух, а остальным писало other
     if (film.genres.length > 3) {
       film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
     } else {
