@@ -1,6 +1,10 @@
 import { select, filterMarkup } from '../header/filter';
-import { fetchGenre, fetchSearch, fetchTrending } from '../fetch-api.js';
-import { fetchApi } from '../fetch-api.js';
+import {
+  fetchGenre,
+  fetchSearch,
+  fetchTrending,
+  fetchApi,
+} from '../fetch-api.js';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';

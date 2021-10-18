@@ -5,13 +5,12 @@ import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import movieCardTmplRu from '../templates/movieCardTmplRu.hbs';
 import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
-import { API_KEY, URL } from './consts';
+import { fetchDataByID, fetchApi } from './fetch-api.js';
 import { changeLanguage } from './translate';
-import { fetchApi } from './fetch-api';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
-refs.gallery.addEventListener('click', fetchDataByID);
+refs.gallery.addEventListener('click', createMovieModal);
 
 // Эта функция либо закрывает, либо открывает модалку, у нее метод toggle()
 function toggleModal() {
@@ -47,26 +46,18 @@ function createLoginModal() {
 changeLanguage();
 // Эта функция открывает модалку по нажатию на карточку фильма.
 
-async function fetchDataByID(e) {
+async function createMovieModal(e) {
   onClearHtml();
   addClosingListeners();
   if (!e.target.closest('li')) {
     return;
   }
-  const movieID = e.target.closest('li').id;
-  try {
-    const promise = await fetch(
-      `${URL}/3/movie/${movieID}?api_key=${API_KEY}&language=${fetchApi.lang}`,
-    );
-    if (!promise.ok) throw Error(promise.statusText);
-    const data = await promise.json();
-    if (fetchApi.lang === 'en') {
-      refs.modalContainer.innerHTML = movieCardTmpl(data);
-    } else {
-      refs.modalContainer.innerHTML = movieCardTmplRu(data);
-    }
-  } catch (error) {
-    console.log('Error:', error);
+  fetchApi.movieID = e.target.closest('li').id;
+  const data = await fetchDataByID();
+  if (fetchApi.lang === 'en') {
+    refs.modalContainer.innerHTML = movieCardTmpl(data);
+  } else {
+    refs.modalContainer.innerHTML = movieCardTmplRu(data);
   }
   toggleModal();
 }

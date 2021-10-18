@@ -7,7 +7,7 @@ const language = {
     ru: 'Главная',
   },
   library: {
-    en: 'Library',
+    en: 'My library',
     ru: 'Моя библиотека',
   },
   input: {

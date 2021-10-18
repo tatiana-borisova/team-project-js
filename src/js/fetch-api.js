@@ -6,6 +6,7 @@ export const fetchApi = {
   genres: '',
   query: '',
   lang: 'en',
+  movieID: 1,
 
   async fetchData(fetchType, mediaType, specificType, ...args) {
     args = args.join('');
@@ -26,7 +27,6 @@ export const fetchApi = {
     const mediaType = '/movie';
     const specificType = '';
     let lang = `&language=${fetchApi.lang}`;
-    // const sortBy = '&sort_by=vote_average.desc';
     const sortBy = '';
     let page = `&page=${fetchApi.page}`;
     let genres;
@@ -95,25 +95,15 @@ export const fetchApi = {
     );
     return promise.results;
   },
-  //  эту нужно переделать а потом подключить  в modal.js
 
-  async fetchDataByID(e) {
-    refs.closeModalBtn.addEventListener('click', onClearHtml);
-    const movieID = e.target.closest('li').id;
-    console.log(movieID);
-    try {
-      const promise = await fetch(
-        `${URL}/3/movie/${movieID}?api_key=${API_KEY}`,
-      );
-      if (!promise.ok) throw Error(promise.statusText);
-      const data = await promise.json();
-      console.log(data);
-      console.log(movieCardTmpl(data));
-      refs.modalContainer.innerHTML = movieCardTmpl(data);
-    } catch (error) {
-      console.log('Error:', error);
-    }
-    toggleModal();
+  async fetchDataByID() {
+    const fetchType = '';
+    const mediaType = '/movie';
+    const specificType = `/${fetchApi.movieID}`;
+    let lang = `&language=${fetchApi.lang}`;
+
+    const promise = await fetchData(fetchType, mediaType, specificType, lang);
+    return promise;
   },
 };
 
@@ -123,17 +113,14 @@ let {
   fetchGenre,
   fetchSearch,
   fetchTrending,
-  // fetchDataByID,
+  fetchDataByID,
 } = fetchApi;
 
-// console.log(fetchData, fetchDiscover);
 export {
   fetchData,
   fetchDiscover,
   fetchGenre,
   fetchSearch,
   fetchTrending,
-  // fetchDataByID,
+  fetchDataByID,
 };
-
-// функции fetchGenre,fetchSearch, я не много поправила так как там значения не совподали и не работало - посмотри)
