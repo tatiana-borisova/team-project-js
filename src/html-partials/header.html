@@ -13,27 +13,39 @@
         <ul class="header-links__list">
           <li class="header-links__item header-links__item--home">
             <a
-              class="header-links__link--home link header-links__link--current"
+              class="
+                header-links__link--home
+                link
+                header-links__link--current
+                lang-home
+              "
               href="#"
               >Home</a
             >
           </li>
           <li class="header-links__item header-links__item--library">
-            <a class="header-links__link--library link" href="#">My library</a>
+            <a class="header-links__link--library link lang-library" href="#"
+              >My library</a
+            >
           </li>
         </ul>
       </div>
     </div>
     <div class="header-form">
       <form class="header-form__form">
-        <input
-          type="text"
-          class="header-form__input"
-          name="query"
-          autocomplete="off"
-          placeholder="Search movies..."
-          required
-        />
+        <label class="header-form__field">
+          <input
+            type="text"
+            class="header-form__input"
+            name="query"
+            autocomplete="off"
+            placeholder=""
+            required
+          />
+          <span class="header-form__placeholder lang-input"
+            >Search for movies...</span
+          >
+        </label>
         <button type="submit" class="header-form__btn">
           <svg class="header-form__icon" width="12" height="12">
             <use href="./images/icons/sprite.svg#icon-search"></use>
@@ -44,12 +56,16 @@
     <div class="header-library">
       <ul class="header-library__list is-hidden">
         <li class="header-library__item">
-          <button class="header-library__btn--watched button button--white">
+          <button
+            class="header-library__btn--watched button button--white lang-watch"
+          >
             Watched
           </button>
         </li>
         <li class="header-library__item button--shadow">
-          <button class="header-library__btn--queue button button--orange">
+          <button
+            class="header-library__btn--queue button button--orange lang-queue"
+          >
             Queue
           </button>
         </li>
@@ -62,5 +78,9 @@
       <div class="theme__wrap"></div>
       <input type="checkbox" class="theme__change" id="theme-switch-toggle" />
     </div>
+    <select class="select-css transparent select">
+      <option class="select-option" value="en">ENG</option>
+      <option class="select-option" value="ru">RU</option>
+    </select>
   </div>
 </header>

@@ -5,11 +5,14 @@ import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
-// console.log('start');
+import { changeLanguage } from '../translate';
+
+console.log('start');
 mainMarkup();
 
 refs.searchForm.addEventListener('submit', onSearch);
-
+changeLanguage();
+///////////////////////
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
@@ -30,7 +33,7 @@ async function searchMarkup() {
     );
     // условие чтоб обрезало жанры до двух, а остальным писало other
     if (film.genres.length > 3) {
-      film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
+      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
     } else {
       film.genres = film.genres.join(', ');
     }
@@ -39,10 +42,16 @@ async function searchMarkup() {
 
     return film;
   });
-
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
 }
-
+function otherGenresLang() {
+  if (fetchApi.lang === 'en') {
+    return ', Other';
+  } else {
+    return ', другие';
+  }
+}
+export { otherGenresLang };
 export async function mainMarkup() {
   // console.log('mainMarkup - page' + fetchApi.page);
   let trendingFilms = await fetchTrending();
@@ -53,12 +62,12 @@ export async function mainMarkup() {
     );
     // условие чтоб обрезало жанры до двух , а остальным писало other
     if (film.genres.length > 3) {
-      film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
+      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
     } else {
       film.genres = film.genres.join(', ');
     }
     // обрезает также дату
-    film.release_date = film.release_date.slice(0, 4);
+    film.release_date = film.release_date && film.release_date.slice(0, 4);
 
     return film;
   });

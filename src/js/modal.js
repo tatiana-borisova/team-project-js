@@ -1,8 +1,13 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
+import teamCardTmplRu from '../templates/team-listRu.hbs';
 import movieCardTmpl from '../templates/movie-modal-templ.hbs';
+import movieCardTmplRu from '../templates/movieCardTmplRu.hbs';
+import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
+import { changeLanguage } from './translate';
+import { fetchApi } from './fetch-api';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
@@ -13,6 +18,8 @@ function toggleModal() {
   document.body.classList.toggle('modal-open');
   refs.modal.classList.toggle('is-hidden');
 }
+
+// Эта функция закрывает модалку, очищает HTML и снимает слушатель с крестика
 
 // Эта функция закрывает модалку и снимает слушателей.
 function onCloseHtml() {
@@ -25,7 +32,11 @@ function createTeamModal(e) {
   e.preventDefault();
   onClearHtml();
   addClosingListeners();
-  refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+  if (fetchApi.lang === 'en') {
+    refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+  } else {
+    refs.modalContainer.innerHTML = `${teamCardTmplRu(teamDataRu)}`;
+  }
   toggleModal();
 }
 
@@ -35,7 +46,7 @@ function createLoginModal() {
   addClosingListeners();
   toggleModal();
 }
-
+changeLanguage();
 // Эта функция открывает модалку по нажатию на карточку фильма.
 
 async function fetchDataByID(e) {
@@ -46,12 +57,16 @@ async function fetchDataByID(e) {
   }
   const movieID = e.target.closest('li').id;
   try {
-    const promise = await fetch(`${URL}/3/movie/${movieID}?api_key=${API_KEY}`);
+    const promise = await fetch(
+      `${URL}/3/movie/${movieID}?api_key=${API_KEY}&language=${fetchApi.lang}`,
+    );
     if (!promise.ok) throw Error(promise.statusText);
     const data = await promise.json();
-    // console.log(data);
-    // console.log(movieCardTmpl(data));
-    refs.modalContainer.innerHTML = movieCardTmpl(data);
+    if (fetchApi.lang === 'en') {
+      refs.modalContainer.innerHTML = movieCardTmpl(data);
+    } else {
+      refs.modalContainer.innerHTML = movieCardTmplRu(data);
+    }
   } catch (error) {
     console.log('Error:', error);
   }
