@@ -1,6 +1,7 @@
 .filter {
   display: flex;
   justify-content: center;
+  font-size: 14px;
 }
 .filter__select {
   color: white;
@@ -47,9 +48,10 @@
 .ss-main .ss-multi-selected .ss-values .ss-value {
   padding: 0;
 }
-.ss-main .ss-multi-selected .ss-add .ss-plus.ss-cross {
-  background-color: #fff;
-}
+.ss-main .ss-multi-selected .ss-add .ss-plus,
 .ss-main .ss-multi-selected .ss-add .ss-plus:after {
   background-color: #fff;
 }
+// .ss-main .ss-multi-selected .ss-add .ss-plus.ss-cross {
+//   background-color: #fff;
+// }
