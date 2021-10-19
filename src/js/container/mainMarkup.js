@@ -12,7 +12,6 @@ import refs from '../refs';
 import { changeLanguage } from '../translate';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-// console.log('start');
 mainMarkup();
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -37,28 +36,10 @@ Notify.init({
 });
 
 async function searchMarkup() {
-  // console.log('searchMarkup - page' + fetchApi.page);
-  let searchFilms = await fetchSearch();
-  if (searchFilms.length === 0) {
-    Notify.failure('No results for your request');
-  }
-  const genresData = await fetchGenre();
-  const searchFilmsData = searchFilms.map(film => {
-    film.genres = film.genre_ids.map(
-      genreId => genresData.find(genre => genre.id === genreId).name,
-    );
-    // условие чтоб обрезало жанры до двух, а остальным писало other
-    if (film.genres.length > 3) {
-      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
-    } else {
-      film.genres = film.genres.join(', ');
-    }
-    // обрезает также дату
-    if (film.release_date) film.release_date = film.release_date.slice(0, 4);
-
-    return film;
-  });
-  refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
+  refs.gallery.insertAdjacentHTML(
+    'beforeend',
+    filmCards(await addGenresToData(await fetchSearch())),
+  );
 }
 function otherGenresLang() {
   if (fetchApi.lang === 'en') {
@@ -69,26 +50,10 @@ function otherGenresLang() {
 }
 export { otherGenresLang };
 export async function mainMarkup() {
-  // console.log('mainMarkup - page' + fetchApi.page);
-  let trendingFilms = await fetchTrending();
-  const genresData = await fetchGenre();
-  const trendingFilmsData = trendingFilms.map(film => {
-    film.genres = film.genre_ids.map(
-      genreId => genresData.find(genre => genre.id === genreId).name,
-    );
-    // условие чтоб обрезало жанры до двух , а остальным писало other
-    if (film.genres.length > 3) {
-      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
-    } else {
-      film.genres = film.genres.join(', ');
-    }
-    // обрезает также дату
-    film.release_date = film.release_date && film.release_date.slice(0, 4);
-
-    return film;
-  });
-
-  refs.gallery.insertAdjacentHTML('beforeend', filmCards(trendingFilmsData));
+  refs.gallery.insertAdjacentHTML(
+    'beforeend',
+    filmCards(await addGenresToData(await fetchTrending())),
+  );
 }
 
 /////////////////////////////////////////////////////////
@@ -126,5 +91,23 @@ function infinityScrollLoad() {
       }
     }, 250),
   );
+}
+export async function addGenresToData(data) {
+  const genresData = await fetchGenre();
+  return data.map(film => {
+    film.genres = film.genre_ids.map(
+      genreId => genresData.find(genre => genre.id === genreId).name,
+    );
+    // условие чтоб обрезало жанры до двух , а остальным писало other
+    if (film.genres.length > 3) {
+      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
+    } else {
+      film.genres = film.genres.join(', ');
+    }
+    // обрезает также дату
+    film.release_date = film.release_date && film.release_date.slice(0, 4);
+
+    return film;
+  });
 }
 infinityScrollLoad();
