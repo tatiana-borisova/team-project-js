@@ -6,6 +6,7 @@ import {doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
 import { ref, child, get } from "firebase/database";
 import {toggleModal, createLoginModal} from '../modal'
 import { firebaseConsts } from './firebase-vars';
+import {addUserToDatabase} from './firebase-db-logic'
 
 refs.loginLink.addEventListener('click', createLoginModal)
 refs.logoutLink.addEventListener('click', signOut)
@@ -30,6 +31,7 @@ async function signUp() {
       addUserToDatabase(user.uid, user.email);
       refs.libraryLink.classList.remove('visually-hidden');
       toggleModal();
+      removeListeners();
     Notiflix.Report.success( 'You are successfully signed up' );
   })
   .catch((error) => {
@@ -43,6 +45,7 @@ async function signIn() {
   await signInWithEmailAndPassword(firebaseConsts.auth, firebaseConsts.email, firebaseConsts.password)
     .then((userCredential) => {
       toggleModal();
+      removeListeners();
     refs.libraryLink.classList.remove('visually-hidden');
     Notiflix.Report.success( 'You are successfully logged in' ); 
   })
@@ -58,7 +61,7 @@ function signOut() {
   Notiflix.Notify.success( 'You are successfully logged out' ); 
 }
 
-async function addUserToDatabase(userId, mail) {
+/* async function addUserToDatabase(userId, mail) {
   try {
     firebaseConsts.databaseRef = doc(firebaseConsts.fireStoreDatabase, "user", userId)
     await setDoc(firebaseConsts.databaseRef, {
@@ -70,7 +73,7 @@ async function addUserToDatabase(userId, mail) {
   } catch (e) {
     Notiflix.Notify.failure("Error adding to database: ", e);
   } 
-}
+} */
 
 function addListeners() {
   const loginForm = document.getElementById("login-form");
@@ -84,7 +87,15 @@ function addListeners() {
   signInBtn.addEventListener('click', signIn);
 }
 
-async function addToWatched() { 
+function removeListeners() {
+  const signUpBtn = document.querySelector('.sign-up');
+  const signInBtn = document.querySelector('.sign-in');
+  
+  signUpBtn.removeEventListener('click', signUp);
+  signInBtn.removeEventListener('click', signIn);
+}
+
+/* async function addToWatched() { 
   const movieId = get(child(ref(firebaseConsts.realTimeDatabase), `films/movie`)).then((snapshot) => {
     if (snapshot.exists()) {
       return snapshot.val();  
@@ -105,9 +116,9 @@ async function addToWatched() {
       }
   })
   
-}
+} */
 
-function addToQueue() {
+/* function addToQueue() {
   const movieId = get(child(ref(firebaseConsts.realTimeDatabase), `films/movie`)).then((snapshot) => {
     if (snapshot.exists()) {
       return snapshot.val(); 
@@ -128,7 +139,7 @@ function addToQueue() {
       }
   })
   
-}
+} */
 
 function toggleLogLinks() {
   
@@ -136,6 +147,6 @@ function toggleLogLinks() {
       refs.logoutLink.classList.toggle('visually-hidden');
 }
 
-export{addToQueue, addToWatched, addListeners}
+export{addListeners}
 
   

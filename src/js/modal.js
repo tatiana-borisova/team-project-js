@@ -9,7 +9,8 @@ import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
 import { getFirestore, collection, addDoc, updateDoc, doc, arrayUnion, arrayRemove } from "firebase/firestore"
 import { ref, set  } from "firebase/database";
-import { addToQueue, addToWatched, addListeners } from './firebase/firebase-auth'
+import { addListeners } from './firebase/firebase-auth';
+import { addToQueue, addToWatched } from './firebase/firebase-db-logic'
 import { firebaseConsts } from './firebase/firebase-vars'
 import { fetchDataByID, fetchApi } from './fetch-api.js';
 import { changeLanguage } from './translate';
