@@ -16,7 +16,7 @@ const language = {
     ru: 'Поиск...',
   },
   watch: {
-    en: 'Watch',
+    en: 'Watched',
     ru: 'Просмотренные',
   },
   queue: {
@@ -97,6 +97,15 @@ function changeLanguage() {
 
 changeLanguage();
 setGenresList();
+Notiflix.Notify.init({
+  className: 'notiflix-notify',
+  timeout: 3000,
+  width: '220px',
+  position: 'right-bottom',
+  distance: '50px',
+  closeButton: false,
+});
+
 function placeholderRu() {
   if (fetchApi.lang === 'ru') {
     filterSelect.config.placeholderText = 'Фильтр по жанрам';
@@ -160,6 +169,14 @@ function notifyErrData() {
     Notiflix.Notify.failure('Ошибка добавления в базу данных: ');
   }
 }
+function notifySearchError() {
+  if (translateLanguage) {
+    Notiflix.Notify.failure('No results for your request');
+  } else {
+    Notiflix.Notify.failure('Нет результатов по вашему запросу');
+  }
+}
+
 export {
   changeLanguage,
   notifyMovieFound,
@@ -170,4 +187,5 @@ export {
   notifyAvailabe,
   notifyMovieQueue,
   notifyErrData,
+  notifySearchError,
 };
