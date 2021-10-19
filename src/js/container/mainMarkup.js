@@ -102,7 +102,7 @@ function infinityScrollLoad() {
         spinerParams();
         setTimeout(() => {
           if (!refs.searchForm.classList.contains('is-hidden')) {
-            if (fetchApi.query === '' && fetchApi.genres === '' ) {
+            if (fetchApi.query === '' && fetchApi.genres === '') {
               mainMarkup();
             } else if (fetchApi.query !== '') {
               searchMarkup();
@@ -110,7 +110,7 @@ function infinityScrollLoad() {
               filterMarkup();
             }
           }
-          
+
           JsLoadingOverlay.hide();
         }, 250);
       }
