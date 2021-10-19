@@ -1,5 +1,4 @@
-import { fireStoreDatabase, uid } from './firebase-auth';
-import { doc, getDoc } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
 import { firebaseConsts } from './firebase-vars';
 import refs from '../refs'
 import movieCardTmpl from '../../templates/film-card'
@@ -20,19 +19,12 @@ async function getWatched() {
     if (docUser.exists()) {
         const watchedMovies = docUser.data().watched.map(movie => {
             movie.genres = movie.genres.map(genre => genre.name)
-            if (movie.genres.length > 3) {
-                movie.genres = movie.genres.splice(0, 2).join(', ') + otherGenresLang();
-            } else {
-                movie.genres = movie.genres.join(', ');
-            }
-            if (movie.release_date) movie.release_date = movie.release_date.slice(0, 4);
-
+            cropGenresAndDate(movie);
             return movie
         })
         refs.gallery.innerHTML = movieCardTmpl(watchedMovies)
 
     } else {
-    // doc.data() will be undefined in this case
         Notiflix.Notify.failure("No movie found");
     }
 }
@@ -48,21 +40,24 @@ async function getQueue() {
     if (docUser.exists()) {
         const watchedMovies = docUser.data().queue.map(movie => {
             movie.genres = movie.genres.map(genre => genre.name);
-            if (movie.genres.length > 3) {
-                movie.genres = movie.genres.splice(0, 2).join(', ') + otherGenresLang();
-            } else {
-                movie.genres = movie.genres.join(', ');
-            }
-            if (movie.release_date) movie.release_date = movie.release_date.slice(0, 4);
-            
+            cropGenresAndDate(movie)
             return movie
         })
         refs.gallery.innerHTML = movieCardTmpl(watchedMovies)
 
     } else {
-    // doc.data() will be undefined in this case
-    console.log("No such document!");
+        Notiflix.Notify.failure("No movie found");
     }
+}
+
+//это же мы делаем в mainmarkup, так что можно ее вынести
+function cropGenresAndDate(movie) {
+    if (movie.genres.length > 3) {
+                movie.genres = movie.genres.splice(0, 2).join(', ') + otherGenresLang();
+            } else {
+                movie.genres = movie.genres.join(', ');
+            }
+    if (movie.release_date) movie.release_date = movie.release_date.slice(0, 4);
 }
 
 function otherGenresLang() {
@@ -72,12 +67,3 @@ function otherGenresLang() {
     return ', другие';
   }
 }
-
-
-
-
-
-/* const unsub = onSnapshot(doc(fireStoreDatabase, "user", uid), (fireStoreDatabase) => {
-    console.log("Current data: ", fireStoreDatabase.data());
-});
-console.log(unsub); */
