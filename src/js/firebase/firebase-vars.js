@@ -7,4 +7,6 @@ export const firebaseConsts = {
     auth: getAuth(),
     userID: 0,
     databaseRef: {},
+    email: '',
+    password: '',
 }

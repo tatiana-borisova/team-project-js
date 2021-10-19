@@ -15,26 +15,21 @@ onAuthStateChanged(firebaseConsts.auth, (user) => {
     toggleLogLinks();
     refs.libraryLink.classList.remove('visually-hidden');
     firebaseConsts.userID = user.uid;
+    firebaseConsts.email = user.email;
     firebaseConsts.databaseRef = doc(firebaseConsts.fireStoreDatabase, 'user', firebaseConsts.userID )
-    Notiflix.Notify.success(`Hello, ${firebaseConsts.userID}`)
-  } /* else {
-    Notiflix.Notify.warning('You are not logged in');
-  } */
+    Notiflix.Notify.success(`Hello, ${firebaseConsts.email}`)
+  } 
 });
-let email;
-let password;
-function signUp() {
-  email = document.getElementById('email').value;
-password = document.getElementById('password').value;
-  createUserWithEmailAndPassword(firebaseConsts.auth, email, password)
+
+async function signUp() {
+  firebaseConsts.email = document.getElementById('email').value;
+  firebaseConsts.password = document.getElementById('password').value;
+  await createUserWithEmailAndPassword(firebaseConsts.auth, firebaseConsts.email, firebaseConsts.password)
     .then((userCredential) => {
       const user = userCredential.user;
-      
-      console.log(userCredential);
       addUserToDatabase(user.uid, user.email);
-      toggleLogLinks();
-      toggleModal();
       refs.libraryLink.classList.remove('visually-hidden');
+      toggleModal();
     Notiflix.Report.success( 'You are successfully signed up' );
   })
   .catch((error) => {
@@ -42,13 +37,12 @@ password = document.getElementById('password').value;
   });
 }
 
-function signIn() {
-  email = document.getElementById('email').value;
-password = document.getElementById('password').value;
-  signInWithEmailAndPassword(firebaseConsts.auth, email, password)
+async function signIn() {
+  firebaseConsts.email = document.getElementById('email').value;
+  firebaseConsts.password = document.getElementById('password').value;
+  await signInWithEmailAndPassword(firebaseConsts.auth, firebaseConsts.email, firebaseConsts.password)
     .then((userCredential) => {
-    console.log(password);
-    const user = userCredential.user;
+      toggleModal();
     refs.libraryLink.classList.remove('visually-hidden');
     Notiflix.Report.success( 'You are successfully logged in' ); 
   })
