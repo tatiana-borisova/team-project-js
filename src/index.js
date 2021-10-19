@@ -6,4 +6,3 @@ import './js/modal';
 import './js/footer/footer';
 import './js/translate';
 import './js/header/filter';
-import './js/footer/footer';
