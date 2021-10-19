@@ -1,6 +1,6 @@
 .modal-movie {
   width: 280px;
-  max-height: 95vh;
+  max-height: 90vh;
   overflow-y: auto;
   padding-top: 48px;
   padding-left: 20px;
@@ -139,7 +139,6 @@
 .modal-movie__buttons {
   display: flex;
   justify-content: space-between;
-
   @include for-desktop {
     justify-content: left;
   }
@@ -147,6 +146,15 @@
 
 .modal-movie__button:not(:last-child) {
   margin-right: 15px;
+}
+.modal-movie__buttons--rus {
+  @include only-phone {
+    font-size: 8px;
+  }
+
+  @include only-tablet {
+    font-size: 11px;
+  }
 }
 
 .modal-movie__button {

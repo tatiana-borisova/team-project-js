@@ -1,39 +1,73 @@
-import fetchTrending from '../functions/fetchDataByType/fetchTrending';
-import fetchSearch from '../functions/fetchDataByType/fetchSearch';
-import fetchGenre from '../functions/fetchDataByType/fetchGenre';
+import { select, filterMarkup } from '../header/filter';
+import {
+  fetchGenre,
+  fetchSearch,
+  fetchTrending,
+  fetchApi,
+} from '../fetch-api.js';
 import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
 import {initScrollBtn, checkIsTop} from '../scroll';
+import { changeLanguage } from '../translate';
 
-let mediaType = '/movie';
-let timeWindow = '/day';
-let specificType = '/list';
-let lang = 'en';
-let page = 1;
-let query = '';
+// console.log('start');
+mainMarkup();
 
 refs.searchForm.addEventListener('submit', onSearch);
-
+changeLanguage();
+///////////////////////
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
-  query = e.target.elements.query.value;
+  select.set([]);
+  fetchApi.page = 1;
+  fetchApi.query = e.target.elements.query.value;
 
-  searchMarkup(query);
+  searchMarkup();
 }
 
-async function searchMarkup(query) {
-  let searchFilms = await fetchSearch(query, lang, page);
-  const genresData = await fetchGenre(mediaType, specificType, lang);
+async function searchMarkup() {
+  // console.log('searchMarkup - page' + fetchApi.page);
+  let searchFilms = await fetchSearch();
+  const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
+    film.genres = film.genre_ids.map(
+      genreId => genresData.find(genre => genre.id === genreId).name,
+    );
+    // условие чтоб обрезало жанры до двух, а остальным писало other
+    if (film.genres.length > 3) {
+      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
+    } else {
+      film.genres = film.genres.join(', ');
+    }
+    // обрезает также дату
+    if (film.release_date) film.release_date = film.release_date.slice(0, 4);
+
+    return film;
+  });
+  refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
+}
+function otherGenresLang() {
+  if (fetchApi.lang === 'en') {
+    return ', Other';
+  } else {
+    return ', другие';
+  }
+}
+export { otherGenresLang };
+export async function mainMarkup() {
+  // console.log('mainMarkup - page' + fetchApi.page);
+  let trendingFilms = await fetchTrending();
+  const genresData = await fetchGenre();
+  const trendingFilmsData = trendingFilms.map(film => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
     );
     // условие чтоб обрезало жанры до двух , а остальным писало other
     if (film.genres.length > 3) {
-      film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
+      film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
     } else {
       film.genres = film.genres.join(', ');
     }
@@ -43,31 +77,9 @@ async function searchMarkup(query) {
     return film;
   });
 
-  refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
-}
-
-async function mainMarkup() {
-  let trendingFilms = await fetchTrending(mediaType, timeWindow, lang, page);
-  const genresData = await fetchGenre(mediaType, specificType, lang);
-  const trendingFilmsData = trendingFilms.map(film => {
-    film.genres = film.genre_ids.map(
-      genreId => genresData.find(genre => genre.id === genreId).name,
-    );
-    // условие чтоб обрезало жанры до двух , а остальным писало other
-    if (film.genres.length > 3) {
-      film.genres = film.genres.splice(0, 2).join(', ') + ', Other';
-    } else {
-      film.genres = film.genres.join(', ');
-    }
-    // обрезает также дату
-    film.release_date = film.release_date.slice(0, 4);
-
-    return film;
-  });
-
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(trendingFilmsData));
 }
-mainMarkup();
+
 /////////////////////////////////////////////////////////
 // infinity scroll and loader(не забудьте установить пакет для loadera)
 function spinerParams() {
@@ -83,15 +95,20 @@ function spinerParams() {
 }
 
 function infinityScrollLoad() {
-  const infinityOn = document.documentElement.getBoundingClientRect();
-  if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
-    page++;
-    spinerParams();
-    setTimeout(() => {
-      if (query === '') {
-        mainMarkup();
-      } else {
-        searchMarkup(query);
+
+      const infinityOn = document.documentElement.getBoundingClientRect();
+      if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
+        fetchApi.page++;
+        spinerParams();
+        setTimeout(() => {
+          if (fetchApi.query === '' && fetchApi.genres === '') {
+            // console.log('point');
+            mainMarkup();
+          } else if (fetchApi.query !== '') {
+            searchMarkup();
+          } else {
+            filterMarkup();
+
       }
       JsLoadingOverlay.hide();
     }, 250);

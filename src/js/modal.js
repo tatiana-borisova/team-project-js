@@ -1,12 +1,16 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
+import teamCardTmplRu from '../templates/team-listRu.hbs';
 import movieCardTmpl from '../templates/movie-modal-templ.hbs';
+import movieCardTmplRu from '../templates/movie-modal-templRu.hbs';
+import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
-import { API_KEY, URL } from './consts';
+import { fetchDataByID, fetchApi } from './fetch-api.js';
+import { changeLanguage } from './translate';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
-refs.gallery.addEventListener('click', fetchDataByID);
+refs.gallery.addEventListener('click', createMovieModal);
 
 // Эта функция либо закрывает, либо открывает модалку, у нее метод toggle()
 function toggleModal() {
@@ -25,7 +29,11 @@ function createTeamModal(e) {
   e.preventDefault();
   onClearHtml();
   addClosingListeners();
-  refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+  if (fetchApi.lang === 'en') {
+    refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+  } else {
+    refs.modalContainer.innerHTML = `${teamCardTmplRu(teamDataRu)}`;
+  }
   toggleModal();
 }
 
@@ -35,25 +43,21 @@ function createLoginModal() {
   addClosingListeners();
   toggleModal();
 }
-
+changeLanguage();
 // Эта функция открывает модалку по нажатию на карточку фильма.
 
-async function fetchDataByID(e) {
+async function createMovieModal(e) {
   onClearHtml();
   addClosingListeners();
   if (!e.target.closest('li')) {
     return;
   }
-  const movieID = e.target.closest('li').id;
-  try {
-    const promise = await fetch(`${URL}/3/movie/${movieID}?api_key=${API_KEY}`);
-    if (!promise.ok) throw Error(promise.statusText);
-    const data = await promise.json();
-    // console.log(data);
-    // console.log(movieCardTmpl(data));
+  fetchApi.movieID = e.target.closest('li').id;
+  const data = await fetchDataByID();
+  if (fetchApi.lang === 'en') {
     refs.modalContainer.innerHTML = movieCardTmpl(data);
-  } catch (error) {
-    console.log('Error:', error);
+  } else {
+    refs.modalContainer.innerHTML = movieCardTmplRu(data);
   }
   toggleModal();
 }
