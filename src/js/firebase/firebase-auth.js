@@ -10,36 +10,24 @@ import { doc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { ref, child, get } from 'firebase/database';
 import { toggleModal, createLoginModal } from '../modal';
 import { firebaseConsts } from './firebase-vars';
-import {
-  notifyLoginRu,
-  notifyAccept,
-  notifyLoggedIn,
-  notifyLoggedOut,
-  notifyAvailabe,
-  notifyMovieQueue,
-  notifyErrData,
-} from '../translate';
+import { notifyAccept, notifyLoggedIn, notifyLoggedOut } from '../translate';
 import { fetchApi } from '../fetch-api';
-refs.loginLink.addEventListener('click', createLoginModal);
-refs.logoutLink.addEventListener('click', signOut);
+import { addUserToDatabase } from './firebase-db-logic';
 
 onAuthStateChanged(firebaseConsts.auth, user => {
   if (user) {
     toggleLogLinks();
     refs.libraryLink.classList.remove('visually-hidden');
     firebaseConsts.userID = user.uid;
+    firebaseConsts.email = user.email;
     firebaseConsts.databaseRef = doc(
       firebaseConsts.fireStoreDatabase,
       'user',
       firebaseConsts.userID,
     );
     notifyHello();
-  } /* else {
-    Notiflix.Notify.warning('You are not logged in');
-  } */
+  }
 });
-let email;
-let password;
 function notifyHello() {
   if (fetchApi.lang === 'en') {
     Notiflix.Notify.success(`Hello, ${firebaseConsts.userID}`);
@@ -47,18 +35,20 @@ function notifyHello() {
     Notiflix.Notify.success(`Привет, ${firebaseConsts.userID}`);
   }
 }
-function signUp() {
-  email = document.getElementById('email').value;
-  password = document.getElementById('password').value;
-  createUserWithEmailAndPassword(firebaseConsts.auth, email, password)
+async function signUp() {
+  firebaseConsts.email = document.getElementById('email').value;
+  firebaseConsts.password = document.getElementById('password').value;
+  await createUserWithEmailAndPassword(
+    firebaseConsts.auth,
+    firebaseConsts.email,
+    firebaseConsts.password,
+  )
     .then(userCredential => {
       const user = userCredential.user;
-
-      console.log(userCredential);
       addUserToDatabase(user.uid, user.email);
-      toggleLogLinks();
-      toggleModal();
       refs.libraryLink.classList.remove('visually-hidden');
+      toggleModal();
+      removeListeners();
       notifyAccept();
     })
     .catch(error => {
@@ -66,13 +56,17 @@ function signUp() {
     });
 }
 
-function signIn() {
-  email = document.getElementById('email').value;
-  password = document.getElementById('password').value;
-  signInWithEmailAndPassword(firebaseConsts.auth, email, password)
+async function signIn() {
+  firebaseConsts.email = document.getElementById('email').value;
+  firebaseConsts.password = document.getElementById('password').value;
+  await signInWithEmailAndPassword(
+    firebaseConsts.auth,
+    firebaseConsts.email,
+    firebaseConsts.password,
+  )
     .then(userCredential => {
-      console.log(password);
-      const user = userCredential.user;
+      toggleModal();
+      removeListeners();
       refs.libraryLink.classList.remove('visually-hidden');
       notifyLoggedIn();
     })
@@ -88,24 +82,6 @@ function signOut() {
   notifyLoggedOut();
 }
 
-async function addUserToDatabase(userId, mail) {
-  try {
-    firebaseConsts.databaseRef = doc(
-      firebaseConsts.fireStoreDatabase,
-      'user',
-      userId,
-    );
-    await setDoc(firebaseConsts.databaseRef, {
-      mail: mail,
-      userId: userId,
-      watched: [],
-      queue: [],
-    });
-  } catch (error) {
-    notifyErrData(error);
-  }
-}
-
 function addListeners() {
   const loginForm = document.getElementById('login-form');
   const signUpBtn = document.querySelector('.sign-up');
@@ -118,56 +94,12 @@ function addListeners() {
   signInBtn.addEventListener('click', signIn);
 }
 
-async function addToWatched() {
-  const movieId = get(
-    child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
-  )
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        return snapshot.val();
-      } else {
-        notifyAvailabe();
-      }
-    })
-    .catch(error => {
-      Notiflix.Notify.failure(error);
-    });
-  movieId.then(data => {
-    try {
-      updateDoc(firebaseConsts.databaseRef, {
-        watched: arrayUnion(data),
-      });
-      notifyMovieQueue();
-    } catch (error) {
-      notifyErrData(error);
-    }
-  });
-}
+function removeListeners() {
+  const signUpBtn = document.querySelector('.sign-up');
+  const signInBtn = document.querySelector('.sign-in');
 
-function addToQueue() {
-  const movieId = get(
-    child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
-  )
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        return snapshot.val();
-      } else {
-        notifyAvailabe();
-      }
-    })
-    .catch(error => {
-      Notiflix.Notify.failure(error);
-    });
-  movieId.then(data => {
-    try {
-      updateDoc(firebaseConsts.databaseRef, {
-        queue: arrayUnion(data),
-      });
-      notifyMovieQueue();
-    } catch (error) {
-      notifyErrData(error);
-    }
-  });
+  signUpBtn.removeEventListener('click', signUp);
+  signInBtn.removeEventListener('click', signIn);
 }
 
 function toggleLogLinks() {
@@ -175,4 +107,4 @@ function toggleLogLinks() {
   refs.logoutLink.classList.toggle('visually-hidden');
 }
 
-export { addToQueue, addToWatched, addListeners };
+export { addListeners };

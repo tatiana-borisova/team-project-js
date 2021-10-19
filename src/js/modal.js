@@ -17,11 +17,8 @@ import {
   arrayRemove,
 } from 'firebase/firestore';
 import { ref, set } from 'firebase/database';
-import {
-  addToQueue,
-  addToWatched,
-  addListeners,
-} from './firebase/firebase-auth';
+import { addListeners } from './firebase/firebase-auth';
+import { addToQueue, addToWatched } from './firebase/firebase-db-logic';
 import { firebaseConsts } from './firebase/firebase-vars';
 import { fetchDataByID, fetchApi } from './fetch-api.js';
 import { changeLanguage } from './translate';
