@@ -21,13 +21,16 @@ onAuthStateChanged(firebaseConsts.auth, (user) => {
     Notiflix.Notify.warning('You are not logged in');
   }
 });
-
+let email;
+let password;
 function signUp() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  email = document.getElementById('email').value;
+password = document.getElementById('password').value;
   createUserWithEmailAndPassword(firebaseConsts.auth, email, password)
     .then((userCredential) => {
-    const user = userCredential.user;
+      const user = userCredential.user;
+      
+      console.log(userCredential);
       addUserToDatabase(user.uid, user.email);
       toggleLogLinks();
       toggleModal();
@@ -40,8 +43,11 @@ function signUp() {
 }
 
 function signIn() {
+  email = document.getElementById('email').value;
+password = document.getElementById('password').value;
   signInWithEmailAndPassword(firebaseConsts.auth, email, password)
-  .then((userCredential) => {
+    .then((userCredential) => {
+    console.log(password);
     const user = userCredential.user;
     refs.libraryLink.classList.remove('visually-hidden');
     Notiflix.Report.success( 'You are successfully logged in' ); 
