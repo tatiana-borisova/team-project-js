@@ -36,6 +36,7 @@
 .header-links {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .header-links__list {
   display: flex;
@@ -44,6 +45,20 @@
 }
 .header-links__item:not(:last-child) {
   margin-right: 39px;
+}
+
+.header-links__list > .header-links__item--login {
+  margin-right: 0px;
+}
+
+@include only-phone {
+  .header-links__list .header-links__item {
+    margin-right: 10px;
+  }
+  .header-links__list .header-links__item--login,
+  .header-links__list .header-links__item--logout {
+    margin-right: 0;
+  }
 }
 
 // header-form

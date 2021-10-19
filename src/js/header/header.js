@@ -9,7 +9,7 @@ async function onHomeLink(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   refs.searchInput.value = '';
-  select.set([]);
+  // select.set([]);
   await mainMarkup();
   refs.libraryBtns.classList.add('is-hidden');
   refs.searchForm.classList.remove('is-hidden');

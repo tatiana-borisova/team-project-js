@@ -34,10 +34,12 @@ onAuthStateChanged(firebaseConsts.auth, user => {
       firebaseConsts.userID,
     );
     notifyHello();
-  } else {
-    notifyLoginRu();
-  }
+  } /* else {
+    Notiflix.Notify.warning('You are not logged in');
+  } */
 });
+let email;
+let password;
 function notifyHello() {
   if (fetchApi.lang === 'en') {
     Notiflix.Notify.success(`Hello, ${firebaseConsts.userID}`);
@@ -46,11 +48,13 @@ function notifyHello() {
   }
 }
 function signUp() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  email = document.getElementById('email').value;
+  password = document.getElementById('password').value;
   createUserWithEmailAndPassword(firebaseConsts.auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
+
+      console.log(userCredential);
       addUserToDatabase(user.uid, user.email);
       toggleLogLinks();
       toggleModal();
@@ -63,8 +67,11 @@ function signUp() {
 }
 
 function signIn() {
+  email = document.getElementById('email').value;
+  password = document.getElementById('password').value;
   signInWithEmailAndPassword(firebaseConsts.auth, email, password)
     .then(userCredential => {
+      console.log(password);
       const user = userCredential.user;
       refs.libraryLink.classList.remove('visually-hidden');
       notifyLoggedIn();

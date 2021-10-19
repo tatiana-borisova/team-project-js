@@ -10,7 +10,6 @@ import './js/firebase/firebase-app';
 import './js/firebase/firebase-auth';
 import './js/firebase/fetch-from-firebase';
 
-import './js/container/mainMarkup';
 import './js/translate';
 import './js/header/filter';
 import './js/footer/footer';
