@@ -29,7 +29,7 @@ function createTeamModal(e) {
   e.preventDefault();
   onClearHtml();
   addClosingListeners();
-  refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+  insertModalHtml(teamCardTmpl(teamData));
   toggleModal();
 }
 
@@ -55,11 +55,18 @@ async function fetchDataByID(e) {
     const data = await promise.json();
     // console.log(data);
     // console.log(movieCardTmpl(data));
-    refs.modalContainer.innerHTML = movieCardTmpl(data);
+    insertModalHtml(movieCardTmpl(data));
+    writeMovieId(firebaseConsts.realTimeDatabase, data);
   } catch (error) {
     console.log('Error:', error);
   }
   toggleModal();
+  document.querySelector('.modal-movie__buttons--watched').addEventListener('click', addToWatched)
+  document.querySelector('.modal-movie__buttons--queue').addEventListener('click', addToQueue)
+}
+
+function insertModalHtml(htmlMarkup) {
+  refs.modalContainer.innerHTML = htmlMarkup;
 }
 
 function onKeyDown(e) {
@@ -90,3 +97,15 @@ function removeClosingListeners() {
 function onClearHtml() {
   refs.modalContainer.innerHTML = '';
 }
+
+function writeMovieId(db, movieJson) {
+  set(ref(db, 'films/'), {
+    movie: movieJson,
+  });
+}
+
+export{toggleModal, insertModalHtml, onClearHtml}
+
+
+
+

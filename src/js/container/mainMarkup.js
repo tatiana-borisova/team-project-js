@@ -86,13 +86,16 @@ function infinityScrollLoad() {
     debounce(() => {
       const infinityOn = document.documentElement.getBoundingClientRect();
       if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
-        page++;
+        fetchApi.page++;
         spinerParams();
         setTimeout(() => {
-          if (query === '') {
+          if (fetchApi.query === '' && fetchApi.genres === '' && (!searchForm.classList.contains('is-hidden'))) {
+            // console.log('point');
             mainMarkup();
+          } else if (fetchApi.query !== '') {
+            searchMarkup();
           } else {
-            searchMarkup(query);
+            filterMarkup();
           }
           JsLoadingOverlay.hide();
         }, 250);
