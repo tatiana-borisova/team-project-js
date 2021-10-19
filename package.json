@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "basiclightbox": "^5.0.4",
-    "firebase": "^9.1.2",
+    "firebase": "^9.1.3",
     "gh-pages": "^3.2.3",
     "js-loading-overlay": "^1.2.0",
     "lodash.debounce": "^4.0.8",
