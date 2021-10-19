@@ -3,7 +3,7 @@ import teamCardTmpl from '../templates/team-list.hbs';
 import teamCardTmplRu from '../templates/team-listRu.hbs';
 import loginHtml from '../html-partials/authentication.html'
 import movieCardTmpl from '../templates/movie-modal-templ.hbs';
-import movieCardTmplRu from '../templates/movieCardTmplRu.hbs';
+import movieCardTmplRu from '../templates/movie-modal-templRu.hbs';
 import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';

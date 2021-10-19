@@ -11,6 +11,7 @@ import debounce from 'lodash.debounce';
 import refs from '../refs';
 import { changeLanguage } from '../translate';
 
+// console.log('start');
 mainMarkup();
 
 refs.searchForm.addEventListener('submit', onSearch);
