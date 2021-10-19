@@ -9,6 +9,7 @@ import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
+import {initScrollBtn, checkIsTop} from '../scroll';
 import { changeLanguage } from '../translate';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -73,10 +74,9 @@ function spinerParams() {
     spinnerIDName: 'spinner',
   });
 }
+
 function infinityScrollLoad() {
-  window.addEventListener(
-    'scroll',
-    debounce(() => {
+
       const infinityOn = document.documentElement.getBoundingClientRect();
       if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
         fetchApi.page++;
@@ -89,13 +89,27 @@ function infinityScrollLoad() {
             searchMarkup();
           } else {
             filterMarkup();
-          }
-          JsLoadingOverlay.hide();
-        }, 250);
+
       }
-    }, 250),
-  );
+      JsLoadingOverlay.hide();
+    }, 250);
+  }
 }
+
+
+// вынесла debounce infinityScrollLoad в отдельную переменную, в которую записывается результат,
+let loadMore = debounce(infinityScrollLoad, 250);
+
+//  а потом ниже ее вызываем иначе при скроле загрумалось сразу очень много фильмов
+checkIsTop();
+initScrollBtn();
+
+//  а потом а window повесила и ее и стрелку
+window.addEventListener('scroll', () => {
+  loadMore();
+  checkIsTop();
+});
+
 export async function addGenresToData(data) {
   const genresData = await fetchGenre();
   return data.map(film => {
@@ -115,3 +129,4 @@ export async function addGenresToData(data) {
   });
 }
 infinityScrollLoad();
+

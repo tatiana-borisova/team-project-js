@@ -1,0 +1,39 @@
+.arrow {
+  fill: $accent-dark;
+  opacity: 1;
+  border-radius: 20px;
+
+  &:hover,
+  &:focus {
+    opacity: 0.9;
+  }
+}
+
+.button-arrow {
+  width: 40px;
+  height: 40px;
+  box-shadow: 5px 3px 3px rgb(70, 70, 70);
+  bottom: 54px;
+  right: 10px;
+  z-index: 2;
+  padding: 0;
+  border-radius: 20px;
+  cursor: pointer;
+  border: transparent;
+  position: fixed;
+
+  @include for-tablet {
+    bottom: 90px;
+    right: 30px;
+  }
+  &:active {
+    box-shadow: inset 5px 3px 13px rgb(37 37 37 / 60%);
+  }
+  //   transition: transform $animation;
+}
+.arrow-down {
+  transform: rotate(0.5turn);
+
+  box-shadow: -5px -3px 3px rgb(70, 70, 70);
+  //   transition: transform $animation;
+}
