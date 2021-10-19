@@ -10,6 +10,7 @@ import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
 import { changeLanguage } from '../translate';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 // console.log('start');
 mainMarkup();
@@ -26,10 +27,21 @@ function onSearch(e) {
 
   searchMarkup();
 }
+Notify.init({
+  className: 'notiflix-notify',
+  timeout: 3000,
+  width: '220px',
+  position: 'right-bottom',
+  distance: '50px',
+  closeButton: false,
+});
 
 async function searchMarkup() {
   // console.log('searchMarkup - page' + fetchApi.page);
   let searchFilms = await fetchSearch();
+  if (searchFilms.length === 0) {
+    Notify.failure('No results for your request');
+  }
   const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
