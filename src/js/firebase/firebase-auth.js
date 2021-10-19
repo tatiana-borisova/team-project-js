@@ -17,9 +17,9 @@ onAuthStateChanged(firebaseConsts.auth, (user) => {
     firebaseConsts.userID = user.uid;
     firebaseConsts.databaseRef = doc(firebaseConsts.fireStoreDatabase, 'user', firebaseConsts.userID )
     Notiflix.Notify.success(`Hello, ${firebaseConsts.userID}`)
-  } else {
+  } /* else {
     Notiflix.Notify.warning('You are not logged in');
-  }
+  } */
 });
 let email;
 let password;
