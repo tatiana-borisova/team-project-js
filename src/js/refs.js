@@ -5,6 +5,7 @@ export default {
   watchedBtn: document.querySelector('.header-library__btn--watched'),
   queueBtn: document.querySelector('.header-library__btn--queue'),
   searchForm: document.querySelector('.header-form'),
+  searchInput: document.querySelector('.header-form__input'),
   gallery: document.querySelector('.gallery'),
   galleryItem: document.querySelector('.gallery__item'),
   headerBackground: document.querySelector('.header'),
@@ -18,6 +19,6 @@ export default {
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
   backdrop: document.querySelector('.backdrop'),
-  
+
   filter: document.querySelector('.filter'),
 };

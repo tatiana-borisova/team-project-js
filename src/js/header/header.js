@@ -1,13 +1,19 @@
 import refs from '../refs';
+import { mainMarkup } from '../container/mainMarkup';
+import { select, filterMarkup } from '../header/filter';
 
 refs.homeLink.addEventListener('click', onHomeLink);
 refs.libraryLink.addEventListener('click', onLibraryLink);
 
-function onHomeLink(e) {
-  // e.preventDefault();
+async function onHomeLink(e) {
+  e.preventDefault();
+  refs.gallery.innerHTML = '';
+  refs.searchInput.value = '';
+  select.set([]);
+  await mainMarkup();
   refs.libraryBtns.classList.add('is-hidden');
   refs.searchForm.classList.remove('is-hidden');
-  
+
   refs.filter.classList.remove('is-hidden');
 
   refs.headerBackground.classList.remove('header-background--library');
@@ -20,7 +26,7 @@ function onLibraryLink(e) {
   e.preventDefault();
   refs.libraryBtns.classList.remove('is-hidden');
   refs.searchForm.classList.add('is-hidden');
-  
+
   refs.filter.classList.add('is-hidden');
 
   refs.headerBackground.classList.remove('header-background--home');
