@@ -29,7 +29,7 @@
 .header > .container {
   position: relative;
   padding-top: 41px;
-  padding-bottom: 65px;
+  padding-bottom: 40px;
 }
 
 // header-links
@@ -74,7 +74,7 @@
   color: $secondary-text-color;
 
   background: transparent;
-  width: 280px;
+  width: 277px;
   @include for-tablet {
     width: 336px;
   }
@@ -95,6 +95,7 @@
   border: 0;
   position: absolute;
   margin-left: -20px;
+  cursor: pointer;
 }
 
 .logo__link {
@@ -182,10 +183,15 @@
   font-weight: 500;
   letter-spacing: 0.01em;
 
-  transform: translateY(-50%);
   transition: transform $animation;
+  transform: translateY(-50%);
+}
+.header-form__field:focus-within .header-form__placeholder {
+  transform: translate(0px, -30px);
+  display: none;
+}
 
-  .header-form__field:focus-within & {
-    display: none;
-  }
+.header-form__input:not(:placeholder-shown) + .header-form__placeholder {
+  transform: translate(0px, -30px);
+  display: none;
 }

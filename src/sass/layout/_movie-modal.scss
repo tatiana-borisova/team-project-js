@@ -139,7 +139,6 @@
 .modal-movie__buttons {
   display: flex;
   justify-content: space-between;
-
   @include for-desktop {
     justify-content: left;
   }
@@ -147,6 +146,15 @@
 
 .modal-movie__button:not(:last-child) {
   margin-right: 15px;
+}
+.modal-movie__buttons--rus {
+  @include only-phone {
+    font-size: 8px;
+  }
+
+  @include only-tablet {
+    font-size: 11px;
+  }
 }
 
 .modal-movie__button {
