@@ -36,6 +36,10 @@ Notify.init({
 });
 
 async function searchMarkup() {
+  let searchFilms = await fetchSearch();
+  if (searchFilms.length === 0) {
+    Notify.failure('No results for your request');
+  }
   refs.gallery.insertAdjacentHTML(
     'beforeend',
     filmCards(await addGenresToData(await fetchSearch())),
