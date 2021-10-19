@@ -1,4 +1,4 @@
-import { select, filterMarkup } from '../header/filter';
+import { filterSelect, filterMarkup } from '../header/filter';
 import {
   fetchGenre,
   fetchSearch,
