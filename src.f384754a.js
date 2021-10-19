@@ -55,4 +55,4 @@ module.exports=[{foto:"https://firebasestorage.googleapis.com/v0/b/team-project-
 },{"../refs":"VyiV"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/header/header"),require("./js/check-theme"),require("./js/container/mainMarkup"),require("./js/modal"),require("./js/footer/footer"),require("./js/translate"),require("./js/header/filter");
 },{"./sass/main.scss":"clu1","./js/header/header":"N0LX","./js/check-theme":"ToPQ","./js/container/mainMarkup":"u2ZQ","./js/modal":"RSqK","./js/footer/footer":"yQEh","./js/translate":"nUSU","./js/header/filter":"ZO32"}]},{},["Focm"], null)
-//# sourceMappingURL=/team-project-js/src.36a19d35.js.map
+//# sourceMappingURL=/team-project-js/src.f384754a.js.map
