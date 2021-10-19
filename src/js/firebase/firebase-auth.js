@@ -14,6 +14,8 @@ import { notifyAccept, notifyLoggedIn, notifyLoggedOut } from '../translate';
 import { fetchApi } from '../fetch-api';
 import { addUserToDatabase } from './firebase-db-logic';
 
+refs.loginLink.addEventListener('click', createLoginModal);
+refs.logoutLink.addEventListener('click', signOut);
 onAuthStateChanged(firebaseConsts.auth, user => {
   if (user) {
     toggleLogLinks();
@@ -30,9 +32,9 @@ onAuthStateChanged(firebaseConsts.auth, user => {
 });
 function notifyHello() {
   if (fetchApi.lang === 'en') {
-    Notiflix.Notify.success(`Hello, ${firebaseConsts.userID}`);
+    Notiflix.Notify.success(`Hello, ${firebaseConsts.email}`);
   } else {
-    Notiflix.Notify.success(`Привет, ${firebaseConsts.userID}`);
+    Notiflix.Notify.success(`Привет, ${firebaseConsts.email}`);
   }
 }
 async function signUp() {
