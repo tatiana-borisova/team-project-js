@@ -6,13 +6,13 @@
   padding-top: 28px;
   padding-bottom: 28px;
   // transition: overflow $animation, position $animation;
-  pointer-events: none;
+  // pointer-events: none;
 }
 
 .footer.footer--visible {
   position: fixed;
   // transition: overflow $animation, position $animation;
-  pointer-events: visible;
+  // pointer-events: visible;
 }
 
 .footer__wrap {
