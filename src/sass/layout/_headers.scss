@@ -42,8 +42,8 @@
   color: $secondary-text-color;
   text-transform: uppercase;
 }
-.header-links__item--library {
-  margin-left: 39px;
+.header-links__item:not(:last-child) {
+  margin-right: 39px;
 }
 
 // header-form
