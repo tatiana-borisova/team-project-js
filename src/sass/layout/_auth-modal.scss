@@ -1,7 +1,10 @@
 .login__modal {
-  padding: 50px;
-  width: 450px;
-  background-color: $main-bg-color;
+  padding: 50px 10px 50px 10px;
+  width: 260px;
+  @include for-tablet {
+    width: 450px;
+    padding: 50px;
+  }
 }
 
 .login__header {
@@ -18,17 +21,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .login__field {
   position: relative;
   margin-bottom: 35px;
+  width: 100%;
 }
 
 .login__input {
   font-size: 14px;
   line-height: 1.14;
-  width: 350px;
+  width: 100%;
+  @include for-tablet {
+    width: 350px;
+  }
   background: transparent;
   border-left: 0;
   border-top: 0;
@@ -63,7 +71,16 @@
     transform: translate(0, -30px);
   }
 }
-
+.login__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .sign-in {
-  margin-right: 20px;
+  @include only-phone {
+    margin-bottom: 10px;
+  }
+  @include for-tablet {
+    margin-right: 20px;
+  }
 }
