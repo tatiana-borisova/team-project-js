@@ -38,9 +38,9 @@ Notify.init({
 
 async function searchMarkup() {
   let searchFilms = await fetchSearch();
-  if (searchFilms.length === 0) {
+  if (searchFilms.length === 0 && fetchApi.page === 1) {
     Notify.failure('No results for your request');
-  }
+  } 
   refs.gallery.insertAdjacentHTML(
     'beforeend',
     filmCards(await addGenresToData(await fetchSearch())),
@@ -117,9 +117,13 @@ export async function addGenresToData(data) {
       genreId => genresData.find(genre => genre.id === genreId).name,
     );
     // условие чтоб обрезало жанры до двух , а остальным писало other
-    if (film.genres.length > 3) {
+    if (film.genres.length === 0) {
+      const otherGenres = otherGenresLang();
+         film.genres = otherGenres.slice(2, );
+    } else if (film.genres.length > 3) {
       film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
-    } else {
+    }
+    else {
       film.genres = film.genres.join(', ');
     }
     // обрезает также дату
