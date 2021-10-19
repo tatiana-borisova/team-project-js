@@ -1,6 +1,6 @@
-
 import './sass/main.scss';
 import './js/header/header';
+import './js/check-theme';
 import './js/container/mainMarkup';
 
 import './js/check-theme'
@@ -11,4 +11,6 @@ import './js/firebase/firebase-auth';
 import './js/firebase/fertch-from-firebase';
 
 import './js/container/mainMarkup';
+import './js/translate';
+import './js/header/filter';
 import './js/footer/footer';

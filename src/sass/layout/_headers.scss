@@ -23,6 +23,7 @@
   }
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: 100% 100%;
 }
 
 .header > .container {
@@ -139,4 +140,52 @@
   background-color: $accent-dark;
   width: 100%;
   height: 3px;
+}
+.translate {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+//
+.select-css {
+  display: block;
+  margin-right: auto;
+  width: 65px;
+  height: 36px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+  padding: 4px;
+
+  opacity: 0.9;
+  border: 1px solid #aaa;
+
+  background-color: transparent;
+}
+
+.select-css option {
+  font-weight: normal;
+  opacity: 0.6;
+  background-color: #000;
+}
+.header-form__field {
+  position: relative;
+}
+.header-form__placeholder {
+  position: absolute;
+  color: #ffff;
+  top: 50%;
+  left: 0;
+  font-size: 14px;
+  line-height: 1.24;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+
+  transform: translateY(-50%);
+  transition: transform $animation;
+
+  .header-form__field:focus-within & {
+    display: none;
+  }
 }

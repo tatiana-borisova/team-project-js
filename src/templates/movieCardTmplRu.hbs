@@ -12,24 +12,24 @@
 
       <table class='modal-movie__table'>
         <tr>
-          <td class='modal-movie__indicators--item'>Vote / Votes</td>
+          <td class='modal-movie__indicators--item'>Рейтинг / Голоса</td>
           <td class='modal-movie__votes'><span
               class='vote'
             >{{vote_average}}</span><span class='modal-movie__slash'> /</span>
             {{vote_count}}</td>
         </tr>
         <tr>
-          <td class='modal-movie__indicators--item'>Popularity</td>
+          <td class='modal-movie__indicators--item'>Популярность</td>
           <td class='modal-movie__popularity'>{{popularity}}</td>
         </tr>
         <tr>
-          <td class='modal-movie__indicators--item'>Original Title</td>
+          <td class='modal-movie__indicators--item'>Оригинальное название</td>
           <td class='modal-movie__title'>{{original_title}}</td>
         </tr>
         <tr>
           <td
             class='modal-movie__indicators--item modal-movie__indicators--last-item'
-          >Genre</td>
+          >Жанры</td>
           <td class='modal-movie__genre'>
             {{#each genres}}
               {{this.name}}
@@ -40,20 +40,20 @@
       </table>
 
     </div>
-    <p class='modal-movie__about'>About</p>
+    <p class='modal-movie__about'>О фильме</p>
     <p class='modal-movie__description'>
       {{overview}}
     </p>
     <div class='modal-movie__buttons'>
       <button
-        class='modal-movie__buttons--watched modal-movie__button button button--orange lang-add'
+        class='modal-movie__buttons--watched modal-movie__button button button--orange'
       >
-        add to Watched
+        Просмотренные
       </button>
       <button
         class='modal-movie__buttons--queue modal-movie__button button button--black'
       >
-        add to queue
+        В очередь
       </button>
     </div>
   </div>
