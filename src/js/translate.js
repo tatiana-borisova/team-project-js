@@ -115,9 +115,9 @@ placeholderRu();
 const translateLanguage = fetchApi.lang === 'en';
 function notifyMovieFound() {
   if (translateLanguage) {
-    Notiflix.Notify.failure('No movie found');
+    Notiflix.Notify.failure('You have no saved movies');
   } else {
-    Notiflix.Notify.failure('Фильм не найден');
+    Notiflix.Notify.failure('У вас еще нет сохраненных фильмов');
   }
 }
 function notifyLoginRu() {
