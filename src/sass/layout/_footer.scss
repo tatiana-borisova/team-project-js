@@ -5,16 +5,14 @@
   background-color: $footer-bg-color;
   padding-top: 30px;
   padding-bottom: 28px;
-  // opacity: 0;
-  // transition: opacity $animation;
-  // pointer-events: none;
+  // transition: overflow $animation, position $animation;
+  pointer-events: none;
 }
 
 .footer.footer--visible {
   position: fixed;
-  // opacity: 1;
-  // transition: opacity $animation;
-  // pointer-events: visible;
+  // transition: overflow $animation, position $animation;
+  pointer-events: visible;
 }
 
 .footer__wrap {

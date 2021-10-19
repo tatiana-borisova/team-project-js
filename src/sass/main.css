@@ -240,6 +240,89 @@ figure {
   color: #ff6b01;
 }
 
+.filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 767.98px) {
+  .filter {
+    margin-bottom: 10px;
+  }
+}
+
+.filter__select {
+  color: black;
+  background: transparent;
+  width: 280px;
+}
+
+@media screen and (min-width: 768px) {
+  .filter__select {
+    width: 336px;
+    color: white;
+  }
+}
+
+.ss-main .ss-multi-selected {
+  padding: 0;
+  background: transparent;
+}
+
+.ss-main .ss-multi-selected {
+  border: none;
+}
+
+.ss-content {
+  background-color: #c0c0c0;
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .ss-content {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.ss-content .ss-search input {
+  background: transparent;
+  color: inherit;
+  border: none;
+}
+
+.ss-content .ss-list .ss-option.ss-disabled {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 0;
+}
+
+.ss-main .ss-multi-selected .ss-values .ss-value {
+  background: transparent;
+  border: none;
+}
+
+.ss-main .ss-multi-selected .ss-values .ss-disabled {
+  padding: 0;
+}
+
+.ss-main .ss-multi-selected .ss-add {
+  margin-right: 6px;
+}
+
+.ss-main .ss-multi-selected .ss-values .ss-value {
+  padding: 0;
+}
+
+.ss-main .ss-multi-selected .ss-add .ss-plus,
+.ss-main .ss-multi-selected .ss-add .ss-plus:after {
+  background-color: #fff;
+}
+
 .backdrop {
   position: fixed;
   z-index: 2;
@@ -366,10 +449,12 @@ figure {
   background-color: #f7f7f7;
   padding-top: 30px;
   padding-bottom: 28px;
+  pointer-events: none;
 }
 
 .footer.footer--visible {
   position: fixed;
+  pointer-events: visible;
 }
 
 .footer__wrap {
@@ -462,6 +547,7 @@ figure {
   background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url(../images/background/library-1x-desktop.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: 100% 100%;
 }
 
 @media (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
@@ -474,7 +560,7 @@ figure {
 .header > .container {
   position: relative;
   padding-top: 41px;
-  padding-bottom: 65px;
+  padding-bottom: 40px;
 }
 
 .header-links {
@@ -527,7 +613,7 @@ figure {
   line-height: 1.14;
   color: #ffffff;
   background: transparent;
-  width: 280px;
+  width: 277px;
   border-left: 0;
   border-top: 0;
   border-right: 0;
@@ -563,6 +649,7 @@ figure {
   border: 0;
   position: absolute;
   margin-left: -20px;
+  cursor: pointer;
 }
 
 .logo__link {
@@ -626,6 +713,66 @@ figure {
   background-color: #ff6b01;
   width: 100%;
   height: 3px;
+}
+
+.translate {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+.select-css {
+  display: block;
+  margin-right: auto;
+  width: 65px;
+  height: 36px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+  padding: 4px;
+  opacity: 0.9;
+  border: 1px solid #aaa;
+  background-color: transparent;
+}
+
+.select-css option {
+  font-weight: normal;
+  opacity: 0.6;
+  background-color: #000;
+}
+
+.header-form__field {
+  position: relative;
+}
+
+.header-form__placeholder {
+  position: absolute;
+  color: #ffff;
+  top: 50%;
+  left: 0;
+  font-size: 14px;
+  line-height: 1.24;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: -webkit-transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.header-form__field:focus-within .header-form__placeholder {
+  -webkit-transform: translate(0px, -30px);
+          transform: translate(0px, -30px);
+  display: none;
+}
+
+.header-form__input:not(:placeholder-shown) + .header-form__placeholder {
+  -webkit-transform: translate(0px, -30px);
+          transform: translate(0px, -30px);
+  display: none;
 }
 
 .modal-movie {
@@ -814,6 +961,18 @@ figure {
 
 .modal-movie__button:not(:last-child) {
   margin-right: 15px;
+}
+
+@media screen and (max-width: 767.98px) {
+  .modal-movie__buttons--rus {
+    font-size: 8px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+  .modal-movie__buttons--rus {
+    font-size: 11px;
+  }
 }
 
 @media screen and (max-width: 767.98px) {
@@ -1029,7 +1188,7 @@ figure {
 
 .theme {
   position: absolute;
-  right: 10px;
+  right: 20px;
 }
 
 .theme__wrap {
