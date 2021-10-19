@@ -1,141 +1,171 @@
 import refs from '../refs';
-import {firebaseApp, database} from './firebase-app'
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { firebaseApp, database } from './firebase-app';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import Notiflix from 'notiflix';
-import {doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
-import { ref, child, get } from "firebase/database";
-import {toggleModal, createLoginModal} from '../modal'
+import { doc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { ref, child, get } from 'firebase/database';
+import { toggleModal, createLoginModal } from '../modal';
 import { firebaseConsts } from './firebase-vars';
+import {
+  notifyLoginRu,
+  notifyAccept,
+  notifyLoggedIn,
+  notifyLoggedOut,
+  notifyAvailabe,
+  notifyMovieQueue,
+  notifyErrData,
+} from '../translate';
+import { fetchApi } from '../fetch-api';
+refs.loginLink.addEventListener('click', createLoginModal);
+refs.logoutLink.addEventListener('click', signOut);
 
-refs.loginLink.addEventListener('click', createLoginModal)
-refs.logoutLink.addEventListener('click', signOut)
-
-onAuthStateChanged(firebaseConsts.auth, (user) => {
+onAuthStateChanged(firebaseConsts.auth, user => {
   if (user) {
     toggleLogLinks();
     refs.libraryLink.classList.remove('visually-hidden');
     firebaseConsts.userID = user.uid;
-    firebaseConsts.databaseRef = doc(firebaseConsts.fireStoreDatabase, 'user', firebaseConsts.userID )
-    Notiflix.Notify.success(`Hello, ${firebaseConsts.userID}`)
+    firebaseConsts.databaseRef = doc(
+      firebaseConsts.fireStoreDatabase,
+      'user',
+      firebaseConsts.userID,
+    );
+    notifyHello();
   } else {
-    Notiflix.Notify.warning('You are not logged in');
+    notifyLoginRu();
   }
 });
-
+function notifyHello() {
+  if (fetchApi.lang === 'en') {
+    Notiflix.Notify.success(`Hello, ${firebaseConsts.userID}`);
+  } else {
+    Notiflix.Notify.success(`Привет, ${firebaseConsts.userID}`);
+  }
+}
 function signUp() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   createUserWithEmailAndPassword(firebaseConsts.auth, email, password)
-    .then((userCredential) => {
-    const user = userCredential.user;
+    .then(userCredential => {
+      const user = userCredential.user;
       addUserToDatabase(user.uid, user.email);
       toggleLogLinks();
       toggleModal();
       refs.libraryLink.classList.remove('visually-hidden');
-    Notiflix.Report.success( 'You are successfully signed up' );
-  })
-  .catch((error) => {
-    Notiflix.Notify.failure(error.message);
-  });
+      notifyAccept();
+    })
+    .catch(error => {
+      Notiflix.Notify.failure(error.message);
+    });
 }
 
 function signIn() {
   signInWithEmailAndPassword(firebaseConsts.auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    refs.libraryLink.classList.remove('visually-hidden');
-    Notiflix.Report.success( 'You are successfully logged in' ); 
-  })
-  .catch((error) => {
-    Notiflix.Notify.failure(error.message)
-  });
+    .then(userCredential => {
+      const user = userCredential.user;
+      refs.libraryLink.classList.remove('visually-hidden');
+      notifyLoggedIn();
+    })
+    .catch(error => {
+      Notiflix.Notify.failure(error.message);
+    });
 }
 
 function signOut() {
   firebaseConsts.auth.signOut();
   toggleLogLinks();
   refs.libraryLink.classList.add('visually-hidden');
-  Notiflix.Notify.success( 'You are successfully logged out' ); 
+  notifyLoggedOut();
 }
 
 async function addUserToDatabase(userId, mail) {
   try {
-    firebaseConsts.databaseRef = doc(firebaseConsts.fireStoreDatabase, "user", userId)
+    firebaseConsts.databaseRef = doc(
+      firebaseConsts.fireStoreDatabase,
+      'user',
+      userId,
+    );
     await setDoc(firebaseConsts.databaseRef, {
       mail: mail,
       userId: userId,
       watched: [],
-      queue: []
+      queue: [],
     });
-  } catch (e) {
-    Notiflix.Notify.failure("Error adding to database: ", e);
-  } 
+  } catch (error) {
+    notifyErrData(error);
+  }
 }
 
 function addListeners() {
-  const loginForm = document.getElementById("login-form");
+  const loginForm = document.getElementById('login-form');
   const signUpBtn = document.querySelector('.sign-up');
   const signInBtn = document.querySelector('.sign-in');
-  
-  loginForm.addEventListener("submit",(event)=>{
-    event.preventDefault()
-  })
+
+  loginForm.addEventListener('submit', event => {
+    event.preventDefault();
+  });
   signUpBtn.addEventListener('click', signUp);
   signInBtn.addEventListener('click', signIn);
 }
 
-async function addToWatched() { 
-  const movieId = get(child(ref(firebaseConsts.realTimeDatabase), `films/movie`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      return snapshot.val();  
-    } else {
-      Notiflix.Notify.failure("No data available");
-    }
-  }).catch((error) => {
-    Notiflix.Notify.failure(error);
-  });
+async function addToWatched() {
+  const movieId = get(
+    child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
+  )
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        notifyAvailabe();
+      }
+    })
+    .catch(error => {
+      Notiflix.Notify.failure(error);
+    });
   movieId.then(data => {
     try {
       updateDoc(firebaseConsts.databaseRef, {
-        watched: arrayUnion(data)
-    });
-      Notiflix.Notify.success('The movie successfully added to the queue')
+        watched: arrayUnion(data),
+      });
+      notifyMovieQueue();
     } catch (error) {
-      Notiflix.Notify.failure("Error adding to database: ", error);
-      }
-  })
-  
+      notifyErrData(error);
+    }
+  });
 }
 
 function addToQueue() {
-  const movieId = get(child(ref(firebaseConsts.realTimeDatabase), `films/movie`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      return snapshot.val(); 
-    } else {
-      Notiflix.Notify.failure("No data available");
-    }
-  }).catch((error) => {
-    Notiflix.Notify.failure(error);
-  });
+  const movieId = get(
+    child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
+  )
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        notifyAvailabe();
+      }
+    })
+    .catch(error => {
+      Notiflix.Notify.failure(error);
+    });
   movieId.then(data => {
     try {
       updateDoc(firebaseConsts.databaseRef, {
-        queue: arrayUnion(data)
-    });
-      Notiflix.Notify.success('The movie successfully added to the queue')
+        queue: arrayUnion(data),
+      });
+      notifyMovieQueue();
     } catch (error) {
-      Notiflix.Notify.failure("Error adding to database: ", error);
-      }
-  })
-  
+      notifyErrData(error);
+    }
+  });
 }
 
 function toggleLogLinks() {
-  
-      refs.loginLink.classList.toggle('visually-hidden');
-      refs.logoutLink.classList.toggle('visually-hidden');
+  refs.loginLink.classList.toggle('visually-hidden');
+  refs.logoutLink.classList.toggle('visually-hidden');
 }
 
-export{addToQueue, addToWatched, addListeners}
-
-  
+export { addToQueue, addToWatched, addListeners };

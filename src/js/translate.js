@@ -1,5 +1,6 @@
 import { fetchApi } from './fetch-api';
-import { setGenresList } from './header/filter';
+import { setGenresList, filterSelect } from './header/filter';
+import Notiflix from 'notiflix';
 fetchApi.lang = 'ru';
 const language = {
   home: {
@@ -16,7 +17,7 @@ const language = {
   },
   watch: {
     en: 'Watch',
-    ru: 'Смотреть',
+    ru: 'Просмотренные',
   },
   queue: {
     en: 'queue',
@@ -29,6 +30,34 @@ const language = {
   develop: {
     en: 'Developed with',
     ru: 'Разработано с',
+  },
+  login: {
+    en: 'Login',
+    ru: 'Войти',
+  },
+  password: {
+    en: 'Password',
+    ru: 'Пароль',
+  },
+  log: {
+    en: 'Log out',
+    ru: 'Выйти',
+  },
+  loginRu: {
+    en: 'Login',
+    ru: 'Регистрация',
+  },
+  form: {
+    en: 'Form',
+    ru: '',
+  },
+  loginUp: {
+    en: 'Login',
+    ru: 'Логин',
+  },
+  signUp: {
+    en: 'Sign Up',
+    ru: 'Войти',
   },
 };
 // console.log(fetchApi);
@@ -54,6 +83,7 @@ function changeLanguage() {
     location.reload();
   }
   fetchApi.lang = hash;
+
   setGenresList();
   // console.log(fetchApi.lang);
   select.value = hash;
@@ -66,4 +96,78 @@ function changeLanguage() {
 }
 
 changeLanguage();
-export { changeLanguage };
+setGenresList();
+function placeholderRu() {
+  if (fetchApi.lang === 'ru') {
+    filterSelect.config.placeholderText = 'Фильтр по жанрам';
+  }
+}
+placeholderRu();
+const translateLanguage = fetchApi.lang === 'en';
+function notifyMovieFound() {
+  if (translateLanguage) {
+    Notiflix.Notify.failure('No movie found');
+  } else {
+    Notiflix.Notify.failure('Фильм не найден');
+  }
+}
+function notifyLoginRu() {
+  if (translateLanguage) {
+    Notiflix.Notify.failure('You are not logged in');
+  } else {
+    Notiflix.Notify.failure('Вы не авторизованы');
+  }
+}
+function notifyAccept() {
+  if (translateLanguage) {
+    Notiflix.Report.success('You are successfully signed up');
+  } else {
+    Notiflix.Report.success('Вы успешно зарегистрировались');
+  }
+}
+function notifyLoggedIn() {
+  if (translateLanguage) {
+    Notiflix.Report.success('You are successfully logged in');
+  } else {
+    Notiflix.Report.success('Вы успешно вошли в систему');
+  }
+}
+function notifyLoggedOut() {
+  if (translateLanguage) {
+    Notiflix.Notify.success('You are successfully logged out');
+  } else {
+    Notiflix.Notify.success('Вы успешно вышли из системы');
+  }
+}
+function notifyAvailabe() {
+  if (translateLanguage) {
+    Notiflix.Notify.failure('No data available');
+  } else {
+    Notiflix.Notify.failure('Данные недоступны');
+  }
+}
+function notifyMovieQueue() {
+  if (translateLanguage) {
+    Notiflix.Notify.success('The movie successfully added to the queue');
+  } else {
+    Notiflix.Notify.success('Фильм успешно добавлен в очередь');
+  }
+}
+function notifyErrData() {
+  if (translateLanguage) {
+    Notiflix.Notify.failure('Error adding to database: ');
+  } else {
+    Notiflix.Notify.failure('Ошибка добавления в базу данных: ');
+  }
+}
+export {
+  changeLanguage,
+  notifyMovieFound,
+  notifyLoginRu,
+  notifyAccept,
+  notifyLoggedIn,
+  notifyLoggedOut,
+  notifyAvailabe,
+  notifyMovieQueue,
+  notifyErrData,
+};

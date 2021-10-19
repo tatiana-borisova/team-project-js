@@ -20,7 +20,7 @@ changeLanguage();
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
-  select.set([]);
+  // select.set([]);
   fetchApi.page = 1;
   fetchApi.query = e.target.elements.query.value;
 

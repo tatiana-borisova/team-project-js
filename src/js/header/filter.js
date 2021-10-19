@@ -4,7 +4,7 @@ import { mainMarkup, otherGenresLang } from '../container/mainMarkup';
 import filmCards from '../../templates/film-card.hbs';
 import refs from '../refs';
 
-let select = new SlimSelect({
+let filterSelect = new SlimSelect({
   select: '#multiple',
   closeOnSelect: false,
   placeholder: 'Filter by genres',
@@ -22,6 +22,7 @@ let select = new SlimSelect({
         return genreData.name === val;
       }).id;
     });
+
     fetchApi.genres = genresValues.join(',');
     if (fetchApi.genres !== '') {
       filterMarkup();
@@ -32,7 +33,7 @@ let select = new SlimSelect({
     }
   },
 });
-setGenresList();
+
 async function setGenresList() {
   let genresData = await fetchGenre();
   let genresNames = genresData.map(genre => {
@@ -41,7 +42,7 @@ async function setGenresList() {
     delete genre.name;
     return genre;
   });
-  select.setData(genresNames);
+  filterSelect.setData(genresNames);
 }
 export { setGenresList };
 async function filterMarkup() {
@@ -70,4 +71,4 @@ async function filterMarkup() {
   refs.gallery.insertAdjacentHTML('beforeend', filmCards(discoveringFilmsData));
 }
 
-export { select, filterMarkup };
+export { filterSelect, filterMarkup };
