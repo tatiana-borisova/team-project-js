@@ -23,7 +23,8 @@ body.dark-theme {
     background-color: #292929;
   }
   & .team-modal__heading,
-  & .login__placeholder {
+  & .login__placeholder,
+  & .login__input {
     color: $secondary-text-color;
   }
   & .modal__close {
