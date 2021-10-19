@@ -8,5 +8,3 @@ export const firebaseConsts = {
     userID: 0,
     databaseRef: {},
 }
-
-console.log(firebaseConsts.fireStoreDatabase);

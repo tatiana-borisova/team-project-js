@@ -4,7 +4,7 @@ refs.homeLink.addEventListener('click', onHomeLink);
 refs.libraryLink.addEventListener('click', onLibraryLink);
 
 function onHomeLink(e) {
-  e.preventDefault();
+  // e.preventDefault();
   refs.libraryBtns.classList.add('is-hidden');
   refs.searchForm.classList.remove('is-hidden');
   

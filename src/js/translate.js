@@ -31,7 +31,6 @@ const language = {
     ru: 'Разработано с',
   },
 };
-console.log(fetchApi);
 const allLang = ['en', 'ru'];
 /////////////////////////
 const select = document.querySelector('.select');
@@ -47,7 +46,6 @@ function changeURLLanguage(e) {
 function changeLanguage() {
   let hash = window.location.hash;
   hash = hash.substr(1);
-  console.log(hash);
   if (!allLang.includes(hash)) {
     location.href = window.location.pathname + '#en';
 
@@ -55,7 +53,6 @@ function changeLanguage() {
   }
   fetchApi.lang = hash;
   setGenresList();
-  console.log(fetchApi.lang);
   select.value = hash;
   for (let key in language) {
     let elem = document.querySelector('.lang-' + key);

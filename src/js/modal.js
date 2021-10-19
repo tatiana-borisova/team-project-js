@@ -1,6 +1,7 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
 import teamCardTmplRu from '../templates/team-listRu.hbs';
+import loginHtml from '../html-partials/authentication.html'
 import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import movieCardTmplRu from '../templates/movieCardTmplRu.hbs';
 import teamDataRu from '../json/team-infoRu.json';
@@ -8,7 +9,7 @@ import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
 import { getFirestore, collection, addDoc, updateDoc, doc, arrayUnion, arrayRemove } from "firebase/firestore"
 import { ref, set  } from "firebase/database";
-import { addToQueue, addToWatched, realTimeDatabase } from './firebase/firebase-auth'
+import { addToQueue, addToWatched, addListeners } from './firebase/firebase-auth'
 import { firebaseConsts } from './firebase/firebase-vars'
 import { fetchDataByID, fetchApi } from './fetch-api.js';
 import { changeLanguage } from './translate';
@@ -46,7 +47,9 @@ function createTeamModal(e) {
 function createLoginModal() {
   onClearHtml();
   addClosingListeners();
+  insertModalHtml(loginHtml);
   toggleModal();
+  addListeners();
 }
 changeLanguage();
 // Эта функция открывает модалку по нажатию на карточку фильма.
@@ -110,7 +113,9 @@ function writeMovieId(db, movieJson) {
   });
 }
 
-export{toggleModal, insertModalHtml, onClearHtml}
+
+
+export{toggleModal, createLoginModal}
 
 
 

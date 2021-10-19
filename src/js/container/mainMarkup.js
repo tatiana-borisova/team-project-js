@@ -11,7 +11,6 @@ import debounce from 'lodash.debounce';
 import refs from '../refs';
 import { changeLanguage } from '../translate';
 
-console.log('start');
 mainMarkup();
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -101,14 +100,16 @@ function infinityScrollLoad() {
         fetchApi.page++;
         spinerParams();
         setTimeout(() => {
-          if (fetchApi.query === '' && fetchApi.genres === '' && (!searchForm.classList.contains('is-hidden'))) {
-            // console.log('point');
-            mainMarkup();
-          } else if (fetchApi.query !== '') {
-            searchMarkup();
-          } else {
-            filterMarkup();
+          if (!refs.searchForm.classList.contains('is-hidden')) {
+            if (fetchApi.query === '' && fetchApi.genres === '' ) {
+              mainMarkup();
+            } else if (fetchApi.query !== '') {
+              searchMarkup();
+            } else {
+              filterMarkup();
+            }
           }
+          
           JsLoadingOverlay.hide();
         }, 250);
       }

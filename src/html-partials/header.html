@@ -19,20 +19,32 @@
                 header-links__link--current
                 lang-home
               "
-              href="#"
+              href="./index.html"
               >Home</a
             >
           </li>
-          <li class="header-links__item header-links__item--library">
+          <li
+            class="
+              header-links__item header-links__item--library
+              visually-hidden
+            "
+          >
             <a class="header-links__link--library link lang-library" href="#"
               >My library</a
             >
           </li>
-          <li class="header-links__item header-links__item--library">
-            <a class="header-links__link--library link" href="#" id="login"
-              >Login</a
+          <li class="header-links__item header-links__item--login" id="login">
+            <a class="header-links__link--login link" href="#">Login</a
             >
-            <!-- <button class="sign-out is-hidden" id="sign-out">Log out</button> -->
+          </li>
+          <li
+            class="
+              header-links__item header-links__item--logout
+              visually-hidden
+            "
+            id="logout"
+          >
+            <a class="header-links__link--library link" href="#">Log out</a>
           </li>
         </ul>
       </div>
