@@ -19,11 +19,20 @@ body.dark-theme {
   background-color: $dark-theme-color;
   color: $accent-light;
   transition: background-color $animation;
-  & .modal {
+  & .modal,
+  & .footer {
     background-color: #292929;
   }
-  & .team-modal__heading {
+  & .team-modal__heading,
+  & .footer__wrap,
+  & .developer__link {
     color: $secondary-text-color;
+  }
+  & .developer__link {
+    &:hover,
+    &:focus {
+      color: $accent-dark;
+    }
   }
   & .modal__close {
     stroke: $secondary-text-color;

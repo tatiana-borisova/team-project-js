@@ -9,7 +9,7 @@ import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
-import {initScrollBtn, checkIsTop} from '../scroll';
+import { initScrollBtn, checkIsTop } from '../scroll';
 import { changeLanguage } from '../translate';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -40,7 +40,7 @@ async function searchMarkup() {
   let searchFilms = await fetchSearch();
   if (searchFilms.length === 0 && fetchApi.page === 1) {
     Notify.failure('No results for your request');
-  } 
+  }
   refs.gallery.insertAdjacentHTML(
     'beforeend',
     filmCards(await addGenresToData(await fetchSearch())),
@@ -76,26 +76,23 @@ function spinerParams() {
 }
 
 function infinityScrollLoad() {
-
-      const infinityOn = document.documentElement.getBoundingClientRect();
-      if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
-        fetchApi.page++;
-        spinerParams();
-        setTimeout(() => {
-          if (fetchApi.query === '' && fetchApi.genres === '') {
-            // console.log('point');
-            mainMarkup();
-          } else if (fetchApi.query !== '') {
-            searchMarkup();
-          } else {
-            filterMarkup();
-
+  const infinityOn = document.documentElement.getBoundingClientRect();
+  if (infinityOn.bottom < document.documentElement.clientHeight + 150) {
+    fetchApi.page++;
+    spinerParams();
+    setTimeout(() => {
+      if (fetchApi.query === '' && fetchApi.genres === '') {
+        // console.log('point');
+        mainMarkup();
+      } else if (fetchApi.query !== '') {
+        searchMarkup();
+      } else {
+        filterMarkup();
       }
       JsLoadingOverlay.hide();
     }, 250);
   }
 }
-
 
 // вынесла debounce infinityScrollLoad в отдельную переменную, в которую записывается результат,
 let loadMore = debounce(infinityScrollLoad, 250);
@@ -119,11 +116,10 @@ export async function addGenresToData(data) {
     // условие чтоб обрезало жанры до двух , а остальным писало other
     if (film.genres.length === 0) {
       const otherGenres = otherGenresLang();
-         film.genres = otherGenres.slice(2, );
+      film.genres = otherGenres.slice(2);
     } else if (film.genres.length > 3) {
       film.genres = film.genres.splice(0, 2).join(', ') + otherGenresLang();
-    }
-    else {
+    } else {
       film.genres = film.genres.join(', ');
     }
     // обрезает также дату
@@ -132,5 +128,4 @@ export async function addGenresToData(data) {
     return film;
   });
 }
-infinityScrollLoad();
-
+// infinityScrollLoad();

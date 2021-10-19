@@ -3,8 +3,10 @@
 .container--gallery {
   padding-top: 20px;
   margin-bottom: 110px;
+  min-height: calc(100vh - 455px);
 
   @include for-tablet {
+    min-height: calc(100vh - 400px);
     padding-top: 60px;
     margin-bottom: 77px;
   }
