@@ -183,10 +183,15 @@
   font-weight: 500;
   letter-spacing: 0.01em;
 
-  transform: translateY(-50%);
   transition: transform $animation;
+  transform: translateY(-50%);
+}
+.header-form__field:focus-within .header-form__placeholder {
+  transform: translate(0px, -30px);
+  display: none;
+}
 
-  .header-form__field:focus-within & {
-    display: none;
-  }
+.header-form__input:not(:placeholder-shown) + .header-form__placeholder {
+  transform: translate(0px, -30px);
+  display: none;
 }
