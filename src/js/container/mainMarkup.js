@@ -29,17 +29,19 @@ function onSearch(e) {
 }
 Notify.init({
   className: 'notiflix-notify',
-  timeout: 1000,
-  width: '200px',
+  timeout: 3000,
+  width: '220px',
   position: 'right-bottom',
   distance: '50px',
-   closeButton: false,
-  });
+  closeButton: false,
+});
 
 async function searchMarkup() {
   // console.log('searchMarkup - page' + fetchApi.page);
   let searchFilms = await fetchSearch();
-  if (searchFilms.length === 0) {Notify.failure('No results for your request');}
+  if (searchFilms.length === 0) {
+    Notify.failure('No results for your request');
+  }
   const genresData = await fetchGenre();
   const searchFilmsData = searchFilms.map(film => {
     film.genres = film.genre_ids.map(
@@ -56,7 +58,7 @@ async function searchMarkup() {
 
     return film;
   });
-   refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
+  refs.gallery.insertAdjacentHTML('beforeend', filmCards(searchFilmsData));
 }
 function otherGenresLang() {
   if (fetchApi.lang === 'en') {

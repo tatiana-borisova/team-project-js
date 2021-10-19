@@ -76,7 +76,7 @@ export const fetchApi = {
       page,
       query,
     );
-   console.log(promise.results);
+    //  console.log(promise.results);
     return promise.results;
   },
 
