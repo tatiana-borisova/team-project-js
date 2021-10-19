@@ -74,10 +74,8 @@
   color: $secondary-text-color;
 
   background: transparent;
-  width: 250px;
-  @include for-phone {
-    width: 280px;
-  }
+  width: 280px;
+
   @include for-tablet {
     width: 336px;
   }
