@@ -129,6 +129,7 @@ function writeMovie(db, movieJson) {
     movie: movieJson,
     movieId: movieJson.id,
   });
+  console.log(movieJson.id);
 }
 
 export { toggleModal, createLoginModal };
