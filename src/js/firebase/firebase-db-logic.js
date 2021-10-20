@@ -4,7 +4,12 @@ import Notiflix from 'notiflix';
 import { doc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { ref, child, get } from 'firebase/database';
 import { firebaseConsts } from './firebase-vars';
-import { notifyAvailabe, notifyMovieQueue, notifyErrData } from '../translate';
+import {
+  notifyAvailabe,
+  notifyMovieQueue,
+  notifyErrData,
+  notifyMovie,
+} from '../translate';
 async function addUserToDatabase(userId, mail) {
   try {
     firebaseConsts.databaseRef = doc(
@@ -42,7 +47,7 @@ async function addToWatched() {
       updateDoc(firebaseConsts.databaseRef, {
         watched: arrayUnion(data),
       });
-      notifyMovieQueue();
+      notifyMovie();
     } catch (error) {
       notifyErrData(error);
     }
