@@ -7,6 +7,7 @@ export const fetchApi = {
   query: '',
   lang: 'en',
   movieID: 1,
+  markupedMovies: [],
 
   async fetchData(fetchType, mediaType, specificType, ...args) {
     args = args.join('');
