@@ -18,7 +18,7 @@ import {
 } from 'firebase/firestore';
 import { ref, set } from 'firebase/database';
 import { addListeners } from './firebase/firebase-auth';
-import { addToQueue, addToWatched } from './firebase/firebase-db-logic';
+import { addToQueue, addToWatched, deleteFromWatched, deleteFromQueue } from './firebase/firebase-db-logic';
 import { firebaseConsts } from './firebase/firebase-vars';
 import { fetchDataByID, fetchApi } from './fetch-api.js';
 import { changeLanguage } from './translate';
@@ -86,6 +86,9 @@ async function createMovieModal(e) {
   document
     .querySelector('.modal-movie__buttons--queue')
     .addEventListener('click', addToQueue);
+  
+  document.querySelector('.modal-movie__buttons--close-watched').addEventListener('click', deleteFromWatched)
+  document.querySelector('.modal-movie__buttons--close-queue').addEventListener('click', deleteFromQueue)
 }
 
 function insertModalHtml(htmlMarkup) {

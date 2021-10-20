@@ -42,6 +42,8 @@ async function addToWatched() {
       updateDoc(firebaseConsts.databaseRef, {
         watched: arrayUnion(data),
       });
+      document.querySelector('.modal-movie__buttons--close-watched').classList.remove('visually-hidden')
+      document.querySelector('.modal-movie__buttons--watched').classList.add('visually-hidden')
       notifyMovieQueue();
     } catch (error) {
       notifyErrData(error);
@@ -69,10 +71,20 @@ function addToQueue() {
         queue: arrayUnion(data),
       });
       notifyMovieQueue();
+      document.querySelector('.modal-movie__buttons--queue').classList.add('visually-hidden')
+      document.querySelector('.modal-movie__buttons--close-queue').classList.remove('visually-hidden')
     } catch (error) {
       notifyErrData(error);
     }
   });
 }
 
-export { addToQueue, addToWatched, addUserToDatabase };
+function deleteFromWatched() {
+  
+}
+
+function deleteFromQueue() {
+  
+}
+
+export { addToQueue, addToWatched, addUserToDatabase, deleteFromWatched, deleteFromQueue };
