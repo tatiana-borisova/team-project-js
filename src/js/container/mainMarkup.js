@@ -11,9 +11,15 @@ import debounce from 'lodash.debounce';
 import refs from '../refs';
 import { changeLanguage, notifySearchError } from '../translate';
 import { initScrollBtn, checkIsTop } from '../scroll';
-
-mainMarkup();
-
+function onSpinerFunction(func) {
+  spinerParams();
+  setTimeout(() => {
+    if (func) {
+      JsLoadingOverlay.hide();
+    }
+  }, 250);
+}
+onSpinerFunction(mainMarkup());
 refs.searchForm.addEventListener('submit', onSearch);
 changeLanguage();
 ///////////////////////
@@ -23,8 +29,7 @@ function onSearch(e) {
   filterSelect.set([]);
   fetchApi.page = 1;
   fetchApi.query = e.target.elements.query.value;
-
-  searchMarkup();
+  onSpinerFunction(searchMarkup());
 }
 async function searchMarkup() {
   let searchFilms = await fetchSearch();
@@ -43,7 +48,7 @@ function otherGenresLang() {
     return ', другие';
   }
 }
-export { otherGenresLang };
+export { otherGenresLang, onSpinerFunction };
 export async function mainMarkup() {
   refs.gallery.insertAdjacentHTML(
     'beforeend',
