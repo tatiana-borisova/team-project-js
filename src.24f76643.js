@@ -108,4 +108,4 @@ module.exports=function(t){return fetch(t).then(function(t){return t.text()})};
 },{}],0:[function(require,module,exports) {
 var b=require("TUK3");b.register("html",require("A3BY"));b.load([["authentication.b28f97e8.html","sqTZ"]]).then(function(){require("Focm");});
 },{}]},{},[0], null)
-//# sourceMappingURL=/team-project-js/src.1cb55322.js.map
+//# sourceMappingURL=/team-project-js/src.24f76643.js.map
