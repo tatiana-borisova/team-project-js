@@ -72,7 +72,7 @@ async function deleteFromWatched() {
     try {
       deleteDoc(doc(firebaseConsts.databaseRef, "watched", `${id}`));
       Notiflix.Notify.success("The movie was deleted from watched")
-      document.querySelector('.modal-movie__buttons--close-watched').classList.add('visually-hidden')
+      document.querySelector('.modal-movie__buttons--delete-watched').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--watched').classList.remove('visually-hidden')
     } catch (error) {
       notifyErrData(error);
@@ -86,7 +86,7 @@ function deleteFromQueue() {
     try {
       deleteDoc(doc(firebaseConsts.databaseRef, "queue", `${id}`));
       Notiflix.Notify.success("The movie was deleted from queue")
-      document.querySelector('.modal-movie__buttons--close-queue').classList.add('visually-hidden')
+      document.querySelector('.modal-movie__buttons--delete-queue').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--queue').classList.remove('visually-hidden')
     } catch (error) {
       notifyErrData(error);

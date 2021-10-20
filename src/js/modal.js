@@ -7,15 +7,7 @@ import movieCardTmplRu from '../templates/movie-modal-templRu.hbs';
 import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
 import { API_KEY, URL } from './consts';
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  updateDoc,
-  doc,
-  arrayUnion,
-  arrayRemove,
-} from 'firebase/firestore';
+import { collection, query, where, getDoc, doc } from "firebase/firestore";
 import { ref, set } from 'firebase/database';
 import { addListeners } from './firebase/firebase-auth';
 import { addToQueue, addToWatched, deleteFromWatched, deleteFromQueue } from './firebase/firebase-db-logic';
@@ -78,8 +70,21 @@ async function createMovieModal(e) {
     insertModalHtml(movieCardTmplRu(data));
   }
   writeMovie(firebaseConsts.realTimeDatabase, data);
+  const watchBtns = isMovieInWatched(data.id);
+  watchBtns.then(bool => {
+    if (bool) {
+      document.querySelector('.modal-movie__buttons--watched').classList.add('visually-hidden')
+      document.querySelector('.modal-movie__buttons--delete-watched').classList.remove('visually-hidden')
+    }
+  })
+  const queueBtns = isMovieInWatched(data.id);
+  queueBtns.then(bool => {
+    if (bool) {
+      document.querySelector('.modal-movie__buttons--queue').classList.add('visually-hidden')
+      document.querySelector('.modal-movie__buttons--delete-queue').classList.remove('visually-hidden')
+    }
+  })
   toggleModal();
-
   document
     .querySelector('.modal-movie__buttons--watched')
     .addEventListener('click', addToWatched);
@@ -87,8 +92,8 @@ async function createMovieModal(e) {
     .querySelector('.modal-movie__buttons--queue')
     .addEventListener('click', addToQueue);
   
-  document.querySelector('.modal-movie__buttons--close-watched').addEventListener('click', deleteFromWatched)
-  document.querySelector('.modal-movie__buttons--close-queue').addEventListener('click', deleteFromQueue)
+  document.querySelector('.modal-movie__buttons--delete-watched').addEventListener('click', deleteFromWatched)
+  document.querySelector('.modal-movie__buttons--delete-queue').addEventListener('click', deleteFromQueue)
 }
 
 function insertModalHtml(htmlMarkup) {
@@ -129,7 +134,46 @@ function writeMovie(db, movieJson) {
     movie: movieJson,
     movieId: movieJson.id,
   });
-  console.log(movieJson.id);
 }
+
+async function isMovieInQueue (movieId) {
+
+        const docRef = doc(firebaseConsts.databaseRef, "queue", `${movieId}`);
+  const docSnap = await getDoc(docRef);
+  
+  console.log(docSnap.exists());
+
+        if (docSnap.exists()) {
+            return true
+        } else {
+            return false
+        }
+};
+
+async function isMovieInWatched (movieId) {
+
+        const docRef = doc(firebaseConsts.databaseRef, "watched", `${movieId}`);
+  const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return true
+        } else {
+            return false
+        }
+    };
+/* 
+Handlebars.registerHelper('isMovieInWatched', function (movieId) {
+
+  const docRef = doc(firebaseConsts.databaseRef, "watched", `${movieId}`);
+const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  return true
+} else {
+  return false
+}
+}); */
+
+
 
 export { toggleModal, createLoginModal };
