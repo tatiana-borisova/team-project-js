@@ -20,6 +20,7 @@ async function filter(params) {
     fetchApi.page = 1;
     refs.gallery.innerHTML = '';
     fetchApi.query = '';
+    fetchApi.markupedMovies = [];
     let value = params.map(value => {
       return value.value;
     });

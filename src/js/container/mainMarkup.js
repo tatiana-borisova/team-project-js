@@ -13,6 +13,7 @@ import { initScrollBtn, checkIsTop } from '../scroll';
 import { changeLanguage } from '../translate';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+fetchApi.markupedMovies = [];
 mainMarkup();
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -24,7 +25,7 @@ function onSearch(e) {
   select.set([]);
   fetchApi.page = 1;
   fetchApi.query = e.target.elements.query.value;
-
+  fetchApi.markupedMovies = [];
   searchMarkup();
 }
 Notify.init({
@@ -55,6 +56,7 @@ function otherGenresLang() {
 }
 export { otherGenresLang };
 export async function mainMarkup() {
+  // console.log(await addGenresToData(await fetchTrending()));
   refs.gallery.insertAdjacentHTML(
     'beforeend',
     filmCards(await addGenresToData(await fetchTrending())),
@@ -109,7 +111,9 @@ window.addEventListener('scroll', () => {
 
 export async function addGenresToData(data) {
   const genresData = await fetchGenre();
-  return data.map(film => {
+  console.log(fetchApi.markupedMovies);
+  // fetchApi.markupedMovies = [];
+  return data.filter((film, idx, array) => {
     film.genres = film.genre_ids.map(
       genreId => genresData.find(genre => genre.id === genreId).name,
     );
@@ -124,7 +128,13 @@ export async function addGenresToData(data) {
     }
     // обрезает также дату
     film.release_date = film.release_date && film.release_date.slice(0, 4);
-
+    // проверка нет ли одинаковых фильмов, начинается со второй страницы
+    if (fetchApi.page === 1) fetchApi.markupedMovies.push(film);
+    if (fetchApi.page > 1) {
+      if (fetchApi.markupedMovies.find(movie => movie.id === film.id))
+        return false;
+      fetchApi.markupedMovies.push(film);
+    }
     return film;
   });
 }
