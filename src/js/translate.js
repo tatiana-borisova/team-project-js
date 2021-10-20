@@ -162,6 +162,13 @@ function notifyMovieQueue() {
     Notiflix.Notify.success('Фильм успешно добавлен в очередь');
   }
 }
+function notifyMovie() {
+  if (translateLanguage) {
+    Notiflix.Notify.success('The movie successfully added to the watched');
+  } else {
+    Notiflix.Notify.success('Фильм успешно добавлен в просмотренные');
+  }
+}
 function notifyErrData() {
   if (translateLanguage) {
     Notiflix.Notify.failure('Error adding to database: ');
@@ -188,4 +195,5 @@ export {
   notifyMovieQueue,
   notifyErrData,
   notifySearchError,
+  notifyMovie,
 };
