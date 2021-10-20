@@ -1,10 +1,25 @@
 import refs from './refs';
 import teamCardTmpl from '../templates/team-list.hbs';
 import teamCardTmplRu from '../templates/team-listRu.hbs';
+import loginHtml from '../html-partials/authentication.html';
 import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import movieCardTmplRu from '../templates/movie-modal-templRu.hbs';
 import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
+import { API_KEY, URL } from './consts';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
+import { ref, set } from 'firebase/database';
+import { addListeners } from './firebase/firebase-auth';
+import { addToQueue, addToWatched } from './firebase/firebase-db-logic';
+import { firebaseConsts } from './firebase/firebase-vars';
 import { fetchDataByID, fetchApi } from './fetch-api.js';
 import { changeLanguage } from './translate';
 
@@ -30,9 +45,9 @@ function createTeamModal(e) {
   onClearHtml();
   addClosingListeners();
   if (fetchApi.lang === 'en') {
-    refs.modalContainer.innerHTML = `${teamCardTmpl(teamData)}`;
+    insertModalHtml(teamCardTmpl(teamData));
   } else {
-    refs.modalContainer.innerHTML = `${teamCardTmplRu(teamDataRu)}`;
+    insertModalHtml(teamCardTmpl(teamDataRu));
   }
   toggleModal();
 }
@@ -41,7 +56,10 @@ function createTeamModal(e) {
 function createLoginModal() {
   onClearHtml();
   addClosingListeners();
+  insertModalHtml(loginHtml);
   toggleModal();
+  addListeners();
+  changeLanguage();
 }
 changeLanguage();
 // Эта функция открывает модалку по нажатию на карточку фильма.
@@ -55,11 +73,23 @@ async function createMovieModal(e) {
   fetchApi.movieID = e.target.closest('li').id;
   const data = await fetchDataByID();
   if (fetchApi.lang === 'en') {
-    refs.modalContainer.innerHTML = movieCardTmpl(data);
+    insertModalHtml(movieCardTmpl(data));
   } else {
-    refs.modalContainer.innerHTML = movieCardTmplRu(data);
+    insertModalHtml(movieCardTmplRu(data));
   }
+  writeMovieId(firebaseConsts.realTimeDatabase, data);
   toggleModal();
+
+  document
+    .querySelector('.modal-movie__buttons--watched')
+    .addEventListener('click', addToWatched);
+  document
+    .querySelector('.modal-movie__buttons--queue')
+    .addEventListener('click', addToQueue);
+}
+
+function insertModalHtml(htmlMarkup) {
+  refs.modalContainer.innerHTML = htmlMarkup;
 }
 
 function onKeyDown(e) {
@@ -90,3 +120,11 @@ function removeClosingListeners() {
 function onClearHtml() {
   refs.modalContainer.innerHTML = '';
 }
+
+function writeMovieId(db, movieJson) {
+  set(ref(db, 'films/'), {
+    movie: movieJson,
+  });
+}
+
+export { toggleModal, createLoginModal };

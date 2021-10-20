@@ -1,4 +1,4 @@
-import { select, filterMarkup } from '../header/filter';
+import { filterSelect, filterMarkup } from '../header/filter';
 import {
   fetchGenre,
   fetchSearch,
@@ -9,9 +9,8 @@ import 'js-loading-overlay';
 import filmCards from '../../templates/film-card.hbs';
 import debounce from 'lodash.debounce';
 import refs from '../refs';
+import { changeLanguage, notifySearchError } from '../translate';
 import { initScrollBtn, checkIsTop } from '../scroll';
-import { changeLanguage } from '../translate';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 fetchApi.markupedMovies = [];
 mainMarkup();
@@ -22,25 +21,16 @@ changeLanguage();
 function onSearch(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
-  select.set([]);
+  filterSelect.set([]);
   fetchApi.page = 1;
   fetchApi.query = e.target.elements.query.value;
   fetchApi.markupedMovies = [];
   searchMarkup();
 }
-Notify.init({
-  className: 'notiflix-notify',
-  timeout: 3000,
-  width: '220px',
-  position: 'right-bottom',
-  distance: '50px',
-  closeButton: false,
-});
-
 async function searchMarkup() {
   let searchFilms = await fetchSearch();
   if (searchFilms.length === 0 && fetchApi.page === 1) {
-    Notify.failure('No results for your request');
+    notifySearchError();
   }
   refs.gallery.insertAdjacentHTML(
     'beforeend',
@@ -83,14 +73,16 @@ function infinityScrollLoad() {
     fetchApi.page++;
     spinerParams();
     setTimeout(() => {
-      if (fetchApi.query === '' && fetchApi.genres === '') {
-        // console.log('point');
-        mainMarkup();
-      } else if (fetchApi.query !== '') {
-        searchMarkup();
-      } else {
-        filterMarkup();
+      if (!refs.searchForm.classList.contains('is-hidden')) {
+        if (fetchApi.query === '' && fetchApi.genres === '') {
+          mainMarkup();
+        } else if (fetchApi.query !== '') {
+          searchMarkup();
+        } else {
+          filterMarkup();
+        }
       }
+
       JsLoadingOverlay.hide();
     }, 250);
   }
