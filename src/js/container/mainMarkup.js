@@ -13,7 +13,16 @@ import { changeLanguage, notifySearchError } from '../translate';
 import { initScrollBtn, checkIsTop } from '../scroll';
 
 fetchApi.markupedMovies = [];
-mainMarkup();
+
+function onSpinerFunction(func) {
+  spinerParams();
+  setTimeout(() => {
+    if (func) {
+      JsLoadingOverlay.hide();
+    }
+  }, 250);
+}
+onSpinerFunction(mainMarkup());
 
 refs.searchForm.addEventListener('submit', onSearch);
 changeLanguage();
@@ -24,8 +33,11 @@ function onSearch(e) {
   filterSelect.set([]);
   fetchApi.page = 1;
   fetchApi.query = e.target.elements.query.value;
+
   fetchApi.markupedMovies = [];
-  searchMarkup();
+  
+  onSpinerFunction(searchMarkup());
+
 }
 async function searchMarkup() {
   let searchFilms = await fetchSearch();
@@ -44,7 +56,7 @@ function otherGenresLang() {
     return ', другие';
   }
 }
-export { otherGenresLang };
+export { otherGenresLang, onSpinerFunction };
 export async function mainMarkup() {
   // console.log(await addGenresToData(await fetchTrending()));
   refs.gallery.insertAdjacentHTML(

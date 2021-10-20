@@ -1,16 +1,18 @@
 import refs from '../refs';
-import { mainMarkup } from '../container/mainMarkup';
+import { mainMarkup, onSpinerFunction } from '../container/mainMarkup';
 import { filterSelect, filterMarkup } from '../header/filter';
 
 refs.homeLink.addEventListener('click', onHomeLink);
 refs.libraryLink.addEventListener('click', onLibraryLink);
 
-async function onHomeLink(e) {
+function onHomeLink(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   refs.searchInput.value = '';
   filterSelect.set([]);
-  await mainMarkup();
+
+  onSpinerFunction(mainMarkup());
+  // await mainMarkup();
   refs.libraryBtns.classList.add('is-hidden');
   refs.searchForm.classList.remove('is-hidden');
 
