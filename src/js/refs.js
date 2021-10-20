@@ -12,6 +12,7 @@ export default {
   movieModal: document.querySelector('.modal-movie'),
   modalContainer: document.querySelector('.modal-container'),
   developerLink: document.querySelector('.developer__link'),
+
   loginLink: document.getElementById('login'),
   logoutLink: document.getElementById('logout'),
   footer: document.querySelector('.footer'),

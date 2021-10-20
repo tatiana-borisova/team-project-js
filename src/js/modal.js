@@ -80,12 +80,20 @@ async function createMovieModal(e) {
   writeMovieId(firebaseConsts.realTimeDatabase, data);
   toggleModal();
 
-  document
-    .querySelector('.modal-movie__buttons--watched')
-    .addEventListener('click', addToWatched);
-  document
-    .querySelector('.modal-movie__buttons--queue')
-    .addEventListener('click', addToQueue);
+  const watchedModalBtn = document.querySelector(
+    '.modal-movie__buttons--watched',
+  );
+  const queueModalBtn = document.querySelector('.modal-movie__buttons--queue');
+
+  watchedModalBtn.addEventListener('click', addToWatched);
+  queueModalBtn.addEventListener('click', addToQueue);
+
+  if (refs.logoutLink.classList.contains('visually-hidden')) {
+    queueModalBtn.disabled = true;
+    watchedModalBtn.disabled = true;
+    queueModalBtn.classList.add('button--disabled');
+    watchedModalBtn.classList.add('button--disabled');
+  }
 }
 
 function insertModalHtml(htmlMarkup) {
