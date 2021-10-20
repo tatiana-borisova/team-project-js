@@ -164,7 +164,7 @@ function notifyMovieQueue() {
 }
 function notifyMovie() {
   if (translateLanguage) {
-    Notiflix.Notify.success('The movie successfully added to the watched');
+    Notiflix.Notify.success('The movie successfully added to watched');
   } else {
     Notiflix.Notify.success('Фильм успешно добавлен в просмотренные');
   }
