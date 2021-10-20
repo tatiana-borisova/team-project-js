@@ -120,4 +120,4 @@ export async function addGenresToData(data) {
     return film;
   });
 }
-infinityScrollLoad();
+// infinityScrollLoad();
