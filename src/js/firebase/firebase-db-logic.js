@@ -1,7 +1,7 @@
 import refs from '../refs';
 import { firebaseApp, database } from './firebase-app';
 import Notiflix from 'notiflix';
-import { doc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, setDoc, updateDoc, arrayUnion, collection, addDoc, deleteField} from 'firebase/firestore';
 import { ref, child, get } from 'firebase/database';
 import { firebaseConsts } from './firebase-vars';
 import { notifyAvailabe, notifyMovieQueue, notifyErrData } from '../translate';
@@ -38,12 +38,11 @@ async function addToWatched() {
       Notiflix.Notify.failure(error);
     });
   movieId.then(data => {
+    const movieId = data.id;
     try {
-      updateDoc(firebaseConsts.databaseRef, {
-        watched: arrayUnion(data),
-      });
-      document.querySelector('.modal-movie__buttons--close-watched').classList.remove('visually-hidden')
+      setDoc(doc(firebaseConsts.databaseRef, "watched", `${movieId}`), data);
       document.querySelector('.modal-movie__buttons--watched').classList.add('visually-hidden')
+      document.querySelector('.modal-movie__buttons--close-watched').classList.remove('visually-hidden')
       notifyMovieQueue();
     } catch (error) {
       notifyErrData(error);
@@ -52,7 +51,7 @@ async function addToWatched() {
 }
 
 function addToQueue() {
-  const movieId = get(
+  const movie = get(
     child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
   )
     .then(snapshot => {
@@ -65,8 +64,10 @@ function addToQueue() {
     .catch(error => {
       Notiflix.Notify.failure(error);
     });
-  movieId.then(data => {
+  movie.then(data => {
+    const movieId = data.id;
     try {
+      setDoc(doc(firebaseConsts.databaseRef, "queue", `${movieId}`), data);
       updateDoc(firebaseConsts.databaseRef, {
         queue: arrayUnion(data),
       });
@@ -80,6 +81,13 @@ function addToQueue() {
 }
 
 function deleteFromWatched() {
+
+ /*  const cityRef = doc(db, 'cities', 'BJ');
+
+  // Remove the 'capital' field from the document
+  await updateDoc(cityRef, {
+      capital: deleteField()
+  }); */
   
 }
 

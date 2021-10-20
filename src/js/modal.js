@@ -77,7 +77,7 @@ async function createMovieModal(e) {
   } else {
     insertModalHtml(movieCardTmplRu(data));
   }
-  writeMovieId(firebaseConsts.realTimeDatabase, data);
+  writeMovie(firebaseConsts.realTimeDatabase, data);
   toggleModal();
 
   document
@@ -124,9 +124,10 @@ function onClearHtml() {
   refs.modalContainer.innerHTML = '';
 }
 
-function writeMovieId(db, movieJson) {
+function writeMovie(db, movieJson) {
   set(ref(db, 'films/'), {
     movie: movieJson,
+    movieId: movieJson.id,
   });
 }
 
