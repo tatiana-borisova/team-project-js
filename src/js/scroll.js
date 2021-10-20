@@ -1,6 +1,7 @@
 import refs from './refs';
 
 let isTop = true;
+let isButtonClicked = false;
 let savedPosition;
 
 function scroll() {
@@ -14,7 +15,13 @@ function scroll() {
 
 function checkIsTop() {
   changeScrollBtn();
-  isTop = window.scrollY < 1000 ? true : false;
+  if (window.scrollY < 1000) {
+    isTop = true;
+    if (!isButtonClicked) refs.scrollBtn.classList.add('is-hidden');
+  } else {
+    isTop = false;
+    refs.scrollBtn.classList.remove('is-hidden');
+  }
 }
 
 function changeScrollBtn() {
@@ -27,7 +34,10 @@ function changeScrollBtn() {
 
 function initScrollBtn() {
   changeScrollBtn();
-  refs.scrollBtn.addEventListener('click', scroll);
+  refs.scrollBtn.addEventListener('click', () => {
+    isButtonClicked = true;
+    scroll();
+  });
 }
 
 export {initScrollBtn, checkIsTop};
