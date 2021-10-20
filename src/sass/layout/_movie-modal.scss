@@ -28,7 +28,9 @@
 }
 
 .modal-movie__right-content {
-  max-width: 50%;
+  @include for-tablet {
+    max-width: 50%;
+  }
 }
 
 .wrapper-image {
