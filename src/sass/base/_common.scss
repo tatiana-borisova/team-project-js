@@ -17,13 +17,15 @@ body.light-theme {
 }
 body.dark-theme {
   background-color: $dark-theme-color;
-  color: $accent-light;
+  color: $secondary-text-color;
   transition: background-color $animation;
   & .modal,
   & .footer {
     background-color: #292929;
   }
   & .team-modal__heading,
+  & .login__placeholder,
+  & .login__input,
   & .footer__wrap,
   & .developer__link {
     color: $secondary-text-color;
@@ -45,6 +47,9 @@ body.dark-theme {
   & .button--black {
     border: 1px solid $accent-light;
     color: $secondary-text-color;
+  }
+  & .login__input {
+    border-color: $accent-light;
   }
 }
 .visually-hidden {

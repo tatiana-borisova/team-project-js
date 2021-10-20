@@ -8,7 +8,7 @@ import {
 import filmCards from '../../templates/film-card.hbs';
 import refs from '../refs';
 
-let select = new SlimSelect({
+let filterSelect = new SlimSelect({
   select: '#multiple',
   closeOnSelect: false,
   placeholder: 'Filter by genres',
@@ -29,6 +29,7 @@ async function filter(params) {
         return genreData.name === val;
       }).id;
     });
+
     fetchApi.genres = genresValues.join(',');
     if (fetchApi.genres !== '') {
       filterMarkup();
@@ -46,7 +47,7 @@ async function setGenresList() {
     delete genre.name;
     return genre;
   });
-  select.setData(genresNames);
+  filterSelect.setData(genresNames);
 }
 export { setGenresList };
 async function filterMarkup() {
@@ -57,4 +58,4 @@ async function filterMarkup() {
   );
 }
 
-export { select, filterMarkup };
+export { filterSelect, filterMarkup };

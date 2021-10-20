@@ -1,0 +1,86 @@
+.login__modal {
+  padding: 50px 10px 50px 10px;
+  width: 260px;
+  @include for-tablet {
+    width: 450px;
+    padding: 50px;
+  }
+}
+
+.login__header {
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 26px;
+}
+
+.lang-form {
+  color: $accent-dark;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.login__field {
+  position: relative;
+  margin-bottom: 35px;
+  width: 100%;
+}
+
+.login__input {
+  font-size: 14px;
+  line-height: 1.14;
+  width: 100%;
+  @include for-tablet {
+    width: 350px;
+  }
+  background: transparent;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0.5px solid $main-text-color;
+  padding-bottom: 4px;
+  outline: none;
+
+  .login__field:focus-within & {
+    border-color: $accent-dark;
+    outline: $accent-dark;
+  }
+}
+
+.login__placeholder {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 14px;
+  line-height: 1.24;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: $main-text-color;
+  transform: translateY(-50%);
+  transition: transform $animation;
+
+  .login__field:focus-within & {
+    transform: translate(0, -30px);
+  }
+
+  .login__input:not(:placeholder-shown) + & {
+    transform: translate(0, -30px);
+  }
+}
+.login__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.sign-in {
+  @include only-phone {
+    margin-bottom: 10px;
+  }
+  @include for-tablet {
+    margin-right: 20px;
+  }
+}
