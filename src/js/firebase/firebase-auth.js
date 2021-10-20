@@ -6,8 +6,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import Notiflix from 'notiflix';
-import { doc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { ref, child, get } from 'firebase/database';
+import { doc} from 'firebase/firestore';
 import { toggleModal, createLoginModal } from '../modal';
 import { firebaseConsts } from './firebase-vars';
 import { notifyAccept, notifyLoggedIn, notifyLoggedOut } from '../translate';

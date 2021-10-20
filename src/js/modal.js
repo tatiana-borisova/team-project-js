@@ -6,8 +6,7 @@ import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import movieCardTmplRu from '../templates/movie-modal-templRu.hbs';
 import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
-import { API_KEY, URL } from './consts';
-import { collection, query, where, getDoc, doc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { ref, set } from 'firebase/database';
 import { addListeners } from './firebase/firebase-auth';
 import { addToQueue, addToWatched, deleteFromWatched, deleteFromQueue } from './firebase/firebase-db-logic';
@@ -77,7 +76,7 @@ async function createMovieModal(e) {
       document.querySelector('.modal-movie__buttons--delete-watched').classList.remove('visually-hidden')
     }
   })
-  const queueBtns = isMovieInWatched(data.id);
+  const queueBtns = isMovieInQueue(data.id);
   queueBtns.then(bool => {
     if (bool) {
       document.querySelector('.modal-movie__buttons--queue').classList.add('visually-hidden')
@@ -138,11 +137,9 @@ function writeMovie(db, movieJson) {
 
 async function isMovieInQueue (movieId) {
 
-        const docRef = doc(firebaseConsts.databaseRef, "queue", `${movieId}`);
+  const docRef = doc(firebaseConsts.databaseRef, "queue", `${movieId}`);
   const docSnap = await getDoc(docRef);
   
-  console.log(docSnap.exists());
-
         if (docSnap.exists()) {
             return true
         } else {
@@ -161,18 +158,7 @@ async function isMovieInWatched (movieId) {
             return false
         }
     };
-/* 
-Handlebars.registerHelper('isMovieInWatched', function (movieId) {
 
-  const docRef = doc(firebaseConsts.databaseRef, "watched", `${movieId}`);
-const docSnap = await getDoc(docRef);
-
-if (docSnap.exists()) {
-  return true
-} else {
-  return false
-}
-}); */
 
 
 
