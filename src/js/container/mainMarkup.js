@@ -103,7 +103,7 @@ window.addEventListener('scroll', () => {
 
 export async function addGenresToData(data) {
   const genresData = await fetchGenre();
-  console.log(fetchApi.markupedMovies);
+  // console.log(fetchApi.markupedMovies);
   // fetchApi.markupedMovies = [];
   return data.filter((film, idx, array) => {
     film.genres = film.genre_ids.map(
