@@ -96,7 +96,9 @@ async function deleteFromWatched() {
         .querySelector('.modal-movie__buttons--watched')
         .classList.remove('visually-hidden');
       Notiflix.Notify.success('The movie was deleted from watched');
-      getWatched();
+      if (refs.libraryLink.classList.contains('header-links__link--current')) {
+        getWatched();
+      }
     } catch (error) {
       notifyErrData(error);
     }
@@ -118,7 +120,9 @@ function deleteFromQueue() {
         .querySelector('.modal-movie__buttons--queue')
         .classList.remove('visually-hidden');
       Notiflix.Notify.success('The movie was deleted from queue');
-      getQueue();
+      if (refs.libraryLink.classList.contains('header-links__link--current')) {
+        getQueue();
+      }
     } catch (error) {
       notifyErrData(error);
     }
