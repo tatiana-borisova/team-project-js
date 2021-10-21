@@ -1,7 +1,7 @@
 import refs from '../refs';
 import { firebaseApp, database } from './firebase-app';
 import Notiflix from 'notiflix';
-import { doc, setDoc, deleteDoc} from 'firebase/firestore';
+import { doc, setDoc, deleteDoc, updateDoc, arrayUnion} from 'firebase/firestore';
 import { ref, child, get } from 'firebase/database';
 import { firebaseConsts } from './firebase-vars';
 import { notifyAvailabe, notifyMovieQueue, notifyErrData } from '../translate';
@@ -39,16 +39,19 @@ async function addToWatched() {
       Notiflix.Notify.failure(error);
     });
   movie.then(data => {
-    console.log('i m here');
     const movieId = data.id;
     try {
       setDoc(doc(firebaseConsts.databaseRef, "watched", `${movieId}`), data);
+      updateDoc(firebaseConsts.databaseRef, {
+        watched: arrayUnion(data),
+      });
       document.querySelector('.modal-movie__buttons--watched').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--delete-watched').classList.remove('visually-hidden')
       notifyMovieQueue();
     } catch (error) {
       notifyErrData(error.message);
     }
+    
   });
 }
 
@@ -70,11 +73,11 @@ async function addToQueue() {
     const movieId = data.id;
     try {
       setDoc(doc(firebaseConsts.databaseRef, "queue", `${movieId}`), data);
-      notifyMovieQueue();
       document.querySelector('.modal-movie__buttons--queue').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--delete-queue').classList.remove('visually-hidden')
+      notifyMovieQueue();
     } catch (error) {
-      notifyErrData(error);
+      notifyErrData(error.message);
     }
   });
 }
@@ -84,9 +87,9 @@ async function deleteFromWatched() {
   movieId.then(id => {
     try {
       deleteDoc(doc(firebaseConsts.databaseRef, "watched", `${id}`));
-      Notiflix.Notify.success("The movie was deleted from watched")
       document.querySelector('.modal-movie__buttons--delete-watched').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--watched').classList.remove('visually-hidden')
+      Notiflix.Notify.success("The movie was deleted from watched")
     } catch (error) {
       notifyErrData(error);
     }
@@ -98,17 +101,13 @@ function deleteFromQueue() {
   movieId.then(id => {
     try {
       deleteDoc(doc(firebaseConsts.databaseRef, "queue", `${id}`));
-      Notiflix.Notify.success("The movie was deleted from queue")
       document.querySelector('.modal-movie__buttons--delete-queue').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--queue').classList.remove('visually-hidden')
+      Notiflix.Notify.success("The movie was deleted from queue")
     } catch (error) {
       notifyErrData(error);
     }
   }); 
-}
-
-function getMovie() {
-  return 
 }
 
 async function getMovieId() {
