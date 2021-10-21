@@ -3,8 +3,7 @@ import { firebaseConsts } from './firebase-vars';
 import refs from '../refs';
 import movieCardTmpl from '../../templates/film-card';
 import { notifyMovieFound } from '../translate';
-
-
+import { fetchApi } from '../fetch-api';
 refs.libraryLink.addEventListener('click', getWatched);
 refs.watchedBtn.addEventListener('click', getWatched);
 refs.queueBtn.addEventListener('click', getQueue);
