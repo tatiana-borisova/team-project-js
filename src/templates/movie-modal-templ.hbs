@@ -45,16 +45,17 @@
       {{overview}}
     </p>
     <div class='modal-movie__buttons'>
-      <button
-        class='modal-movie__buttons--watched modal-movie__button button button--orange lang-add'
-      >
+      <button class='modal-movie__buttons--delete-watched modal-movie__button button button--orange lang-add visually-hidden'>
+        remove from Watched
+      </button>
+      <button class='modal-movie__buttons--watched modal-movie__button button button--orange lang-add'>
         add to Watched
       </button>
-      <button
-        class='modal-movie__buttons--queue modal-movie__button button button--black'
-      >
-        add to queue
+      <button class='modal-movie__buttons--delete-queue modal-movie__button button button--black visually-hidden'>
+        remove from queue
       </button>
-    </div>
+      <button class='modal-movie__buttons--queue modal-movie__button button button--black'>
+        add to queue
+      </button>      
   </div>
 </div>

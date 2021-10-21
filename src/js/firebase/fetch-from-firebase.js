@@ -22,9 +22,11 @@ async function getWatched() {
       cropGenresAndDate(movie);
       return movie;
     });
-    refs.gallery.innerHTML = movieCardTmpl(watchedMovies);
-  } else {
-    notifyMovieFound();
+    if (watchedMovies.length === 0) {
+       notifyMovieFound();
+    } else {
+      refs.gallery.innerHTML = movieCardTmpl(watchedMovies);
+    }
   }
 }
 
@@ -37,23 +39,25 @@ async function getQueue() {
   const docUser = await getDoc(firebaseConsts.databaseRef);
 
   if (docUser.exists()) {
-    const watchedMovies = docUser.data().queue.map(movie => {
-      movie.genres = movie.genres.map(genre => genre.name);
+    const queueMovies = docUser.data().queue.map(movie => {
+      movie.genres = movie.genres && movie.genres.map(genre => genre.name);
       cropGenresAndDate(movie);
       return movie;
     });
-    refs.gallery.innerHTML = movieCardTmpl(watchedMovies);
-  } else {
-    notifyMovieFound();
+    if (queueMovies.length === 0) {
+      notifyMovieFound();
+    } else {
+      refs.gallery.innerHTML = movieCardTmpl(queueMovies);
+    }
   }
 }
 
 //это же мы делаем в mainmarkup, так что можно ее вынести
 function cropGenresAndDate(movie) {
-  if (movie.genres.length > 3) {
+  if (movie.genres && movie.genres.length > 3) {
     movie.genres = movie.genres.splice(0, 2).join(', ') + otherGenresLang();
   } else {
-    movie.genres = movie.genres.join(', ');
+    movie.genres = movie.genres && movie.genres.join(', ');
   }
   if (movie.release_date) movie.release_date = movie.release_date.slice(0, 4);
 }
@@ -65,3 +69,5 @@ function otherGenresLang() {
     return ', другие';
   }
 }
+
+export { getWatched, getQueue };
