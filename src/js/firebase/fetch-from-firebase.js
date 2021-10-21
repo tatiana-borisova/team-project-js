@@ -53,7 +53,7 @@ function cropGenresAndDate(movie) {
   if (movie.genres && movie.genres.length > 3) {
     movie.genres = movie.genres.splice(0, 2).join(', ') + otherGenresLang();
   } else {
-    movie.genres = movie.genres.join(', ');
+    movie.genres = movie.genres && movie.genres.join(', ');
   }
   if (movie.release_date) movie.release_date = movie.release_date.slice(0, 4);
 }
