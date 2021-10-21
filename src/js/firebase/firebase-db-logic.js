@@ -16,6 +16,8 @@ import {
   notifyMovieQueue,
   notifyErrData,
   notifyMovie,
+  notifyDeleteQueue,
+  notifyDeleteMovie,
 } from '../translate';
 import { getWatched, getQueue } from './fetch-from-firebase';
 
@@ -52,7 +54,7 @@ async function addToWatched() {
       document
         .querySelector('.modal-movie__buttons--delete-watched')
         .classList.remove('visually-hidden');
-      notifyMovieQueue();
+      notifyMovie();
     } catch (error) {
       notifyErrData(error.message);
     }
@@ -95,7 +97,7 @@ async function deleteFromWatched() {
       document
         .querySelector('.modal-movie__buttons--watched')
         .classList.remove('visually-hidden');
-      Notiflix.Notify.success('The movie was deleted from watched');
+      notifyDeleteMovie();
       if (refs.libraryLink.classList.contains('header-links__link--current')) {
         getWatched();
       }
@@ -119,7 +121,7 @@ function deleteFromQueue() {
       document
         .querySelector('.modal-movie__buttons--queue')
         .classList.remove('visually-hidden');
-      Notiflix.Notify.success('The movie was deleted from queue');
+      notifyDeleteQueue();
       if (refs.libraryLink.classList.contains('header-links__link--current')) {
         getQueue();
       }

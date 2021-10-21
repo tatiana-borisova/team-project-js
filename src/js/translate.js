@@ -183,7 +183,31 @@ function notifySearchError() {
     Notiflix.Notify.failure('Нет результатов по вашему запросу');
   }
 }
-
+function notifyWarning() {
+  if (translateLanguage) {
+    Notiflix.Notify.warning(
+      'You should log in to be able to add a movie to a library',
+    );
+  } else {
+    Notiflix.Notify.warning(
+      'Вы должны войти в систему, чтобы добавить фильм в библиотеку.',
+    );
+  }
+}
+function notifyDeleteMovie(params) {
+  if (translateLanguage) {
+    Notiflix.Notify.success('The movie was deleted from watched');
+  } else {
+    Notiflix.Notify.success('Фильм удален из списка просмотренных');
+  }
+}
+function notifyDeleteQueue(params) {
+  if (translateLanguage) {
+    Notiflix.Notify.success('The movie was deleted from queue');
+  } else {
+    Notiflix.Notify.success('Фильм удален из очереди');
+  }
+}
 export {
   changeLanguage,
   notifyMovieFound,
@@ -196,4 +220,7 @@ export {
   notifyErrData,
   notifySearchError,
   notifyMovie,
+  notifyWarning,
+  notifyDeleteMovie,
+  notifyDeleteQueue,
 };
