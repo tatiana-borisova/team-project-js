@@ -13,6 +13,7 @@ import { addToQueue, addToWatched, deleteFromWatched, deleteFromQueue } from './
 import { firebaseConsts } from './firebase/firebase-vars';
 import { fetchDataByID, fetchApi } from './fetch-api.js';
 import { changeLanguage } from './translate';
+import Notiflix from 'notiflix';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
@@ -68,8 +69,22 @@ async function createMovieModal(e) {
   } else {
     insertModalHtml(movieCardTmplRu(data));
   }
+
   writeMovie(firebaseConsts.realTimeDatabase, data);
-  const watchBtns = isMovieInWatched(data.id);
+
+  const watchedModalBtn = document.querySelector(
+    '.modal-movie__buttons--watched',
+  );
+  const queueModalBtn = document.querySelector('.modal-movie__buttons--queue');
+
+  if (refs.logoutLink.classList.contains('visually-hidden')) {
+    Notiflix.Notify.warning('You should log in to be able to add a movie to a library')
+    queueModalBtn.disabled = true;
+    watchedModalBtn.disabled = true;
+    queueModalBtn.classList.add('button--disabled');
+    watchedModalBtn.classList.add('button--disabled');
+  } else {
+     const watchBtns = isMovieInWatched(data.id);
   watchBtns.then(bool => {
     if (bool) {
       document.querySelector('.modal-movie__buttons--watched').classList.add('visually-hidden')
@@ -83,24 +98,15 @@ async function createMovieModal(e) {
       document.querySelector('.modal-movie__buttons--delete-queue').classList.remove('visually-hidden')
     }
   })
+  }
+ 
   toggleModal();
-
-  const watchedModalBtn = document.querySelector(
-    '.modal-movie__buttons--watched',
-  );
-  const queueModalBtn = document.querySelector('.modal-movie__buttons--queue');
 
   watchedModalBtn.addEventListener('click', addToWatched);
   queueModalBtn.addEventListener('click', addToQueue);
   document.querySelector('.modal-movie__buttons--delete-watched').addEventListener('click', deleteFromWatched)
   document.querySelector('.modal-movie__buttons--delete-queue').addEventListener('click', deleteFromQueue)
 
-  if (refs.logoutLink.classList.contains('visually-hidden')) {
-    queueModalBtn.disabled = true;
-    watchedModalBtn.disabled = true;
-    queueModalBtn.classList.add('button--disabled');
-    watchedModalBtn.classList.add('button--disabled');
-  }
 }
 
 function insertModalHtml(htmlMarkup) {
