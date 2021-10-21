@@ -51,4 +51,16 @@
   &--shadow {
     box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
   }
+
+  &--disabled {
+    border: 1px solid grey;
+    background: grey;
+    color: $secondary-text-color;
+    cursor: no-drop;
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }
