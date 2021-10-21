@@ -1,7 +1,7 @@
 import refs from '../refs';
 import { firebaseApp, database } from './firebase-app';
 import Notiflix from 'notiflix';
-import { doc, setDoc, deleteDoc, updateDoc, arrayUnion} from 'firebase/firestore';
+import { doc, setDoc, deleteDoc, updateDoc, arrayUnion, arrayRemove} from 'firebase/firestore';
 import { ref, child, get } from 'firebase/database';
 import { firebaseConsts } from './firebase-vars';
 import {
@@ -29,19 +29,7 @@ async function addUserToDatabase(userId, mail) {
 }
 
 async function addToWatched() {
-  const movie = get(
-    child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
-  )
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        return snapshot.val();
-      } else {
-        notifyAvailabe();
-      }
-    })
-    .catch(error => {
-      Notiflix.Notify.failure(error);
-    });
+  const movie = getMovie();
   movie.then(data => {
     const movieId = data.id;
     try {
@@ -60,19 +48,7 @@ async function addToWatched() {
 }
 
 async function addToQueue() {
-  const movie = get(
-    child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
-  )
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        return snapshot.val();
-      } else {
-        notifyAvailabe();
-      }
-    })
-    .catch(error => {
-      Notiflix.Notify.failure(error);
-    });
+  const movie = getMovie();
   movie.then(data => {
     const movieId = data.id;
     try {
@@ -90,35 +66,46 @@ async function addToQueue() {
 }
 
 async function deleteFromWatched() {
-  const movieId = getMovieId();
-  movieId.then(id => {
+  const movie = getMovie();
+  movie.then(data => {
     try {
-      deleteDoc(doc(firebaseConsts.databaseRef, "watched", `${id}`));
+      deleteDoc(doc(firebaseConsts.databaseRef, "watched", `${data.id}`));
+      updateDoc(firebaseConsts.databaseRef, {
+        watched: arrayRemove(data),
+      });
       document.querySelector('.modal-movie__buttons--delete-watched').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--watched').classList.remove('visually-hidden')
       Notiflix.Notify.success("The movie was deleted from watched")
     } catch (error) {
       notifyErrData(error);
     }
-  });  
+  });
+  
 }
 
 function deleteFromQueue() {
-  const movieId = getMovieId();
-  movieId.then(id => {
+  const movie = getMovie();
+  movie.then(data => {
     try {
-      deleteDoc(doc(firebaseConsts.databaseRef, "queue", `${id}`));
+      deleteDoc(doc(firebaseConsts.databaseRef, "queue", `${data.id}`));
+      updateDoc(firebaseConsts.databaseRef, {
+        queue: arrayRemove(data),
+      });
       document.querySelector('.modal-movie__buttons--delete-queue').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--queue').classList.remove('visually-hidden')
-      Notiflix.Notify.success("The movie was deleted from queue")
+      Notiflix.Notify.success("The movie was deleted from queue") 
     } catch (error) {
       notifyErrData(error);
     }
-  }); 
+    
+  });
 }
 
-async function getMovieId() {
-  return await get(child(ref(firebaseConsts.realTimeDatabase), `films/movieId`),)
+
+async function getMovie() {
+ const movie =  await get(
+    child(ref(firebaseConsts.realTimeDatabase), `films/movie`),
+  )
     .then(snapshot => {
       if (snapshot.exists()) {
         return snapshot.val();
@@ -129,6 +116,8 @@ async function getMovieId() {
     .catch(error => {
       Notiflix.Notify.failure(error);
     });
+  
+  return movie;
 }
 
 export { addToQueue, addToWatched, addUserToDatabase, deleteFromWatched, deleteFromQueue };
