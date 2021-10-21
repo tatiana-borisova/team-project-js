@@ -69,3 +69,5 @@ function otherGenresLang() {
     return ', другие';
   }
 }
+
+export { getWatched, getQueue };
