@@ -26,6 +26,13 @@
     padding-bottom: 40px;
   }
 }
+
+.modal-movie__right-content {
+  @include for-tablet {
+    max-width: 50%;
+  }
+}
+
 .wrapper-image {
   background-color: rgb(165, 165, 165);
   background-image: url(../images/film.jpg);
@@ -125,15 +132,7 @@
 
 .modal-movie__description {
   margin-bottom: 20px;
-  width: 240px;
   line-height: 1.7;
-
-  @include for-tablet {
-    width: 264px;
-  }
-  @include for-desktop {
-    width: 396px;
-  }
 }
 
 .modal-movie__buttons {
@@ -166,7 +165,3 @@
     width: 125px;
   }
 }
-
-// .modal-movie__genre:not(:last-child) {
-//   margin-right: 20px;
-// }

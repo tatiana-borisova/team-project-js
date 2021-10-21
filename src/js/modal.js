@@ -84,15 +84,23 @@ async function createMovieModal(e) {
     }
   })
   toggleModal();
-  document
-    .querySelector('.modal-movie__buttons--watched')
-    .addEventListener('click', addToWatched);
-  document
-    .querySelector('.modal-movie__buttons--queue')
-    .addEventListener('click', addToQueue);
-  
+
+  const watchedModalBtn = document.querySelector(
+    '.modal-movie__buttons--watched',
+  );
+  const queueModalBtn = document.querySelector('.modal-movie__buttons--queue');
+
+  watchedModalBtn.addEventListener('click', addToWatched);
+  queueModalBtn.addEventListener('click', addToQueue);
   document.querySelector('.modal-movie__buttons--delete-watched').addEventListener('click', deleteFromWatched)
   document.querySelector('.modal-movie__buttons--delete-queue').addEventListener('click', deleteFromQueue)
+
+  if (refs.logoutLink.classList.contains('visually-hidden')) {
+    queueModalBtn.disabled = true;
+    watchedModalBtn.disabled = true;
+    queueModalBtn.classList.add('button--disabled');
+    watchedModalBtn.classList.add('button--disabled');
+  }
 }
 
 function insertModalHtml(htmlMarkup) {
