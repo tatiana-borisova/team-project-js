@@ -22,9 +22,11 @@ async function getWatched() {
       cropGenresAndDate(movie);
       return movie;
     });
-    refs.gallery.innerHTML = movieCardTmpl(watchedMovies);
-  } else {
-    notifyMovieFound();
+    if (watchedMovies.length === 0) {
+       notifyMovieFound();
+    } else {
+      refs.gallery.innerHTML = movieCardTmpl(watchedMovies);
+    }
   }
 }
 
@@ -37,14 +39,16 @@ async function getQueue() {
   const docUser = await getDoc(firebaseConsts.databaseRef);
 
   if (docUser.exists()) {
-    const watchedMovies = docUser.data().queue.map(movie => {
+    const queueMovies = docUser.data().queue.map(movie => {
       movie.genres = movie.genres && movie.genres.map(genre => genre.name);
       cropGenresAndDate(movie);
       return movie;
     });
-    refs.gallery.innerHTML = movieCardTmpl(watchedMovies);
-  } else {
-    notifyMovieFound();
+    if (queueMovies.length === 0) {
+      notifyMovieFound();
+    } else {
+      refs.gallery.innerHTML = movieCardTmpl(queueMovies);
+    }
   }
 }
 
