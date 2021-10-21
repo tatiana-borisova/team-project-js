@@ -77,6 +77,9 @@ async function addToQueue() {
     const movieId = data.id;
     try {
       setDoc(doc(firebaseConsts.databaseRef, "queue", `${movieId}`), data);
+      updateDoc(firebaseConsts.databaseRef, {
+        queue: arrayUnion(data),
+      });
       document.querySelector('.modal-movie__buttons--queue').classList.add('visually-hidden')
       document.querySelector('.modal-movie__buttons--delete-queue').classList.remove('visually-hidden')
       notifyMovieQueue();
