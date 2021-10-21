@@ -6,14 +6,18 @@ import movieCardTmpl from '../templates/movie-modal-templ.hbs';
 import movieCardTmplRu from '../templates/movie-modal-templRu.hbs';
 import teamDataRu from '../json/team-infoRu.json';
 import teamData from '../json/team-info.json';
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc } from 'firebase/firestore';
 import { ref, set } from 'firebase/database';
 import { addListeners } from './firebase/firebase-auth';
-import { addToQueue, addToWatched, deleteFromWatched, deleteFromQueue } from './firebase/firebase-db-logic';
+import {
+  addToQueue,
+  addToWatched,
+  deleteFromWatched,
+  deleteFromQueue,
+} from './firebase/firebase-db-logic';
 import { firebaseConsts } from './firebase/firebase-vars';
 import { fetchDataByID, fetchApi } from './fetch-api.js';
-import { changeLanguage } from './translate';
-import Notiflix from 'notiflix';
+import { changeLanguage, notifyWarning } from './translate';
 
 // Сюда добавляйте свои слушатели для открытия
 refs.developerLink.addEventListener('click', createTeamModal);
@@ -78,35 +82,46 @@ async function createMovieModal(e) {
   const queueModalBtn = document.querySelector('.modal-movie__buttons--queue');
 
   if (refs.logoutLink.classList.contains('visually-hidden')) {
-    Notiflix.Notify.warning('You should log in to be able to add a movie to a library')
+    notifyWarning();
     queueModalBtn.disabled = true;
     watchedModalBtn.disabled = true;
     queueModalBtn.classList.add('button--disabled');
     watchedModalBtn.classList.add('button--disabled');
   } else {
-     const watchBtns = isMovieInWatched(data.id);
-  watchBtns.then(bool => {
-    if (bool) {
-      document.querySelector('.modal-movie__buttons--watched').classList.add('visually-hidden')
-      document.querySelector('.modal-movie__buttons--delete-watched').classList.remove('visually-hidden')
-    }
-  })
-  const queueBtns = isMovieInQueue(data.id);
-  queueBtns.then(bool => {
-    if (bool) {
-      document.querySelector('.modal-movie__buttons--queue').classList.add('visually-hidden')
-      document.querySelector('.modal-movie__buttons--delete-queue').classList.remove('visually-hidden')
-    }
-  })
+    const watchBtns = isMovieInWatched(data.id);
+    watchBtns.then(bool => {
+      if (bool) {
+        document
+          .querySelector('.modal-movie__buttons--watched')
+          .classList.add('visually-hidden');
+        document
+          .querySelector('.modal-movie__buttons--delete-watched')
+          .classList.remove('visually-hidden');
+      }
+    });
+    const queueBtns = isMovieInQueue(data.id);
+    queueBtns.then(bool => {
+      if (bool) {
+        document
+          .querySelector('.modal-movie__buttons--queue')
+          .classList.add('visually-hidden');
+        document
+          .querySelector('.modal-movie__buttons--delete-queue')
+          .classList.remove('visually-hidden');
+      }
+    });
   }
- 
+
   toggleModal();
 
   watchedModalBtn.addEventListener('click', addToWatched);
   queueModalBtn.addEventListener('click', addToQueue);
-  document.querySelector('.modal-movie__buttons--delete-watched').addEventListener('click', deleteFromWatched)
-  document.querySelector('.modal-movie__buttons--delete-queue').addEventListener('click', deleteFromQueue)
-
+  document
+    .querySelector('.modal-movie__buttons--delete-watched')
+    .addEventListener('click', deleteFromWatched);
+  document
+    .querySelector('.modal-movie__buttons--delete-queue')
+    .addEventListener('click', deleteFromQueue);
 }
 
 function insertModalHtml(htmlMarkup) {
@@ -149,31 +164,26 @@ function writeMovie(db, movieJson) {
   });
 }
 
-async function isMovieInQueue (movieId) {
-
-  const docRef = doc(firebaseConsts.databaseRef, "queue", `${movieId}`);
-  const docSnap = await getDoc(docRef);
-  
-        if (docSnap.exists()) {
-            return true
-        } else {
-            return false
-        }
-};
-
-async function isMovieInWatched (movieId) {
-
-        const docRef = doc(firebaseConsts.databaseRef, "watched", `${movieId}`);
+async function isMovieInQueue(movieId) {
+  const docRef = doc(firebaseConsts.databaseRef, 'queue', `${movieId}`);
   const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            return true
-        } else {
-            return false
-        }
-    };
+  if (docSnap.exists()) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
+async function isMovieInWatched(movieId) {
+  const docRef = doc(firebaseConsts.databaseRef, 'watched', `${movieId}`);
+  const docSnap = await getDoc(docRef);
 
-
+  if (docSnap.exists()) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 export { toggleModal, createLoginModal };
