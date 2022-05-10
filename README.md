@@ -1,5 +1,8 @@
 Layout: https://www.figma.com/file/lA5plQSUEbIKOSJHfuPpXO/Filmoteka?node-id=0%3A1
 
+![image](https://user-images.githubusercontent.com/81636916/167693199-6503d12f-3304-4e2c-898f-b3a7569794cb.png)
+![image](https://user-images.githubusercontent.com/81636916/167693294-1778d6a0-9df9-4b22-b24c-8e8dcb9c7bb4.png)
+
 # Parcel boilerplate
 
 ## Скрытые файлы
