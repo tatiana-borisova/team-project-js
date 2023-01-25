@@ -3,7 +3,7 @@
     "foto": "https://firebasestorage.googleapis.com/v0/b/team-project-js-f466b.appspot.com/o/team-foto%2Ftatjana_borisova.jpg?alt=media&token=4f7f9863-75c8-4cb6-b15b-bd9774422e23",
     "name": "Борисова Татьяна",
     "location": "Берлин, Германия",
-    "tel": "+4915140003182",
+    "tel": "+491794343330",
     "mail": "0102tb@gmail.com",
     "linkedin": "https://www.linkedin.com/in/tatiana-borisova-54b374223/",
     "github": "https://github.com/tatiana-borisova",
@@ -57,16 +57,6 @@
     "mail": "1993ziuz@gmail.com",
     "linkedin": "https://www.linkedin.com/in/toni-stark-06121b223/",
     "github": "https://github.com/Toni1993",
-    "role": "Разработчик"
-  },
-  {
-    "foto": "https://firebasestorage.googleapis.com/v0/b/team-project-js-f466b.appspot.com/o/team-foto%2Fbohdan_klymenko.jpg?alt=media&token=79ddd5e7-87e2-4694-89bb-7bfe018b50c0",
-    "name": "Клименко Богдан",
-    "location": "Киев, Украина",
-    "tel": "+380630216454",
-    "mail": "bgdn789@gmail.com ",
-    "linkedin": "https://www.linkedin.com/in/bohdan-klymenko-1a6147223   ",
-    "github": "https://github.com/BohdanKlymenko",
     "role": "Разработчик"
   },
   {
